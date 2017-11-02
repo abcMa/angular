@@ -20,7 +20,7 @@ todolist功能点：
 完成度：84%。以上功能点被标识为ok表示已经完成。
 实现：
 1，主要功能
-![image](https://github.com/abcMa/angular/raw/master/angular-todolist/images/1.jpg)
+![image](https://github.com/abcMa/angular/angular-todolist/raw/master/images/1.jpg)
 2，收起进行中任务tab
 ![image](https://github.com/abcMa/angular/raw/master/angular-todolist/images/1.jpg)
 遇到问题-解决问题：
