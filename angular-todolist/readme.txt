@@ -20,9 +20,9 @@ todolist功能点：
 完成度：84%。以上功能点被标识为ok表示已经完成。
 实现：
 1，主要功能
-![image](https://github.com/abcMa/angular/blob/master/angular-todolist/images/1.jpg)
+![image](https://github.com/abcMa/angular/raw/master/angular-todolist/images/1.jpg)
 2，收起进行中任务tab
-![image](https://github.com/abcMa/angular/blob/master/angular-todolist/images/1.jpg)
+![image](https://github.com/abcMa/angular/raw/master/angular-todolist/images/1.jpg)
 遇到问题-解决问题：
 （1）设计不同优先级任务的数据结构；在设计优先级任务时考虑要用一个数组承载任务数据，还是用三个数组承载任务数据。
        一个数组承载数据会涉及到优先级标题的显示问题，最后更改为三个数组，每个数组各自承载相对应的优先级任务数据。
