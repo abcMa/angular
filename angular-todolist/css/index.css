@@ -5,7 +5,8 @@
 i {
     font-style: normal;
 }
-.banner{
+
+.banner {
     padding-left: 10px;
     font-size: 20px;
     font-weight: 700;
@@ -16,6 +17,7 @@ i {
     margin-bottom: 20px;
     width: 100px;
 }
+
 .wrap {
     width: 1190px;
     margin: 0 auto;
@@ -67,12 +69,14 @@ i {
     color: white;
     background-color: #76a3a5;
 }
-.priority-select{
+
+.priority-select {
     width: 122px;
     height: 37px;
     line-height: 37px;
 }
-.cate-head{
+
+.cate-head {
     margin: 10px auto;
     text-align: left;
     height: 38px;
@@ -82,15 +86,18 @@ i {
     padding: 0 5px;
     overflow: hidden;
 }
-.cate{
+
+.cate {
     float: left;
     margin: 0;
 }
-.cate-head-right{
+
+.cate-head-right {
     float: right;
     display: block;
 }
-.remove-task{
+
+.remove-task {
     display: block;
     float: right;
     width: 18px;
@@ -99,10 +106,12 @@ i {
     padding: 3px;
     color: #76a3a5;
 }
-.remove-task:hover{
+
+.remove-task:hover {
     cursor: pointer;
 }
-.task-head{
+
+.task-head {
     width: 380px;
     margin: 10px auto;
     text-align: left;
@@ -114,11 +123,39 @@ i {
     background-color: #76a3a5;
     border-radius: 3px;
 }
-.task-container{
+
+.task-container {
     width: 370px;
     margin: 0 auto;
     padding-left: 10px;
+    display: none;
 }
-.tasking{
+
+.tasking {
     margin-top: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+.clear-btn {
+    width: 380px;
+    margin: 0 auto;
+    text-align: right;
+    color: red;
+    margin-top: 50px;
+}
+
+.clear-btn > a {
+    padding: 2px 5px;
+    border: 1px solid red;
+    border-radius: 5px;
+}
+.clear-btn > a :hover{
+    cursor: pointer;
+}
+
+.task-container.active{
+    display: block;
 }
