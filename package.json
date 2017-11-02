@@ -1,0 +1,23 @@
+{
+  "name": "angular",
+  "version": "1.0.0",
+  "description": "this is angular prectice",
+  "main": "angular-resource.min.js",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server -a 0.0.0.0 -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abcMa/mfAlert.git"
+  },
+  "author": "mafang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abcMa/mfAlert/issues"
+  },
+  "homepage": "https://github.com/abcMa/mfAlert#readme"
+}

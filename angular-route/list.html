@@ -1,0 +1,13 @@
+<table>
+    <tr>
+        <td><strong>project</strong></td>
+        <td><strong>描述</strong></td>
+        <td><strong>操作</strong></td>
+    </tr>
+    <tr ng-repeat="message in messages">
+        <td><a href="{{message.site}}">{{message.name}}</a></td>
+        <td>{{message.description}}</td>
+        <td><a href="#/view/{{message.name}}">编辑</a></td>
+
+    </tr>
+</table>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>angular todolist</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+    <script src="../angular.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<div class="banner">我的任务</div>
+<div ng-app="myapp" class="wrap">
+    <div ng-controller="todolist">
+        <div>
+            <select class="priority-select" ng-model="priorityVal">
+                <option value="0" selected>请选择优先级</option>
+                <option value="1">很重要/必须完成</option>
+                <option value="2">重要/非必须完成</option>
+            </select>
+            <input class="task-input" ng-model="todoitem" placeholder="请输入任务"/>
+            <button class="task-add" ng-click="add()">add</button>
+        </div>
+        <div class="tasking">
+            <div class="task-head">进行中的任务<span class="cate-head-right">{{arr.length+vparr.length+parr.length}}</span>
+            </div>
+            <div class="task-container">
+                <div class="cate-head"><p class="cate">很重要/必须完成</p><span class="cate-head-right">{{vparr.length}}</span>
+                </div>
+                <div class="task-list" ng-repeat="index in vparr track by $index">
+                    <div class="task-item">
+                        <span class="control-checkbox">
+                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,vparr,index)">
+                        </span>
+                        <p class="today-focus">{{index.text}}</p>
+                        <span class="remove-task" ng-click="remove($index,vparr)">x</span>
+                    </div>
+                </div>
+
+                <div class="cate-head"><p class="cate">重要/非必须完成</p><span class="cate-head-right">{{parr.length}}</span>
+                </div>
+                <div class="task-list" ng-repeat="index in parr track by $index">
+                    <div class="task-item">
+                        <span class="control-checkbox">
+                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,parr,index)">
+                        </span>
+                        <p class="today-focus">{{index.text}}</p>
+                        <span class="remove-task" ng-click="remove($index,parr)">x</span>
+                    </div>
+                </div>
+
+                <div class="cate-head"><p class="cate">无优先级</p><span class="cate-head-right">{{arr.length}}</span></div>
+                <div class="task-list" ng-repeat="index in arr track by $index">
+                    <div class="task-item">
+                        <span class="control-checkbox">
+                           <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,arr,index)">
+                        </span>
+                        <p class="today-focus" ng-click="edit($index,arr,index.text)">{{index.text}}</p>
+                        <span class="remove-task" ng-click="remove($index,arr)">x</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tasked">
+            <div class="task-head">已完成的<span class="cate-head-right">{{donearr.length}}</span></div>
+            <div class="task-container">
+                <div class="task-list" ng-repeat="index in donearr track by $index">
+                    <div class="task-item">
+                        <p class="today-focus hasdone-{{index.hasdone}}">{{index.text}}</p>
+                        <span class="remove-task" ng-click="remove()">x</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

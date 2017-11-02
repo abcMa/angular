@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta CHARSET="UTF-8">
+    <title>angular directive</title>
+    <script src="../../angular.min.js"></script>
+    <script src="app.js"></script>
+    <style type="text/css">
+        .expander {
+            border: 1px solid black;
+            width: 250px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .expander > .title {
+            background-color: black;
+            color: white;
+            padding: .1em .3em;
+            cursor: pointer;
+        }
+
+        .expander > .body {
+            padding: .1em .3em;
+        }
+    </style>
+</head>
+<body ng-app="expanderModule">
+<div ng-controller='SomeController'>
+    <expander class='expander' expander-title='title'>
+    </expander>
+</div>
+</body>
+</html>
