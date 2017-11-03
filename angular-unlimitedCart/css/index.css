@@ -20,12 +20,12 @@ ul>li{
 
 .cart-head-left {
     float: left;
-    width: 100px;
+    width: 200px;
 }
 
 .cart-head-mid {
     float: left;
-    width: 680px;
+    width: 580px;
     text-align: center;
 }
 
@@ -52,10 +52,16 @@ ul>li{
 
 .pro-item-right{
     float: left;
-    width: 200px;
+    width: 100px;
     line-height: 80px;
     text-align: center;
 }
+.pro-del{
+    width: 100px;
+    float: left;
+    line-height: 80px;
+}
+
 .pro-item-sum{
     width: 50px;
 }
