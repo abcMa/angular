@@ -9,6 +9,7 @@ cart功能点：
 4，总数量需要处理大于9处理成9+，为0时，不显示。---ok
 5，商品列表一次加载5条数据，超出点击“加载更多”显示。pageSize:5----ok
 6，商品删除功能。删除该商品，购物车总数和总金额需要同步更新。---ok
+完成率：100%
 主要功能
 1,主要功能
 ![image](https://github.com/abcMa/angular/blob/master/angular-unlimitedCart/images/1.jpg)
