@@ -16,7 +16,30 @@ cart功能点：
 2，加载更多后的显示
 ![image](https://github.com/abcMa/angular/blob/master/angular-unlimitedCart/images/2.jpg)
 主要知识点：
-1，filter的使用；包括内置过滤器和自定义过滤器。
+1，filter的使用；包括内置过滤器和自定义过滤器。很便捷，自定义filter也方便复用。
 2，单个商品数量的更改会联动商品价格，购物车总金额，购物车商品总数量变化。这些数量的变化只关心怎么操作数据，其次再关心
 显示。
-2，按照“给出功能-设计数据结构-页面的不同状态展示是怎么通过数据的变化相关联-实现页面”的思路去实现整个项目。
+3，按照“给出功能-设计数据结构-页面的不同状态展示是怎么通过数据的变化相关联-实现页面”的思路去实现整个项目。
+
+ANGULAR权威指南--13章依赖注入
+1，一个列子说明anglar使用依赖注入
+angular.module("myapp",[])
+    .controller("myController",function($scope,otherApp){//这里注入了otherApp对象
+        otherApp.result("hello");//输出“hello i am a otherApplation”
+    })
+    //自定义一个服务，返回带属性或者方法的对象
+    .factory("otherApp",function(){
+        return {
+            result:function(str){
+                console.log(str+"i am a otherApplaction");
+            }
+        }
+    })
+2,依赖注入有什么优点
+（1）不会污染全局作用域，以传参的形式建立依赖关系
+（2）只有在需要的时候才被实例化
+（3）使耦合度降低，可扩展性增强
+3，anglaur通过$inhector负责查找和加载依赖的组件
+4，angular提供推断式注入声明，显式注入声明，行内注入声明三种方式检查是否有注入声明。
+5，$injector对象：
+ （1）annotate(fn/arr) 接受一个函数或者数组，返回目标函数的名称数组。
