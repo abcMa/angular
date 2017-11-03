@@ -7,5 +7,15 @@ cart功能点：
 （4）增加或者减少，需要同步到每个商品的“小计”字段上。---ok
 3，金额字段都保留两位小数---ok
 4，总数量需要处理大于9处理成9+，为0时，不显示。---ok
-5，商品列表一次加载5条数据，超出点击“加载更多”显示。pageSize:10
+5，商品列表一次加载5条数据，超出点击“加载更多”显示。pageSize:5----ok
 6，商品删除功能。删除该商品，购物车总数和总金额需要同步更新。---ok
+主要功能
+1,主要功能
+![image](https://github.com/abcMa/angular/blob/master/angular-unlimitedCart/images/1.jpg)
+2，加载更多后的显示
+![image](https://github.com/abcMa/angular/blob/master/angular-unlimitedCart/images/2.jpg)
+主要知识点：
+1，filter的使用；包括内置过滤器和自定义过滤器。
+2，单个商品数量的更改会联动商品价格，购物车总金额，购物车商品总数量变化。这些数量的变化只关心怎么操作数据，其次再关心
+显示。
+2，按照“给出功能-设计数据结构-页面的不同状态展示是怎么通过数据的变化相关联-实现页面”的思路去实现整个项目。
