@@ -60,7 +60,44 @@ angular.module("myapp", [])
         $scope.removePro = function (i) {
             $scope.productList.products.splice(i, 1);
         }
-
+        //加载更多
+        $scope.loadMore = function () {
+            //此数据应该向后台请求返回
+            var arr = {
+                "pageSize": 5,
+                "pageNow": 1,
+                "pageNum": 9,
+                "products": [
+                    {
+                        "pid": 4,
+                        "name": "小米手机note1",
+                        "price": 6.80,
+                        "amount": 20,//库存
+                        "curAmount": 1,//放入购物车时的数量
+                        "pro-img": "https://img.alicdn.com/tps/i1/1918343177/TB2pzPmXMoQMeJjy1XaXXcSsFXa_!!0-juitemmedia.jpg_180x180q90.jpg_.webp"
+                    },
+                    {
+                        "pid": 5,
+                        "name": "小米手机note1",
+                        "price": 6.80,
+                        "amount": 20,
+                        "curAmount": 2,
+                        "pro-img": "https://img.alicdn.com/tps/i1/1918343177/TB2pzPmXMoQMeJjy1XaXXcSsFXa_!!0-juitemmedia.jpg_180x180q90.jpg_.webp"
+                    },
+                    {
+                        "pid": 6,
+                        "name": "小米手机note1",
+                        "price": 6.80,
+                        "amount": 20,
+                        "curAmount": 2,
+                        "pro-img": "https://img.alicdn.com/tps/i1/1918343177/TB2pzPmXMoQMeJjy1XaXXcSsFXa_!!0-juitemmedia.jpg_180x180q90.jpg_.webp"
+                    },
+                ]
+            };
+            angular.forEach(arr.products,function (index) {
+                $scope.productList.products.push(index);
+            })
+        }
     })
     //处理总数量大于9的
     .filter("exeNumFilter", function () {
