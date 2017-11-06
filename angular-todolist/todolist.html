@@ -14,9 +14,7 @@
     <div ng-controller="todolist">
         <div>
             <select class="priority-select" ng-model="priorityVal">
-                <option value="0">请选择优先级</option>
-                <option value="1">很重要/必须完成</option>
-                <option value="2">重要/非必须完成</option>
+                <option value="{{key}}" ng-repeat="(key,val) in Arr track by $index">{{key|formatPriority}}</option>
             </select>
             <input class="task-input" ng-model="todoitem" placeholder="请输入任务"/>
             <button class="task-add" ng-click="add()">add</button>
@@ -25,69 +23,44 @@
             <div class="task-head" ng-click="unselected = unselected === 0 ? 1 : 0 ;">进行中的任务<span class="cate-head-right">{{arr.length+vparr.length+parr.length}}</span>
             </div>
 
-            <div class="task-container" ng-class="{'active':unselected === 1}">
-                <div class="cate-head"><p class="cate">很重要/必须完成</p><span class="cate-head-right">{{vparr.length}}</span>
+
+            <div class="task-container" ng-class="{'active':unselected === 1}" ng-repeat="(key,val) in Arr track by $index">
+                <div class="cate-head"><p class="cate">{{key|formatPriority}}</p><span class="cate-head-right">{{val.length}}</span>
                 </div>
-                <div class="task-list" ng-repeat="index in vparr track by $index">
+                <div class="task-list" ng-repeat="index in val track by $index">
                     <div class="task-item">
                         <span class="control-checkbox">
-                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,vparr,index)">
+                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,val,index)">
                         </span>
                         <div class="task-text">
-                            <p class="today-focus" ng-click="edit(index)" ng-hide="index.isEditing">{{index.text}}</p>
-                            <input class="editing-input" ng-model="index.text" ng-show="index.isEditing">
-                            <span class="remove-task" ng-click="remove($index,vparr)">x</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="cate-head"><p class="cate">重要/非必须完成</p><span class="cate-head-right">{{parr.length}}</span>
-                </div>
-                <div class="task-list" ng-repeat="index in parr track by $index">
-                    <div class="task-item">
-                        <span class="control-checkbox">
-                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,parr,index)">
-                        </span>
-                        <div class="task-text">
-                            <p class="today-focus" ng-click="edit($event)">{{index.text}}</p>
-                            <input class="editing-input hidden" ng-model="index.text" ng-blur="editBlur($event)">
-                            <span class="remove-task" ng-click="remove($index,parr)">x</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="cate-head"><p class="cate">无优先级</p><span class="cate-head-right">{{arr.length}}</span></div>
-                <div class="task-list" ng-repeat="index in arr track by $index">
-                    <div class="task-item">
-                        <span class="control-checkbox">
-                           <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,arr,index)">
-                        </span>
-                        <div class="task-text">
-                            <p class="today-focus hidden-{{index.isEditing}}" ng-click="edit(index,$event)">{{index.text}}</p>
-                            <input class="editing-input show-{{index.isEditing}}" ng-model="index.text" ng-blur="editBlur(index)">
-                            <span class="remove-task" ng-click="remove($index,arr)">x</span>
+                            <p class="today-focus" ng-click="edit(index,$event)" ng-hide="index.isEditing">{{index.text}}</p>
+                            <input class="editing-input" ng-model="index.text" ng-show="index.isEditing" ng-blur="editBlur(index)">
+                            <span class="remove-task" ng-click="remove($index,val)">x</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="tasked" ng-init="doselect=1">
-            <div class="task-head" ng-click="doselect = doselect === 0 ? 1 : 0;">已完成的<span class="cate-head-right">{{donearr.length}}</span></div>
+            <div class="tasked" ng-init="doselect=1">
+                <div class="task-head" ng-click="doselect = doselect === 0 ? 1 : 0;">已完成的<span class="cate-head-right">{{donearr.length}}</span>
+                </div>
 
-            <div class="task-container" ng-class="{'active':doselect === 1 }">
-                <div class="task-list" ng-repeat="index in donearr track by $index">
-                    <div class="task-item">
-                        <div class="task-text">
-                            <p class="today-focus hasdone-{{index.hasdone}}" ng-click="edit($event)">{{index.text}}</p>
-                            <input class="editing-input hidden" ng-model="index.text" ng-blur="editBlur($event)">
-                            <span class="remove-task" ng-click="remove($index,donearr)">x</span>
+                <div class="task-container" ng-class="{'active':doselect === 1 }">
+                    <div class="task-list" ng-repeat="index in donearr track by $index">
+                        <div class="task-item">
+                            <div class="task-text">
+                                <p class="today-focus hasdone-{{index.hasdone}}" ng-click="edit($event)">
+                                    {{index.text}}</p>
+                                <input class="editing-input hidden" ng-model="index.text" ng-blur="editBlur($event)">
+                                <span class="remove-task" ng-click="remove($index,donearr)">x</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="clear-btn"><a ng-click="clear()">clear all</a></div>
+            <div class="clear-btn"><a ng-click="clear()">clear all</a></div>
+        </div>
     </div>
-</div>
 </body>
 </html>
