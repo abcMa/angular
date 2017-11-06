@@ -17,10 +17,8 @@
 （3）任务根据优先级排列到进行中的任务。<br>
 （4）在进行中的任务，从“很重要”到“不重要”可以相互拖拽移动。-----todo<br>
 （5）很重要/必须做完，不重要/不做完也行，无优先级，可以toggle展开合起。<br>
-
 #### 完成度：
 84%。以上功能点被标识为ok表示已经完成。<br>
-
 #### 实现:
 1,主要功能<br>
 ![image](https://github.com/abcMa/angular/blob/master/angular-todolist/images/1.jpg)<br>
@@ -37,6 +35,31 @@
        a:和业务无关的经常操作的dom。<br>
        b:频繁操作dom<br>
 
-改造数据结构；<br>
-把此功能用directive实现出来。<br>
-理解动态增加属性<br>
+11.6日<br>
+### 功能点<br>
+1,更改用ng-click触发编辑状态，改为用动态拼接属性来控制编辑状态；理解动态增加属性。<br>
+2，更改todolist数据结构，把之前的三个数组改为一个对象；<br>
+3，直接用更改完的数据结构渲染select（任务优先级的下拉框），使得目前页面中所有展示的内容依赖数据结构展现。<br>
+#### 看书总结<br>
+###### 指令：<br>
+1，指令是封装了一个可以在浏览器运行的dom元素，并对此dom扩展了一些功能和方法。<br>
+2，return对象中的属性<br>
+   （1）指令用4种方式进行声明(return对象中的restrict属性)：<br>
+        a,用元素E:<my-directive></my-directive>；例如angular中的<br>
+        b,用属性和默认值A：<div my-directive="值/表达式"></div>；列如angular中的<br>
+        c,类名C：<div class="my-directive:值/表达式"></div>；列如angular中的<br>
+        d,注释M：？？？<br>
+        注：属性是声明指令最常用的方式，因为他们能在老版本包括ie的多有浏览器中正常工作，避免重注释的方式声明指令。<br>
+3，tempalte
+（1）一段文本,如果里边有多个dom元素，必须用一个父元素包含，且每一行都需要有反斜线\。具体实例中最好引入templateUrl引入dom模板。<br>
+（2）或者两个形参的function<br>
+4，scope<br>
+scope的值有一下几种情况：<br>
+（1）false：共享父作用域中的scope属性，且可以更改父scope中的属性。父作用域中的scope更改也会更改子作用域属性。<br>
+（2）true：父子作用域共享scope属性，且可以共同操作影响<br>
+#### 完成度<br>
+80%<br>
+todo：<br>
+（1）把此功能用directive实现出来。<br>
+（2）理解directive知识，每个知识点需要用demo加深理解。<br>
+
