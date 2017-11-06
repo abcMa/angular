@@ -1,4 +1,4 @@
-##todolist功能点：
+## todolist功能点：
 1，增加任务
 2，正在进行的任务
 （1）输入任务生成任务列表。--ok
@@ -18,16 +18,16 @@
 （4）在进行中的任务，从“很重要”到“不重要”可以相互拖拽移动。-----todo
 （5）很重要/必须做完，不重要/不做完也行，无优先级，可以toggle展开合起。---ok
 
-##完成度：
+## 完成度：
 84%。以上功能点被标识为ok表示已经完成。
 
-##实现:
+## 实现:
 1，主要功能
 ![image](https://github.com/abcMa/angular/blob/master/angular-todolist/images/1.jpg)
 2，收起进行中任务tab
 ![image](https://github.com/abcMa/angular/blob/master/angular-todolist/images/2.jpg)
 
-##遇到问题-解决问题：
+## 遇到问题-解决问题：
 （1）设计不同优先级任务的数据结构；在设计优先级任务时考虑要用一个数组承载任务数据，还是用三个数组承载任务数据。
        一个数组承载数据会涉及到优先级标题的显示问题，最后更改为三个数组，每个数组各自承载相对应的优先级任务数据。
 （2）编辑任务时，考虑给dom增加contenteditable属性，还是直接用一个input来对任务进行编辑；给dom增加contenteditable属性，
