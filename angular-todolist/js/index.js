@@ -31,9 +31,9 @@ myapp.controller("todolist", function ($scope) {
         arr.splice(i, 1);
     }
     //编辑当前任务
-    $scope.edit = function (t) {
-        angular.element(t.target).css("display", "none");
-        angular.element(t.target).next().removeClass("hidden");
+    $scope.edit = function (item) {
+
+        item.isEditing = true;
     }
     //完成编辑，这里注意.find()不支持id和classname选择器.https://stackoverflow.com/questions/17283697/angularjs-how-to-find-using-jqlite
     $scope.editBlur = function (t) {

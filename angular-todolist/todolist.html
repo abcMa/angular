@@ -34,8 +34,8 @@
                             <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,vparr,index)">
                         </span>
                         <div class="task-text">
-                            <p class="today-focus" ng-click="edit($event)">{{index.text}}</p>
-                            <input class="editing-input hidden" ng-model="index.text" ng-blur="editBlur($event)">
+                            <p class="today-focus" ng-click="edit(index)" ng-hide="index.isEditing">{{index.text}}</p>
+                            <input class="editing-input" ng-model="index.text" ng-show="index.isEditing">
                             <span class="remove-task" ng-click="remove($index,vparr)">x</span>
                         </div>
                     </div>
