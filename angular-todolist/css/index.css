@@ -159,3 +159,18 @@ i {
 .task-container.active{
     display: block;
 }
+.editing-input{
+    display: none;
+}
+.show-true{
+    display: inline-block;
+}
+.show-false{
+    display: none;
+}
+.hidden-true{
+    display: none;
+}
+.hidden-false{
+    display: block;
+}

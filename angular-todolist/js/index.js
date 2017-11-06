@@ -1,5 +1,5 @@
 var myapp = angular.module("myapp", []);
-myapp.controller("todolist", function ($scope) {
+myapp.controller("todolist", function ($scope,$timeout) {
     $scope.vparr = [], $scope.parr = [], $scope.arr = [], $scope.donearr = [];
     //优先级
     $scope.priorityVal = "0";
@@ -31,14 +31,18 @@ myapp.controller("todolist", function ($scope) {
         arr.splice(i, 1);
     }
     //编辑当前任务
-    $scope.edit = function (item) {
-
+    $scope.edit = function (item,evt) {
         item.isEditing = true;
+        //fix显示input光标不聚焦
+        var $editInput = evt.target;
+        $scope.editInput = $editInput;
+        $timeout(function(){
+            angular.element($scope.editInput).next()[0].focus();
+        },100);
     }
-    //完成编辑，这里注意.find()不支持id和classname选择器.https://stackoverflow.com/questions/17283697/angularjs-how-to-find-using-jqlite
-    $scope.editBlur = function (t) {
-        angular.element(t.target).parent().find("p").css("display", "block");
-        angular.element(t.target).addClass("hidden");
+    //完成编辑
+    $scope.editBlur = function (item) {
+        item.isEditing = false;
     }
     //一键清空所有任务
     $scope.clear = function () {
