@@ -18,7 +18,10 @@
 （2）或者两个形参的function<br>
 
 11.7日
-4，scope：相关例子都放在demo.html中<br>
+4，tempalteURL：<br>
+（1）html文件地址字符串。本地直接写相对路径的html文件会报错。因为angular会通过自己的安全机制做出限制。<br>
+（2）返回html文件地址字符串的方法。<br>
+5，scope：相关例子都放在demo.html中<br>
 scope的值有以下几种情况：<br>
 （1）false：父子作用域共享scope属性，父影响子，子影响父；---默认值<br>
 （2）true：父子作用域共享scope属性，父影响子，子不影响父<br>
