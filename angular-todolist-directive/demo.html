@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>angular todolist</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+    <script src="../angular.min.js"></script>
+</head>
+<body>
+<div class="banner">我的任务</div>
+<div ng-app="myapp" class="wrap">
+    <div ng-controller="someController">
+        {{name}}
+        <input ng-model="name">
+        <my-directive></my-directive>
+        <hr>
+        <input ng-model="mname"/>
+        <my-name mname-attr="{{mname}}"></my-name>
+        <hr>
+        <input ng-model="color"/>
+        <my-color color-attr="color"></my-color>
+        <hr>
+        <my-click clickme="click(msg)"></my-click>
+    </div>
+</div>
+<script>
+    angular.module("myapp", [])
+        .controller("someController", function ($scope) {
+            $scope.name = "controller";
+            $scope.color = "";
+            $scope.mname = "";
+            $scope.click = function (str) {
+                alert("我知道子域在点击"+str);
+            }
+            $scope.me="";
+        })
+        .directive("myDirective", function () {
+            return {
+                restrict: "E",
+                scope: true,
+                replace: true,
+                template: '<div><span>{{name}}</span><input ng-model="name"></div>'
+
+            }
+        })
+        .directive("myName", function () {
+            return {
+                restrict: "EA",
+                replace: true,
+                scope: {
+                    mname: "@mnameAttr"
+                },
+                template: '<div><p>{{mname}}</p><input type="text" ng-model="mname"></div></div>'
+            }
+        })
+        .directive("myColor", function () {
+            return {
+                restrict: "EA",
+                replace: true,
+                scope: {
+                    color: "=colorAttr"
+                },
+                template: '<div><p style="background-color:{{color}}">我就是那个颜色</p><input type="text" ng-model="color"></div></div>'
+            }
+        })
+        .directive("myClick", function () {
+            return {
+                restrict: "EA",
+                replace: true,
+                scope: {
+                    clickme: "&"
+                },
+                template: '<div><input ng-model="me"/><p ng-click="clickme({msg:me})">点我</p></div>'
+            }
+        })
+
+</script>
+</body>
+</html>

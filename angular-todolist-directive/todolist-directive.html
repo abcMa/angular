@@ -13,16 +13,14 @@
 <div ng-app="myapp" class="wrap">
     <div ng-controller="todolist">
         <div>
-            <select class="priority-select" ng-model="priorityVal">
-                <option value="{{key}}" ng-repeat="(key,val) in Arr track by $index">{{key|formatPriority}}</option>
-            </select>
+
+            <prority-select></prority-select>
             <input class="task-input" ng-model="todoitem" placeholder="请输入任务"/>
             <button class="task-add" ng-click="add()">add</button>
         </div>
         <div class="tasking" ng-init="unselected=1">
             <div class="task-head" ng-click="unselected = unselected === 0 ? 1 : 0 ;">进行中的任务<span class="cate-head-right">{{arr.length+vparr.length+parr.length}}</span>
             </div>
-
 
             <div class="task-container" ng-class="{'active':unselected === 1}" ng-repeat="(key,val) in Arr track by $index">
                 <div class="cate-head"><p class="cate">{{key|formatPriority}}</p><span class="cate-head-right">{{val.length}}</span>
