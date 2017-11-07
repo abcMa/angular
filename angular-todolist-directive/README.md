@@ -16,7 +16,7 @@
 3，tempalte
 （1）一段文本,如果里边有多个dom元素，必须用一个父元素包含，且每一行都需要有反斜线\。具体实例中最好引入templateUrl引入dom模板。<br>
 （2）或者两个形参的function<br>
-4，scope<br>
+4，scope：相关例子都放在demo.html中<br>
 scope的值有以下几种情况：<br>
 （1）false：父子作用域共享scope属性，父影响子，子影响父；---默认值<br>
 （2）true：父子作用域共享scope属性，父影响子，子不影响父<br>
@@ -28,7 +28,10 @@ scope的值有以下几种情况：<br>
     c:向父域中传递一个表达式/方法--{表达式:'&指令属性/&'}，向父域传递一个表达式或者方法名，然后父域scope中执行。<br>
       注意：如果指令想给父scope中的执行方法传参，需要用fn({msg:me})形式传参。msg代表参数名,属性指令的方法参数名需要<br>
             和此名保持一致，me代表实际的参数值<br>
-
+????绑定策略的@和=，为什么再定义指令属性的时候一个是表达式，一个是直接属性？
+这里有回答：https://stackoverflow.com/questions/14050195/what-is-the-difference-between-and-in-directive-scope-in-angularjs
+@是--evaluated value of the DOM attribute
+=是-- a parent scope property
 
 #### 完成度<br>
 80%<br>

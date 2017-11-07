@@ -13,31 +13,12 @@
 <div ng-app="myapp" class="wrap">
     <div ng-controller="todolist">
         <div>
-
-            <prority-select></prority-select>
+            <priority-select priority="priority" arr="arr"></priority-select>
             <input class="task-input" ng-model="todoitem" placeholder="请输入任务"/>
             <button class="task-add" ng-click="add()">add</button>
         </div>
         <div class="tasking" ng-init="unselected=1">
-            <div class="task-head" ng-click="unselected = unselected === 0 ? 1 : 0 ;">进行中的任务<span class="cate-head-right">{{arr.length+vparr.length+parr.length}}</span>
-            </div>
-
-            <div class="task-container" ng-class="{'active':unselected === 1}" ng-repeat="(key,val) in Arr track by $index">
-                <div class="cate-head"><p class="cate">{{key|formatPriority}}</p><span class="cate-head-right">{{val.length}}</span>
-                </div>
-                <div class="task-list" ng-repeat="index in val track by $index">
-                    <div class="task-item">
-                        <span class="control-checkbox">
-                            <input type="checkbox" ng-model="index.hasdone" ng-click="done($index,val,index)">
-                        </span>
-                        <div class="task-text">
-                            <p class="today-focus" ng-click="edit(index,$event)" ng-hide="index.isEditing">{{index.text}}</p>
-                            <input class="editing-input" ng-model="index.text" ng-show="index.isEditing" ng-blur="editBlur(index)">
-                            <span class="remove-task" ng-click="remove($index,val)">x</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <my-task></my-task>
 
             <div class="tasked" ng-init="doselect=1">
                 <div class="task-head" ng-click="doselect = doselect === 0 ? 1 : 0;">已完成的<span class="cate-head-right">{{donearr.length}}</span>

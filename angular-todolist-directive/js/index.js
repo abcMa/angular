@@ -1,61 +1,48 @@
 var myapp = angular.module("myapp", []);
 myapp.controller("todolist", function ($scope, $timeout) {
-    $scope.donearr = [],$scope.todoitem="";
-    $scope.Arr = {
-        "vp":[],
-        "p":[],
-        "without":[],
-    };
-    //选择优先级的下拉框默认值
-    $scope.selectVal = $scope.Arr.without;
-    //优先级
-    $scope.priorityVal = "without";
-    //新增任务
+    $scope.donearr = [], $scope.todoitem = "";
     $scope.add = function () {
-        if (!$scope.todoitem || !$scope.todoitem === "") {
-            return false;
-        }
-        $scope.Arr[$scope.priorityVal].push({"text": $scope.todoitem, "priority": $scope.priorityVal, "hasdone": false});
-        $scope.todoitem = "";
-    }
-    //完成当前任务
-    $scope.done = function (i, arr, item) {
-        arr.splice(i, 1);
-        $scope.donearr.push(item);
-    }
-    //删除当前任务
-    $scope.remove = function (i, arr) {
-        arr.splice(i, 1);
-    }
-    //编辑当前任务
-    $scope.edit = function (item, evt) {
-        item.isEditing = true;
-        //fix显示input光标不聚焦
-        var $editInput = evt.target;
-        $scope.editInput = $editInput;
-        $timeout(function () {
-            angular.element($scope.editInput).next()[0].focus();
-        }, 100);
-    }
-    //完成编辑
-    $scope.editBlur = function (item) {
-        item.isEditing = false;
-    }
-    //一键清空所有任务
-    $scope.clear = function () {
-        angular.forEach($scope.Arr,function (key,val) {
-            $scope.Arr[val]=[];
-        })
-        $scope.donearr = [];
+        $scope.arr[$scope.priority].push({"text": $scope.todoitem, "priority": $scope.priorityVal, "hasdone": false});
     }
 })
-//处理总数量大于9的
+//下拉框指令
+    .directive("prioritySelect", function () {
+        return {
+            restrict: "EA",
+            replace: true,
+            scope: {
+                priorityVal: "=priority",//将下拉选择的值绑定到父域中的scope属性中
+                Arr: "=arr"//将初始化数据结构绑定到父域中的scope属性中
+            },
+            link: function (scope) {
+                scope.Arr = {
+                    "vp": [],
+                    "p": [],
+                    "without": [],
+                };
+                scope.priorityVal = "without";
+            },
+            template: '<select class="priority-select" ng-model="priorityVal">' +
+            '                <option value="{{key}}" ng-repeat="(key,val) in Arr track by $index">{{key|formatPriority}}</option>' +
+            '            </select>'
+        }
+    })
+    //进行中的任务指令
+    .directive("myTask", function () {
+        return {
+            restrict: "EA",
+            replace: true,
+            scope: {},
+            templateUrl: "my-task.html"
+        }
+    })
+    //处理总数量大于9的
     .filter("formatPriority", function () {
         return function (input) {
-            var obj={
-                "vp":"很重要/必须完成",
-                "p":"重要/非必须完成",
-                "without":"无优先级"
+            var obj = {
+                "vp": "很重要/必须完成",
+                "p": "重要/非必须完成",
+                "without": "无优先级"
             }
             return obj[input];
         }
