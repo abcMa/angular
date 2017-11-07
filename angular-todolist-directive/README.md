@@ -28,10 +28,10 @@ scope的值有以下几种情况：<br>
     c:向父域中传递一个表达式/方法--{表达式:'&指令属性/&'}，向父域传递一个表达式或者方法名，然后父域scope中执行。<br>
       注意：如果指令想给父scope中的执行方法传参，需要用fn({msg:me})形式传参。msg代表参数名,属性指令的方法参数名需要<br>
             和此名保持一致，me代表实际的参数值<br>
-????绑定策略的@和=，为什么再定义指令属性的时候一个是表达式，一个是直接属性？和angular的表达式{{}}和内置指令中的值有区别吗？
-这里有回答：（https://stackoverflow.com/questions/14050195/what-is-the-difference-between-and-in-directive-scope-in-angularjs）
-@是--evaluated value of the DOM attribute；It is called one-way binding, which means you cannot modify the value of parentScope properties.
-=是-- a parent scope property
+????绑定策略的@和=，为什么再定义指令属性的时候一个是表达式，一个是直接属性？和angular的表达式{{}}和内置指令中的值有区别吗？<br>
+这里有回答：（https://stackoverflow.com/questions/14050195/what-is-the-difference-between-and-in-directive-scope-in-angularjs）<br>
+@是--evaluated value of the DOM attribute；It is called one-way binding, which means you cannot modify the value of parentScope properties.<br>
+=是-- a parent scope property<br>
 
 #### 完成度<br>
 80%<br>
