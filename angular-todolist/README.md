@@ -45,10 +45,10 @@
 1，指令是封装了一个可以在浏览器运行的dom元素，并对此dom扩展了一些功能和方法。<br>
 2，return对象中的属性<br>
    （1）指令用4种方式进行声明(return对象中的restrict属性) <br>
-        a,用元素E:'''<my-directive></my-directive>''' <br>
-        b,用属性和默认值A：'''<div my-directive="值/表达式"></div>''' 列如angular中的ng-click <br>
-        c,类名C：'''<div class="my-directive:值/表达式"></div>'''   <br>
-        d,注释M：todo <br>
+        a,用元素E:<my-directive></my-directive> <br>
+        b,用属性和默认值A：<div my-directive="值/表达式"></div> 列如angular中的ng-click <br>
+        c,类名C：<div class="my-directive:值/表达式"></div>   <br>
+        d,注释M：-todo <br>
         注：属性是声明指令最常用的方式，因为他们能在老版本包括ie的多有浏览器中正常工作，避免重注释的方式声明指令。<br>
 3，tempalte
 （1）一段文本,如果里边有多个dom元素，必须用一个父元素包含，且每一行都需要有反斜线\。具体实例中最好引入templateUrl引入dom模板。<br>
