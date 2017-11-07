@@ -63,3 +63,17 @@ todo：<br>
 （1）把此功能用directive实现出来。<br>
 （2）理解directive知识，每个知识点需要用demo加深理解。<br>
 
+
+10月6-10月10计划<br>
+1，总体计划<br>
+完成angular directive核心知识的理解及运用。<br>
+2，每日计划<br>
+（1）10月6日：改造之前todolist中不规范的逻辑和代码。理解directive定义、声明方式，了解指令的各个属性。<br>
+（2）10月7日：理解scope参数，以及每个值（true,false,{//包括有数据的隔离作用域--本地作用域：@、=、&}）具体代表的含义。通过例子综合加深理解。<br>
+              改造todolist，改为用directive的实现。<br>
+（3）10月8日：理解指令中controller，controllerAs，link方法，并通过例子加深理解。<br>
+（4）10月9日：理解指令中$transclude,require参数，了解AngularJS的生命周期，ngmodel指令，自定义验证。并通过例子加深理解。<br>
+（5）10月10日：运用指令实现一个点击某个title下拉展开内容（其他title下的内容收回），再次点击收回的功能。<br>
+              要求用到：controller，link,require,scope,template等属性。<br>
+
+
