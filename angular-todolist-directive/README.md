@@ -18,6 +18,7 @@
 （2）或者两个形参的function<br>
 
 11.7日<br>
+
 4，tempalteURL：<br>
 （1）html文件地址字符串。本地直接写相对路径的html文件会报错。因为angular会通过自己的安全机制做出限制。<br>
 （2）返回html文件地址字符串的方法。<br>
