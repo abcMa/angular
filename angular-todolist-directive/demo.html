@@ -15,12 +15,15 @@
         <input ng-model="name">
         <my-directive></my-directive>
         <hr>
+        <p>@方式隔离作用域</p>
         <input ng-model="mname"/>
         <my-name mname-attr="{{mname}}"></my-name>
         <hr>
+        <p>=方式隔离作用域</p>
         <input ng-model="color"/>
         <my-color color-attr="color"></my-color>
         <hr>
+        <p>&方式隔离作用域</p>
         <my-click clickme="click(msg)"></my-click>
     </div>
 </div>
@@ -28,8 +31,8 @@
     angular.module("myapp", [])
         .controller("someController", function ($scope) {
             $scope.name = "controller";
-            $scope.color = "";
-            $scope.mname = "";
+//            $scope.color = "";
+//            $scope.mname = "";
             $scope.click = function (str) {
                 alert("我知道子域在点击"+str);
             }
