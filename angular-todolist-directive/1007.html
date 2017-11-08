@@ -28,15 +28,39 @@
     </div>
 </div>
 <script>
+    // 定义一个动物类
+    function Animal (name) {
+        // 属性
+        this.name = name || 'Animal';
+        // 实例方法
+        this.sleep = function(){
+            console.log(this.name + '正在睡觉！');
+        }
+    }
+    // 原型方法
+    Animal.prototype.eat = function(food) {
+        console.log(this.name + '正在吃：' + food);
+    };
+    function Cat(){
+    }
+    //子类通过父类的实例赋值给原型对象
+    Cat.prototype = new Animal();
+    //子类更改
+    Cat.prototype.name = 'cat';
+    //理解其中的过程
+    Cat.title=0;
+    console.log(Cat.title);
+
+
     angular.module("myapp", [])
         .controller("someController", function ($scope) {
             $scope.name = "controller";
 //            $scope.color = "";
 //            $scope.mname = "";
             $scope.click = function (str) {
-                alert("我知道子域在点击"+str);
+                alert("我知道子域在点击" + str);
             }
-            $scope.me="";
+            $scope.me = "";
         })
         .directive("myDirective", function () {
             return {

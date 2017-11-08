@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>angular todolist</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+    <script src="../angular.min.js"></script>
+</head>
+<body>
+<div class="banner">我的任务</div>
+<div ng-app="myapp" class="wrap">
+    <div ng-controller="someController">
+        <p>1,transclude</p>
+        <side-box title="{{title}}">
+            <div sideboxtitle="Links">
+                <ul>
+                    <li>First link</li>
+                    <li>Second link</li>
+                </ul>
+            </div>
+        </side-box>
+        <hr>
+
+        <p>2，controller值为字符串demo</p>
+        <input ng-model="name">
+        <my-directive></my-directive>
+        <hr>
+
+        <p>3，controller值为function + require:实现一个tab切换</p>
+        <tabs>
+            <p ng-repeat="item in tabArr">{{item}}</p>
+        </tabs>
+        <pane>
+            <div ng-repeat="item in contentArr">{{item}}</div>
+        </pane>
+        <hr>
+
+
+    </div>
+    <div ng-controller="otherController"></div>
+</div>
+<div ng-app="otherapp">
+    <div ng-controller="otherController"></div>
+</div>
+<script>
+    angular.module("myapp", [])
+        .controller("someController", function ($scope) {
+            console.log("我是controller");
+            $scope.title = "标题";
+            $scope.content = "内容";
+            $scope.tabArr = ["标题1", "标题2", "标题3"];
+            $scope.contentArr = ["内容1", "内容2", "内容3"];
+        })
+        .controller("otherController", function ($scope) {
+            console.log("我是othercontroller");
+        })
+        .directive("sideBox", function () {
+            return {
+                restrict: "E",
+                scope: {
+                    title: "@"
+                },
+                replace: true,
+                transclude: true,
+                template: '<div class="slidebox">' +
+                '<div class="content">' +
+                '<h2 class="header">{{title}}</h2>' +
+                '<span class="content" ng-transclude></span>' +
+                '</div>' +
+                '</div>',
+                controller: function ($scope, $element, $attrs, $transclude) {
+                    $transclude(function (clone) {
+                        var a = angular.element('<a>');
+                        a.attr('href', $attrs.value);
+                        a.text(clone.text());
+                        $element.append(a);
+                    })
+                    console.log($scope + $element + $attrs + $transclude);
+                }
+            }
+        })
+        .directive("myDirective", function () {
+            return {
+                restrict: "E",
+                scope: true,
+                replace: true,
+                template: '<div>{{name}}</div>',
+                controller: "otherController"
+
+            }
+        })
+        .directive("tabs", function () {
+            return {
+                restrict: "EA",
+                replace:true,
+                transclude:true,
+                template: '<div class="title" ng-transclude></div>',
+                controller: function ($scope) {
+                    var panes = $scope.tabArr;
+                }
+            }
+        })
+        .directive("pane", function () {
+            return {
+                restrict: "EA",
+                require:"?",//从当前应用中
+                replace: true,
+                transclude:true,
+                template: '<div class="tab-pane" ng-transclude></div>',
+                controller: function () {
+
+                }
+            }
+        })
+    angular.module("otherapp", [])
+        .controller("otherController", function ($scope) {
+            //myDirective中的controller没有对应此controller
+            console.log("我是othercontroller");
+        })
+</script>
+</body>
+</html>
