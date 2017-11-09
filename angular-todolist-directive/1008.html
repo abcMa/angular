@@ -6,6 +6,38 @@
     <title>angular todolist</title>
     <link type="text/css" href="css/index.css" rel="stylesheet"/>
     <script src="../angular.min.js"></script>
+    <style type="text/css">
+        .tab {
+            display: inline-block;
+            list-style: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        ul {
+            margin: 0;
+        }
+
+        .pane {
+            width: 200px;
+            border: 1px solid #ddd;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .tab.active {
+            background-color: #ddd;
+        }
+
+        .tab-pane {
+            float: left;
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <div class="banner">我的任务</div>
@@ -29,13 +61,16 @@
 
         <p>3，controller值为function + require:实现一个tab切换</p>
         <tabs>
-            <p ng-repeat="item in tabArr">{{item}}</p>
+            <pane title="tab1">
+                <div>我是tab1的内容</div>
+            </pane>
+            <pane title="tab2">
+                <div>我是tab2的内容</div>
+            </pane>
+            <pane title="tab3">
+                <div>我是tab3的内容</div>
+            </pane>
         </tabs>
-        <pane>
-            <div ng-repeat="item in contentArr">{{item}}</div>
-        </pane>
-        <hr>
-
 
     </div>
     <div ng-controller="otherController"></div>
@@ -48,9 +83,6 @@
         .controller("someController", function ($scope) {
             console.log("我是controller");
             $scope.title = "标题";
-            $scope.content = "内容";
-            $scope.tabArr = ["标题1", "标题2", "标题3"];
-            $scope.contentArr = ["内容1", "内容2", "内容3"];
         })
         .controller("otherController", function ($scope) {
             console.log("我是othercontroller");
@@ -94,23 +126,51 @@
         .directive("tabs", function () {
             return {
                 restrict: "EA",
-                replace:true,
-                transclude:true,
-                template: '<div class="title" ng-transclude></div>',
+                replace: true,
+                transclude: true,
+                scope: {},
+                template: '<div>' +
+                '<ul>' +
+                '<li class="tab" ng-repeat="item in panes" ng-click="click(item)" ng-class="{active:item.selected}">{{item.title}}</li></ul>' +
+                '<div class="pane" ng-transclude></div>' +
+                '</div>',
                 controller: function ($scope) {
-                    var panes = $scope.tabArr;
+                    var panes = $scope.panes = [];
+                    $scope.click = function (tabitem) {
+                        //其他都不选中
+                        angular.forEach(panes, function (scope) {
+                            scope.selected = false;
+                        })
+                        //当前为选中项
+                        tabitem.selected = true;
+
+                    }
+                    this.addPane = function (scope) {
+                        if (panes.length === 0) {
+                            $scope.click(scope);
+                        }
+                        panes.push(scope);
+                    }
                 }
             }
         })
         .directive("pane", function () {
             return {
                 restrict: "EA",
-                require:"?tabs",//从当前应用中找tab
+                require: "^tabs",//从父指令中查找控制器，并注入到link函数中
+                scope: {
+                    title: "@"
+                },
                 replace: true,
-                transclude:true,
-                template: '<div class="tab-pane" ng-transclude></div>',
+                transclude: true,
+                template: '<div>' +
+                '<div  class="tab-pane" ng-class="{active:selected}" ng-transclude></div>' +
+                '</div>',
                 controller: function () {
-
+                    console.log("我是pane的controller");
+                },
+                link: function (scope, element, attrs, tabCtrl) {
+                    tabCtrl.addPane(scope);
                 }
             }
         })
