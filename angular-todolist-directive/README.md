@@ -47,8 +47,8 @@ scope的值有以下几种情况：<br>
 6，transclude：
 true和false两个值
 （1）false：默认值
-（2）true:允许将任意内容嵌入到指令中，常用来创建可服用的组件。在指令中配合ng-transclude指令，表示从声明指令dom中取出的内容
-放到ng-transclude中。此值不能让指令中的controller正常监听数据模型的变化。
+（2）true:允许将任意内容嵌入到指令中，常用来创建可复用的组件。在指令中配合ng-transclude指令，表示从声明指令dom中取出的内容
+放到ng-transclude中。此值不能使指令中的controller正常监听数据模型的变化。
 7，controller:
 可以是一个controller的名字的字符串，也可以是一个函数；
 （1）当值为字符串时，代表执行当前应用（当前ng-app）下的同名controller。
