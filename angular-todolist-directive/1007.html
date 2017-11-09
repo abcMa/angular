@@ -78,7 +78,10 @@
                 scope: {
                     mname: "@mnameAttr"
                 },
-                template: '<div><p>{{mname}}</p><input type="text" ng-model="mname"></div></div>'
+                template: '<div><p>{{mname}}</p><input type="text" ng-model="mname"></div></div>',
+                link:function (scope,element,attrs) {
+                    console.log(22);
+                }
             }
         })
         .directive("myColor", function () {
