@@ -129,7 +129,7 @@
                 replace: true,
                 transclude: true,
                 scope: {},
-                template: '<div>' +
+                template: '<div class="my-tab">' +
                 '<ul>' +
                 '<li class="tab" ng-repeat="item in panes" ng-click="click(item)" ng-class="{active:item.selected}">{{item.title}}</li></ul>' +
                 '<div class="pane" ng-transclude></div>' +
@@ -151,6 +151,9 @@
                         }
                         panes.push(scope);
                     }
+                },
+                link: function (scope, element, attrs) {
+                    console.log(11);
                 }
             }
         })
@@ -163,10 +166,10 @@
                 },
                 replace: true,
                 transclude: true,
-                template: '<div>' +
+                template: '<div class="my-pane">' +
                 '<div  class="tab-pane" ng-class="{active:selected}" ng-transclude></div>' +
                 '</div>',
-                controller: function () {
+                controller: function ($scope) {
                     console.log("我是pane的controller");
                 },
                 link: function (scope, element, attrs, tabCtrl) {
