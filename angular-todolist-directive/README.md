@@ -16,6 +16,7 @@
 3，tempalte
 （1）一段文本,如果里边有多个dom元素，必须用一个父元素包含，且每一行都需要有反斜线\。具体实例中最好引入templateUrl引入dom模板。<br>
 （2）或者两个形参的function<br>
+如果是{{expression}}代表访问作用域
 
 11.7日<br>
 4，tempalteURL：<br>
@@ -44,7 +45,7 @@ scope的值有以下几种情况：<br>
 
 
 11.8日：例子在1008.html中
-6，transclude：
+6，transclude：决定元素下的html代码是否嵌入到模板中
 true和false两个值
 （1）false：默认值
 （2）true:允许将任意内容嵌入到指令中，常用来创建可复用的组件。在指令中配合ng-transclude指令，表示从声明指令dom中取出的内容
@@ -60,20 +61,34 @@ true和false两个值
     $transclude：（传入一个参数用来操作dom或者增加dom）,需要配合指令中transclude属性为true使用。方法中的参数clone得值是声明指令中的dom。
 8，require:
 字符串或者数组；字符串代表当前应用下某个指令的名字，数组代表当前应用下某几个controller名字的数组，当为字符串时require
-会将此控制器在link函数的第四个参数中作为服务注入到该指令中。
+会将此控制器在link函数的第四个参数中作为服务注入到该指令中(数组同义)。
 require查找控制器，有以下几种方式
 （1）?:在当前应用中（当前的ng-app）查找控制器，如果没有用null代替。
 （2）^:指令会在父集的指令中查找require参数所指定的控制器。
 （3）?^:在当前指令和父集指令中查找
 （4）没有前缀：将会在自身的控制器中查找，没有找到报错。
 完成度：
-90%
+90%+10%=100%(1009日完成)
 
-疑问
-9，link:函数，扩展指令元素的功能性，
-10，complie:对象或者函数
-controller，link，complie有什么区别？
+10,9日
+9，complie:对象或者函数，表示在指令和实时数据被放到dom之前操作dom。complie和link函数二者只能有一个，
+如果两个都出现了，那么会把complie的return的函数作为link函数调用，定义的link函数则被忽略。
+10，link:函数，扩展指令元素的功能性（定义指令的行为），在模板编译完成并且和作用域完成关联后被执行。
+参数：
+（1）scope：指令用来监听
+（2）element
+（3）attrs
+（4）otherCtrlName/otherCtrlNameArr
+11，preLink,postLink:在angular处理linking过程中，首先会执行此函数，其次才执行postLink函数，完成dom和指令作用域等关联。
+所以一般我们定义的link函数就是指postLink;
+
+-controller，link，complie有什么区别？
 controller负责一些和其他指令交互的行为，可以看做是一个api供其他指令调用，而link用来扩展本指令的功能，这样的思想是angular主张的思想。
+complie和link代表angular中指令的生命周期
+-angular是怎么处理指令的？
+(1)遍历整个文档
+(2)遇到指令，按照指令的优先级执行指令转换成dom，如果遇到指令中有complie函数，对模板自身做转换，然后返回一个
+函数，此函数（link()）用来对dom绑定数据，将作用域和dom绑定等操作。
 
 
 

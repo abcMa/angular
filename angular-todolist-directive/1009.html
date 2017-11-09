@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>angular todolist</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+    <script src="../angular.min.js"></script>
+</head>
+<body>
+<div class="banner">我的任务</div>
+<div ng-app="myapp" class="wrap">
+    <div ng-controller="someController">
+        <my-directive></my-directive>
+    </div>
+</div>
+<script>
+
+    angular.module("myapp", [])
+        .controller("someController", function ($scope) {
+
+        })
+        .directive("myDirective", function () {
+            return {
+                restrict: "E",
+                replace: true,
+                template: '<div><span>{{name}}</span><input ng-model="name"></div>',
+                compile: function(element, attributes) {
+                    return {
+                        pre: function preLink(scope, element, attributes) {
+                            console.log("22");
+                        },
+//                        post: function postLink(scope, element, attributes) {
+//                            console.log("33");
+//                        }
+                    };
+                },
+                link:function () {
+                    //如果complie函数返回一个函数，则此函数不会被执行
+                    console.log("44");
+                },
+                controller:function () {
+                    console.log("11");
+                }
+            }
+        })
+
+</script>
+</body>
+</html>
