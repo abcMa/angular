@@ -97,6 +97,13 @@ angular会遍历整个文档，根据js中定义的属性和方法来处理页�
 
 scope使用绑定策略中的属性，相当于在当前作用域下创建了一个属性。<br>
 
+10.10日：
+1,依赖注入：在需要的地方通过参数传入需要依赖的服务。
+通过传入参数数组的方式建立依赖关系，例如：.controller("myCtroller",function ($scope, $timeout){//直接使用依赖服务的属性和方法$timeout.xxx})
+2,更改todolist为用directive实现：
+
+
+
 
 
 
