@@ -82,18 +82,20 @@ require查找控制器，有以下几种方式
 （4）otherCtrlName/otherCtrlNameArr：被注入的控制器
 4，preLink,postLink:在angular处理linking过程中，首先会执行此函数，其次才执行postLink函数，完成dom和指令作用域等关联。
 所以一般我们定义的link函数就是指postLink;
--controller，link，complie有什么区别？
+-controller，link，complie有什么区别
 controller负责一些和其他指令交互的行为，可以看做是一个api供其他指令调用，而link用来扩展本指令的功能，这样的思想是angular主张的思想。
 complie和link代表angular中指令的生命周期
--angular是怎么处理指令的？
+-angular是怎么处理指令的
 编译阶段
 angular会遍历整个文档，根据js中定义的属性和方法来处理页面上的指令。我们可以用complie函数操作dom树在模板函数返回之前（模板函数时在对指令
 和字模板进行遍历或编译后返回的一个函数）。
 链接阶段
 一个指令编译之后就可以用link函数对其绑定数据，设置监听等dom操作。
+完成度：
+90%
 
 
-scope使用绑定策略中的属性，相当于
+scope使用绑定策略中的属性，相当于在当前作用域下创建了一个属性。
 
 
 
