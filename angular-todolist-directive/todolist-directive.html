@@ -19,7 +19,7 @@
             <input class="task-input" ng-model="todoitem" placeholder="请输入任务"/>
             <button class="task-add" ng-click="add()">add</button>
         </div>
-
+        <!--容器-->
         <my-task>
             <!--正在进行中的任务-->
             <my-tasking>
@@ -27,7 +27,8 @@
                     <span class="cate-head-right">{{arr.length+vparr.length+parr.length}}</span>
                 </div>
 
-                <div class="task-container" ng-class="{'active':unselected === 1}" ng-repeat="(key,val) in Arr track by $index">
+                <div class="task-container" ng-class="{'active':unselected === 1}"
+                     ng-repeat="(key,val) in Arr track by $index">
                     <div class="cate-head"><p class="cate">{{key|formatPriority}}</p><span class="cate-head-right">{{val.length}}</span>
                     </div>
                     <task-item>
@@ -57,7 +58,8 @@
                     <div class="task-list" ng-repeat="index in donearr track by $index">
                         <div class="task-item">
                             <div class="task-text">
-                                <p class="today-focus hasdone-{{index.hasdone}}" ng-click="edit($event)">{{index.text}}</p>
+                                <p class="today-focus hasdone-{{index.hasdone}}" ng-click="edit($event)">
+                                    {{index.text}}</p>
                                 <input class="editing-input hidden" ng-model="index.text" ng-blur="editBlur($event)">
                                 <span class="remove-task" ng-click="remove($index,donearr)">x</span>
                             </div>

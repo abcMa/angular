@@ -6,10 +6,12 @@ angular.module("myapp", [])
             "p": [],
             "without": [],
         };
+
         //选择优先级的下拉框默认值
         $scope.selectVal = $scope.Arr.without;
         //优先级
         $scope.priorityVal = "without";
+
         //新增任务
         $scope.add = function () {
             if (!$scope.todoitem || !$scope.todoitem === "") {
@@ -22,29 +24,34 @@ angular.module("myapp", [])
             });
             $scope.todoitem = "";
         }
-        //完成当前任务
-        $scope.done = function (i, arr, item) {
-            arr.splice(i, 1);
-            $scope.donearr.push(item);
-        }
-        //删除当前任务
-        $scope.remove = function (i, arr) {
-            arr.splice(i, 1);
-        }
-        //编辑当前任务
-        $scope.edit = function (item, evt) {
-            item.isEditing = true;
-            //fix显示input光标不聚焦
-            var $editInput = evt.target;
-            $scope.editInput = $editInput;
-            $timeout(function () {
-                angular.element($scope.editInput).next()[0].focus();
-            }, 100);
-        }
-        //完成编辑
-        $scope.editBlur = function (item) {
-            item.isEditing = false;
-        }
+
+        // //完成当前任务
+        // $scope.done = function (i, arr, item) {
+        //     arr.splice(i, 1);
+        //     $scope.donearr.push(item);
+        // }
+
+        // //删除当前任务
+        // $scope.remove = function (i, arr) {
+        //     arr.splice(i, 1);
+        // }
+
+        // //编辑当前任务
+        // $scope.edit = function (item, evt) {
+        //     item.isEditing = true;
+        //     //fix显示input光标不聚焦
+        //     var $editInput = evt.target;
+        //     $scope.editInput = $editInput;
+        //     $timeout(function () {
+        //         angular.element($scope.editInput).next()[0].focus();
+        //     }, 100);
+        // }
+        //
+        // //完成编辑
+        // $scope.editBlur = function (item) {
+        //     item.isEditing = false;
+        // }
+
         //一键清空所有任务
         $scope.clear = function () {
             angular.forEach($scope.Arr, function (key, val) {
@@ -53,29 +60,63 @@ angular.module("myapp", [])
             $scope.donearr = [];
         }
     })
-
+    //容器
     .directive("myTask", function () {
         return {
             restrict: "EA",
             replace: true,
             transclude: true,
-            template: '<div class="taskWarp" ng-transclude></div>'
+            template: '<div class="taskWarp" ng-transclude></div>',
+            link:function ($scope) {
+                //删除当前任务
+                $scope.remove = function (i, arr) {
+                    arr.splice(i, 1);
+                }
+            }
         }
     })
+
+    //正在进行中的任务
     .directive("myTasking", function () {
         return {
             restrict: "EA",
             replace: true,
             transclude: true,
-            template: '<div class="tasking" ng-transclude></div>'
+            template: '<div class="tasking" ng-transclude></div>',
+            link:function ($scope) {
+                //完成当前任务
+                $scope.done = function (i, arr, item) {
+                    arr.splice(i, 1);
+                    $scope.donearr.push(item);
+                }
+                //编辑当前任务
+                $scope.edit = function (item, evt) {
+                    item.isEditing = true;
+                    //fix显示input光标不聚焦
+                    var $editInput = evt.target;
+                    $scope.editInput = $editInput;
+                    $timeout(function () {
+                        angular.element($scope.editInput).next()[0].focus();
+                    }, 100);
+                }
+
+                //完成编辑
+                $scope.editBlur = function (item) {
+                    item.isEditing = false;
+                }
+            }
         }
     })
+
+    //已经完成的任务
     .directive("myTasked", function () {
         return {
             restrict: "EA",
             replace: true,
         }
     })
+
+    //每一个任务的条目
     .directive("taskItem", function () {
         return {
             restrict: "EA",
@@ -84,6 +125,7 @@ angular.module("myapp", [])
             template: '<div class="taskItem" ng-transclude></div>'
         }
     })
+
     //处理总数量大于9的
     .filter("formatPriority", function () {
         return function (input) {
