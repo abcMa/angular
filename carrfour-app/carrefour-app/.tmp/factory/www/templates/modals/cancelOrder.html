@@ -1,0 +1,38 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.cancelOrder.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'user.cancelOrder.title' | translate}}</h1>
+        <button class="button button-clear button-empty" ng-click="cancelOrder.onConfirm()">
+                {{'user.cancelOrder.confirmBtn' | translate}}
+        </button>
+    </ion-header-bar>
+
+    <ion-content class="cancel-order-panel stable-bg">
+
+        <div class="cancel-box light-bg p mb">
+            <i class="cm-icon icon38 fl mrx"></i>
+            <div class="cancel-box-cont">
+                <p class="title">{{'user.cancelOrder.tipsTitle' | translate}}</p>
+                <p>{{'user.cancelOrder.tipsTxt1' | translate}}</p>
+                <p>{{'user.cancelOrder.tipsTxt2' | translate}}</p>
+            </div>
+        </div>
+
+        <div class="cancel-list light-bg">
+            <p class="title">{{'user.cancelOrder.reasonTitle' | translate}}</p>
+            <div class="cancel-list-box">
+                <label class="cancel-radio-row row pv" ng-repeat="item in cancelOrder.data">
+                    <span class="col-top radio-box mrx">
+                        <input class="radio fl" value="{{item.reasonId}}" ng-model="cancelOrder.selectedReasonId" 
+                               type="radio" name="reason" />
+                    </span>
+                    <p class="col con-top cancel-reason">{{item.reason}}</p>
+                </label>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-modal-view>

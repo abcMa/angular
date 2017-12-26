@@ -1,0 +1,29 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "./carrefour.keystore",
+            "storePassword": "carrefour.cn135",
+            "alias": "carrefour",
+            "password" : "carrefour.cn135",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "./carrefour.keystore",
+            "storePassword": "carrefour.cn135",
+            "alias": "carrefour",
+            "password" : "carrefour.cn135",
+            "keystoreType": ""
+        }
+    },
+    "ios": {
+        "debug": {
+            "developmentTeam": "C74FBMW9F3"
+        },
+        "release": {
+            "codeSignIdentity": "iPhone Distribution",
+            "developmentTeam": "C74FBMW9F3",
+            "provisioningProfile": "d03aab6a-6f32-40e9-8ade-340b116d6632",
+            "packageType": "ad-hoc"
+        }
+    }
+}

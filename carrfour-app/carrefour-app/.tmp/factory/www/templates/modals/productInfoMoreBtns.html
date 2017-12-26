@@ -1,0 +1,29 @@
+<ion-modal-view class="modal-more-btns-panel" ng-click="modals.productInfoMoreBtns.close()">
+
+    <ion-content scroll="false">
+        <ul class="product-info-btns has-header" ng-class="{'has-banner': !productInfoMoreBtns.hideBanner}">
+            <li class="button-lines">
+                <button class="button button-clear"
+                    at-gesture="product::my_reviews"
+                    gesture-action="touch"
+                    ng-click="productInfoMoreBtns.openSiderBarBrowerList()">
+                <i class="cm-icon icon-clock mrx"></i>{{'siderBarBrowerList.title' | translate}}
+                </button>
+            </li>
+            <li class="button-lines">
+                <button class="button button-clear"
+                    at-gesture="product::search_button"
+                    ng-click="productInfoMoreBtns.goSearch()">
+                    <i class="cm-icon icon20 mrx"></i>{{'productInfo.search' | translate}}
+                </button>
+            </li>
+            <li class="button-lines">
+                <button class="button button-clear"
+                    ng-click="productInfoMoreBtns.goIndex()">
+                    <i class="cm-icon icon04 mrx"></i>{{'productInfo.index' | translate}}
+                </button>
+            </li>
+        </ul>
+    </ion-content>
+
+</ion-modal-view>

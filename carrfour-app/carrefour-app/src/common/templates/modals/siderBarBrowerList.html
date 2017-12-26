@@ -1,0 +1,23 @@
+<ion-modal-view class="sider-bar-brower-list" ng-click="siderBarBrowerList.closeSiderBarBrowerList()">
+
+    <ion-header-bar class="brower-list-bar light-bg bar-default">
+        <h1 class="title">{{'siderBarBrowerList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="light-bg mt">
+        <ul class="ph">
+            <li class="brower-list-item mb" ng-repeat="product in siderBarBrowerList.viewHistory track by $index"
+            ng-click="stateUtils.goProductInfo(product.productId, product.goodsId, product.name, 'viewHistory', product.isOverseasShop)">
+                <img class="item-img" ng-src="{{product.pic}}" />
+                <p class="item-info name">
+                    <span class="tag tag-overseas-shop" ng-if="product.isOverseasShop">{{'overseasShop' | translate}}</span>
+                    {{product.name}}
+                </p>
+                <p class="item-info price mbx">{{product.price | currency:'&yen;'}}</p>
+            </li>
+        </ul>
+        <ion-infinite-scroll ng-if="siderBarBrowerList.canLoadNextPage"
+            on-infinite="siderBarBrowerList.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+
+</ion-modal-view>

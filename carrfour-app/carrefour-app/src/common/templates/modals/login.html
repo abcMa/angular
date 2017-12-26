@@ -1,0 +1,48 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class=" button button-clear left-btn" ng-click="login.close()">{{'login.cancel' | translate}}</button>
+        <h1 class="title">{{'login.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="login-panel">
+        <form name="form" ng-submit="login.submit()" novalidate>
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label w4em">{{'login.loginNameFormItem.label' | translate}}</span>
+                    <input type="text" placeholder="{{'login.loginNameFormItem.placeholder' | translate}}"
+                           name="loginName" ng-model="login.params.loginName"
+                           required />
+                </label>
+                <label class="item item-input">
+                    <span class="input-label w4em">{{'login.passwordFormItem.label' | translate}}</span>
+                    <input type="password" placeholder="{{'login.passwordFormItem.placeholder' | translate}}"
+                           name="password" ng-model="login.params.password" maxlength="20"
+                           required />
+                </label>
+                <div class="item item-input image-verify-code-item" ng-if="login.showImageVerifyCode">
+                    <input type="text" placeholder="{{'login.imageVerifyCodeFormItem.placeholder' | translate}}"
+                           name="imageVerifyCode" ng-model="login.params.imageVerifyCode"
+                           required />
+                    <img class="image-verify-code" cm-image-verify-code />
+                </div>
+            </div>
+
+            <div class="m">
+                <button type="button" class="button button-block button-primary"
+                        on-tap="login.submit()"
+                        ng-disabled="form.$invalid">{{'login.submitButton' | translate}}</button>
+            </div>
+
+            <div class="mh row">
+                <div class="col col-50 col-left">
+                    <a class="fg-quiet" href="javascript:" on-tap="login.openRegister()">{{'login.toRegister' | translate}}</a>
+                </div>
+                <div class="col col-50 col-right">
+                    <a class="fg-quiet" href="javascript:" on-tap="login.openRetrievePassword()">{{'login.toRetrievePassword' | translate}}</a>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-modal-view>

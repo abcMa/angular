@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-inline' 'unsafe-eval' gap: http://* https://* data:;" >
+    <!-- 生产环境配置 -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"> -->
+    <meta name="format-detection" content="telephone=no">
+    <title>家乐福微信商城</title>
+
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+    <!-- build:js rem.js -->
+    <!-- <script src="rem.js"></script> -->
+    <!-- endbuild -->
+
+    <!-- build:js libs.js -->
+    <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/lodash/lodash.js"></script>
+    <script src="libs/moment/moment.js"></script>
+    <script src="libs/moment/locale/zh-cn.js"></script>
+    <script src="libs/JsBarcode/dist/barcodes/JsBarcode.code128.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js ionic.js -->
+    <script src="libs/ionic/release/js/ionic.bundle.js"></script>
+    <script src="libs/angular-messages/angular-messages.js"></script>
+    <script src="libs/angular-translate/angular-translate.js"></script>
+    <script src="libs/angular-cm-switch/src/switch.js"></script>
+    <script src="libs/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js app.js -->
+
+    <!-- common module's files -->
+    <script src="init.js"></script>
+    <script src="config.js"></script>
+    <script src="user.js"></script>
+    <script src="lang.en.js"></script>
+    <script src="lang.zh_CN.js"></script>
+    <script src="stateCode.js"></script>
+
+    <!-- wxshop module's files -->
+    <script src="wxshop-init.js"></script>
+    <script src="states.js"></script>
+    <script src="stateUtils.js"></script>
+    <script src="modals.js"></script>
+    <script src="tabs.js"></script>
+
+    <script src="tools/utils.js"></script>
+    <script src="tools/api.js"></script>
+    <script src="tools/unique.js"></script>
+    <script src="tools/toast.js"></script>
+    <script src="tools/loading.js"></script>
+    <script src="tools/history.js"></script>
+    <script src="tools/viewHistory.js"></script>
+    <script src="tools/localStorage.js"></script>
+    <script src="tools/messageCenter.js"></script>
+    <script src="tools/errorHandling.js"></script>
+    <script src="tools/loadDataMixin.js"></script>
+    <script src="tools/searchHistory.js"></script>
+    <script src="tools/validator.js"></script>
+    <script src="tools/throttle.js"></script>
+    <script src="tools/popup.js"></script>
+    <script src="tools/angular-ios9-uiwebview.patch.js"></script>
+    <script src="tools/camera.js"></script>
+    <script src="tools/uploadImage.js"></script>
+    <script src="tools/activityLoader.js"></script>
+    <script src="tools/jpush.js"></script>
+    <script src="tools/deploy.js"></script>
+    <!-- <script src="tools/networkStatus.js"></script> -->
+    <script src="tools/cofferSem.js"></script>
+    <script src="tools/appleAdvertising.js"></script>
+    <script src="tools/applePay.js"></script>
+    <script src="tools/analytics.js"></script>
+    <script src="tools/observer.js"></script>
+    <script src="tools/overseasShop.js"></script>
+    <script src="tools/openOtherApp.js"></script>
+    <script src="tools/threeCanvas.js"></script>
+    <script src="tools/snow.js"></script>
+    <script src="tools/identityCodeValid.js"></script>
+
+    <script src="services/global.js"></script>
+    <script src="services/index.js"></script>
+    <script src="services/user.js"></script>
+    <script src="services/carrefourWallet.js"></script>
+    <script src="services/category.js"></script>
+    <script src="services/cart.js"></script>
+    <script src="services/order.js"></script>
+    <script src="services/product.js"></script>
+    <script src="services/checkout.js"></script>
+    <script src="services/consignee.js"></script>
+    <script src="services/memberConsignee.js"></script>
+    <script src="services/coupon.js"></script>
+    <script src="services/pay.js"></script>
+    <script src="services/scan.js"></script>
+    <script src="services/collect.js"></script>
+    <script src="services/comment.js"></script>
+    <script src="services/article.js"></script>
+    <script src="services/activity.js"></script>
+    <script src="services/store.js"></script>
+    <script src="services/overseasShopIndex.js"></script>
+    <script src="services/messageCenter.js"></script>
+    <script src="services/customer.js"></script>
+    <script src="services/share.js"></script>
+    <script src="services/memberCenter.js"></script>
+
+    <script src="directives/lazyload.js"></script>
+    <script src="directives/dynamicTemplate.js"></script>
+    <script src="directives/cartNumber.js"></script>
+    <!-- <script src="directives/tabs.js"></script> -->
+    <script src="directives/overseasShopTabs.js"></script>
+    <script src="directives/switcher.js"></script>
+    <script src="directives/dynamicHeight.js"></script>
+    <script src="directives/imageBox.js"></script>
+    <script src="directives/counter.js"></script>
+    <script src="directives/adjustParentWidth.js"></script>
+    <script src="directives/imageVerifyCode.js"></script>
+    <script src="directives/hide-tabs.js"></script>
+    <script src="directives/selectRegion.js"></script>
+    <script src="directives/memberSelectRegion.js"></script>
+    <script src="directives/item-form-group.js"></script>
+    <script src="directives/countdown.js"></script>
+    <script src="directives/downloadBanner.js"></script>
+    <script src="directives/cmvMobile.js"></script>
+    <script src="directives/searchBar.js"></script>
+    <script src="directives/show-more.js"></script>
+    <script src="directives/change-language.js"></script>
+    <script src="directives/verticalSwitch.js"></script>
+    <script src="directives/scrollShow.js"></script>
+    <script src="directives/commentLevel.js"></script>
+    <script src="directives/bindHTML.js"></script>
+    <script src="directives/automateTextarea.js"></script>
+    <script src="directives/scrollFixed.js"></script>
+    <script src="directives/headerShrink.js"></script>
+    <script src="directives/transparentModal.js"></script>
+    <script src="directives/fadeOut.js"></script>
+    <script src="directives/onDrag.js"></script>
+    <script src="directives/dynamicContentBottom.js"></script>
+    <script src="directives/blurSelect.js"></script>
+    <script src="directives/cmShare.js"></script>
+    <script src="directives/barcode.js"></script>
+    <script src="directives/dynamicTabs.js"></script>
+    <script src="directives/autoScroll.js"></script>
+
+    <script src="filters/price.js"></script>
+    <script src="filters/brandsFormat.js"></script>
+    <script src="filters/textFormat.js"></script>
+    <script src="filters/addressFormat.js"></script>
+    <script src="filters/timeFormat.js"></script>
+    <script src="filters/secondsFormat.js"></script>
+    <script src="filters/priceRangeFormat.js"></script>
+    <script src="filters/commentNameFormat.js"></script>
+    <script src="filters/truncate.js"></script>
+    <script src="filters/messageTime.js"></script>
+    <script src="filters/regionFormat.js"></script>
+
+    <script src="controllers/tabs.js"></script>
+    <script src="controllers/index.js"></script>
+    <!-- <script src="controllers/demo.js"></script> -->
+    <script src="controllers/categories.js"></script>
+    <script src="controllers/search.js"></script>
+    <script src="controllers/productList.js"></script>
+    <script src="controllers/productInfo.js"></script>
+    <script src="controllers/productInfoMoreBtns.js"></script>
+    <script src="controllers/siderBarBrowerList.js"></script>
+    <script src="controllers/user.js"></script>
+    <script src="controllers/userInfo.js"></script>
+    <script src="controllers/userCollectionList.js"></script>
+    <script src="controllers/userViewHistory.js"></script>
+    <!-- <script src="controllers/delivery.js"></script> -->
+    <script src="controllers/carrefourCardInstruction.js"></script>
+    <script src="controllers/invoice.js"></script>
+    <script src="controllers/orderList.js"></script>
+    <script src="controllers/orderInfo.js"></script>
+    <script src="controllers/shoppingCart.js"></script>
+    <script src="controllers/selectPresents.js"></script>
+    <script src="controllers/confirmOrder.js"></script>
+    <script src="controllers/productFilter.js"></script>
+    <script src="controllers/consigneeList.js"></script>
+    <script src="controllers/editConsigneeInfo.js"></script>
+    <script src="controllers/memberEditConsigneeInfo.js"></script>
+    <script src="controllers/selectAddressRegion.js"></script>
+    <script src="controllers/submitOrderSuccess.js"></script>
+    <script src="controllers/paymentOrderSuccess.js"></script>
+    <script src="controllers/memberCardPopup.js"></script>
+    <script src="controllers/scan.js"></script>
+    <script src="controllers/welcome.js"></script>
+    <script src="controllers/viewOrderItemList.js"></script>
+    <script src="controllers/selectPayDelivery.js"></script>
+    <script src="controllers/cancelOrder.js"></script>
+    <script src="controllers/settings.js"></script>
+    <script src="controllers/commentList.js"></script>
+    <script src="controllers/editIdCard.js"></script>
+    <script src="controllers/selectCoupons.js"></script>
+    <script src="controllers/userCoupons.js"></script>
+    <script src="controllers/orderCommentList.js"></script>
+    <script src="controllers/orderCommentInfo.js"></script>
+    <script src="controllers/onlinePayment.js"></script>
+    <script src="controllers/onlinePaymentCorverPage.js"></script>
+    <script src="controllers/article.js"></script>
+    <script src="controllers/activity.js"></script>
+    <script src="controllers/popUpModals.js"></script>
+    <script src="controllers/login.js"></script>
+    <script src="controllers/register.js"></script>
+    <script src="controllers/retrievePassword.js"></script>
+    <script src="controllers/selectRegion.js"></script>
+    <script src="controllers/customerService.js"></script>
+    <script src="controllers/customerServiceArticleList.js"></script>
+
+    <script src="controllers/selecter.js"></script>
+
+    <script src="controllers/memberConsigneeList.js"></script>
+    <script src="controllers/nearbyStores.js"></script>
+    <script src="controllers/storeInfo.js"></script>
+    <script src="controllers/storeMap.js"></script>
+    <script src="controllers/overseasShopIndex.js"></script>
+    <script src="controllers/rejectReason.js"></script>
+	<script src="controllers/messageCenter.js"></script>
+    <script src="controllers/messageList.js"></script>
+    <script src="controllers/promptInfo.js"></script>
+    <script src="controllers/articlePrompt.js"></script>
+    <script src="controllers/memberCenter.js"></script>
+    <script src="controllers/registerMemberCard.js"></script>
+    <script src="controllers/unbindMemberCard.js"></script>
+    <script src="controllers/memberInfo.js"></script>
+    <script src="controllers/editMemberCardMoblie.js"></script>
+    <script src="controllers/bindMemberCard.js"></script>
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="resources/css/main.css" />
+</head>
+
+<body class="lang-{{APP_CONFIG.language}}" ng-class="{'overseas-shop-view' : APP_CONFIG.isInOverseasShopView}">
+    <!-- <ion-nav-bar class="bar-stable">
+        <ion-nav-buttons side="left">
+            <button class="button-clear button back-button" ng-click="goBack()">
+                <i class="icon ion-ios-arrow-left"></i>
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar> -->
+
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    <!-- <span class="toggle-language hide"></span> -->
+</body>
+
+</html>

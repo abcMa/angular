@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+// 历史搜索头部中“取消”按钮
+.has-cancle-btn {
+
+	.search-form-area {
+		margin-right: 40px;
+	}
+
+	.button.button-search {
+		height: 30px;
+		line-height: 30px;
+		color: $text-color-quiet;
+		font-size: $font-size-big;
+	}
+}
+
+// 历史搜索列表
+.search-history-main {
+
+	.search-history-empty {
+		padding: $font-size-big;
+		margin: 0;
+		text-align: center;
+	}
+
+	.search-history-title {
+		padding: 6px 0 0 12px;
+		margin-bottom: 0;
+		line-height: 1.6em;
+		color: $text-color-quiet;
+		font-size: $font-size-big;
+	}
+
+	.search-history-item {
+		margin-left: 12px;
+		padding-left: 0;
+		line-height: 30px;
+		font-size: 15px;
+		color: $text-color;
+		border-left: none;
+		border-color: $line-color;
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+}

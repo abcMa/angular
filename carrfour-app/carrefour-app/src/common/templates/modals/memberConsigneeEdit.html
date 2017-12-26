@@ -1,0 +1,103 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear left-btn" ng-click="modals.memberEditConsigneeInfo.close()">
+            {{'checkout.consignee.consigneeInfo.cancel' | translate}}
+        </button>
+        <h1 class="title">
+            <span ng-if="memberEditConsigneeInfo.data.id">{{'checkout.consignee.consigneeInfo.edit' | translate}}</span>
+            <span ng-if="!memberEditConsigneeInfo.data.id">{{'checkout.consignee.consigneeInfo.add' | translate}}</span>
+        </h1>
+    </ion-header-bar>
+    <ion-content class="consignee-edit-panel pl">
+        <form name="form" ng-submit="memberEditConsigneeInfo.submit()" novalidate>
+            <dl class="consignee-row-full consignee-row pr clearfix">
+                <dt class="row-half-txt-en-title dt-name fl pv">{{'checkout.consignee.consigneeInfo.consigneeName' | translate}}：</dt>
+                <dd class="row-half-txt-en-txt">
+                    <input class="consignee-input pv" type="text" name="name"
+                        ng-model="memberEditConsigneeInfo.data.name" maxlength="30" required/>
+                </dd>
+            </dl>
+
+            <dl class="consignee-row-full consignee-row clearfix rel">
+                <dt class="row-region-title pv fl">{{'checkout.consignee.consigneeInfo.consigneeRegion' | translate}}：</dt>
+                <dd class="row-region-icon"><i class="cm-icon icon24"></i></dd>
+                <dd class="row-region-txt mrd">
+                    <div class="input-field pv consignee-input consignee-textarea" name="regionId" cm-select-region="member"
+                           ng-model="memberEditConsigneeInfo.selectedRegion"
+                           ng-change="memberEditConsigneeInfo.changeRegion()">{{memberEditConsigneeInfo.selectedRegion | regionFormat}}</div>
+                    <input type="hidden" ng-model="memberEditConsigneeInfo.selectedRegion" required>
+                </dd>
+
+            </dl>
+            <!-- 老版本多行地址 -->
+            <!-- <p class="mvx">{{'checkout.consignee.consigneeInfo.consigneeAddress' | translate}}</p>
+
+            <div class="consignee-row clearfix ml">
+                <dl class="consignee-row-half pr fl">
+                    <dt class="pv fl">{{'checkout.consignee.consigneeInfo.road' | translate}}：</dt>
+                    <dd>
+                        <input class="consignee-input pv" placeholder="" ng-maxlength="40" ng-model="editConsigneeInfo.data.address.road" required/>
+                    </dd>
+                </dl>
+                <dl class="consignee-row-half pr fl">
+                    <dt class="row-half-txt-en-title pv fl">{{'checkout.consignee.consigneeInfo.lane' | translate}}：</dt>
+                    <dd class="row-half-txt-en-txt">
+                        <input class="consignee-input pv" placeholder="" ng-maxlength="40" ng-model="editConsigneeInfo.data.address.lane" required/>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="consignee-row clearfix ml">
+                <dl class="consignee-row-half pr fl">
+                    <dt class="pv fl">{{'checkout.consignee.consigneeInfo.village' | translate}}：</dt>
+                    <dd>
+                        <input class="consignee-input pv" placeholder="" ng-maxlength="40" ng-model="editConsigneeInfo.data.address.village" required/>
+                    </dd>
+                </dl>
+                <dl class="consignee-row-half pr fl">
+                    <dt class="row-half-txt-en-title pv fl">{{'checkout.consignee.consigneeInfo.buildingNumber' | translate}}：</dt>
+                    <dd class="row-half-txt-en-txt">
+                        <input class="consignee-input pv" placeholder="" ng-maxlength="40" ng-model="editConsigneeInfo.data.address.buildingNumber" required/>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="consignee-row clearfix pl">
+                <dl class="consignee-row-half pr fl">
+                    <dt class="pv fl">{{'checkout.consignee.consigneeInfo.roomNumber' | translate}}：</dt>
+                    <dd>
+                        <input class="consignee-input pv" placeholder="" ng-maxlength="40" ng-model="editConsigneeInfo.data.address.roomNumber" required/>
+                    </dd>
+                </dl>
+            </div> -->
+
+            <!-- 新版本单行地址 -->
+            <dl class="consignee-row-full consignee-row pr clearfix">
+                <dt class="pv dt-mobile fl">{{'checkout.consignee.consigneeInfo.consigneeAddress' | translate}}：</dt>
+                <dd>
+                    <label class="item-form-group" cm-item-form-group>
+                        <!-- <input class="consignee-input pv" name="address" ng-maxlength="200" ng-model="editConsigneeInfo.data.address" required/> -->
+                        <textarea cm-automate-textarea class="consignee-input consignee-address pv" rows="1" name="address" maxlength="200" ng-maxlength="200" ng-model="memberEditConsigneeInfo.data.address" required></textarea>
+                    </label>
+                </dd>
+            </dl>
+
+            <dl class="consignee-row-full consignee-row pr clearfix">
+                <dt class="pv dt-mobile fl">{{'checkout.consignee.consigneeInfo.mobile' | translate}}：</dt>
+                <dd>
+                    <label class="item-form-group" cm-item-form-group>
+                        <input class="consignee-input pv" name="mobile"  ng-minlength="11" ng-maxlength="11" ng-model="memberEditConsigneeInfo.data.mobile" required/>
+
+                    </label>
+
+                </dd>
+            </dl>
+
+            <div class="ptd pr">
+                <button type="submit" class="button button-block button-primary" ng-disabled="form.$invalid">{{'checkout.consignee.consigneeInfo.save' | translate}}</button>
+            </div>
+        </form>
+
+    </ion-content>
+
+</ion-modal-view>

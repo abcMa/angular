@@ -1,0 +1,126 @@
+<ion-modal-view class="register-member-card-modal stable-bg">
+
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear back-button icon ion-ios-arrow-left" ng-click="registerMemberCard.close()"></button>
+        <h1 class="title transform-ele">{{'registerMemberCard.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="register-member-card-panel" scroll="true">
+
+        <cm-switcher delegate-handle="register-member-card-modal">
+            <div class="panel">
+                <ng-form name="registerVerifyForm" class="member-center-form-list">
+                    <div class="list light-bg">
+                        <label class="item item-input item-select item-arrow">
+                            <span class="input-label">{{'memberCenterFormFields.nationality' | translate}}</span>
+                            <select ng-model="registerMemberCard.formData.nationality" ng-if="APP_CONFIG.language == 'zh-CN'" ng-options="data.value as data.name for data in registerMemberCard.nationality"></select>
+                            <select ng-model="registerMemberCard.formData.nationality" ng-if="APP_CONFIG.language == 'en'" ng-options="data.value as data.en for data in registerMemberCard.nationality"></select> 
+                        </label>
+                        <label class="item item-input item-select item-arrow">
+                            <span class="input-label">{{'memberCenterFormFields.idType' | translate}}</span>
+                            <select ng-model="registerMemberCard.formData.idType">
+                                <option value="0">{{'memberCenterFormFields.idTypes.0' | translate}}</option>
+                                <option value="1">{{'memberCenterFormFields.idTypes.1' | translate}}</option>
+                                <option value="2">{{'memberCenterFormFields.idTypes.2' | translate}}</option>
+                            </select>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.idNumber' | translate}}</span>
+                            <input type="text" name="idNumber" placeholder="{{'memberCenterFormFields.idNumberPlaceholder' | translate}}" ng-model="registerMemberCard.formData.idNumber" required ng-blur="registerMemberCard.validatIdNumber(registerMemberCard.formData.idNumber)">
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                            <input type="text" placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}" name="mobile" ng-model="registerMemberCard.formData.mobile" maxlength="11" pattern="^\d{11}$" required>
+                        </label>
+                        <div class="item item-input item-verify-code">
+                            <span class="input-label">{{'memberCenterFormFields.verifyCode' | translate}}</span>
+                            <input type="text" ng-model="registerMemberCard.formData.verifyCode"
+                                               placeholder="{{'memberCenterFormFields.verifyCodePlaceholder' | translate}}" 
+                                               required>
+                            <button type="button" class="button button-clear button-verify-code"
+                                ng-click="registerMemberCard.getRegisterVerifyCode()"
+                                ng-disabled="registerMemberCard.countdown > 0 || !registerVerifyForm.mobile.$valid">
+                                {{registerMemberCard.countdown > 0 ? 'memberCenterFormFields.resend' : 'memberCenterFormFields.getVerifyCode' | translate}}
+                                <span class="verify-cool-down" ng-show="registerMemberCard.countdown > 0">({{registerMemberCard.countdown}})</span>
+                            </button>
+                        </div>
+                    </div>
+                    <ion-scroll class="agreement-container light-bg mh mt" scroll="true" delegate-handle="register-member-card-agreement">
+                        <div ng-bind-html="registerMemberCard.agreement"></div>
+                    </ion-scroll>
+                    <div class="agreements mh mt">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="registerMemberCard.isAgreeAgreement" required>
+                        </label>
+                        <span class="agreement">{{'registerMemberCard.agrees' | translate}}</span>
+                        <span class="agreement-link" ng-click="registerMemberCard.openServiceAgreement()">{{'registerMemberCard.serviceAgreement' | translate}}</span>
+                    </div>
+                    <div class="next-step mh">
+                        <button class="button button-block button-assertive"
+                            ng-disabled="registerVerifyForm.$invalid"
+                            ng-click="registerMemberCard.onNextStep()">{{'registerMemberCard.next' | translate}}</button>
+                    </div>
+                </ng-form>
+
+            </div>
+            <div class="panel">
+                <ng-form name="registerDetailForm" class="member-center-form-list">
+                    <div class="list light-bg">
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.name' | translate}}</span>
+                            <input type="text" placeholder="{{'memberCenterFormFields.namePlaceholder' | translate}}" 
+                                ng-change="registerMemberCard.isName(registerMemberCard.formData.name)"
+                                ng-model="registerMemberCard.formData.name" required>
+                        </label>
+                        <label class="item item-input item-select">
+                            <span class="input-label">{{'memberCenterFormFields.sex' | translate}}</span>
+                            <select ng-model="registerMemberCard.formData.sex">
+                                <option value="1">{{'memberCenterFormFields.male' | translate}}</option>
+                                <option value="2">{{'memberCenterFormFields.female' | translate}}</option>
+                            </select>
+                        </label>
+                        <label class="item item-input" ng-class="{'item-arrow': APP_CONFIG.os !== 'weixin'}"  ng-click="registerMemberCard.onSelectBirthday()">
+                            <span class="input-label">{{'memberCenterFormFields.birthday' | translate}}</span>
+                            <span class="item-birthday" ng-class="{'item-birthday-pd': APP_CONFIG.os == 'weixin'}" ng-model="registerMemberCard.formData.birthday">{{registerMemberCard.formData.birthday | date:'yyyy-MM-dd'}}</span>
+                            
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                            <input type="text" ng-model="registerMemberCard.formData.mobile"
+                                placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}" maxlength="11" pattern="^\d{11}$" required readonly>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.email' | translate}}</span>
+                            <input type="text" ng-model="registerMemberCard.formData.email"
+                                pattern="^[A-Za-z0-9-_\.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"
+                                placeholder="{{'memberCenterFormFields.emailPlaceholder' | translate}}">
+                        </label>
+                        <label class="item item-input item-arrow">
+                            <span class="input-label transform-ele">{{'memberCenterFormFields.regions' | translate}}</span>
+                            <span class="item-birthday" ng-model="registerMemberCard.formData.regionIds" cm-select-live="1" cm-select-region="memberCard">{{registerMemberCard.formData.regionIds}}</span>  
+                            <input type="hidden"
+                                ng-model="registerMemberCard.formData.regionIds"
+                                cm-select-live="1"
+                                cm-select-region="memberCard"
+                                placeholder="{{'memberCenterFormFields.regionsPlaceholder' | translate}}"
+                                readonly>
+                            <input type="hidden" ng-model="registerMemberCard.formData.regionIds" required>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">{{'memberCenterFormFields.address' | translate}}</span>
+                            <input type="text" class="address-short" ng-model="registerMemberCard.formData.address"
+                                placeholder="{{'memberCenterFormFields.addressPlaceholder' | translate}}" required>
+                        </label>
+                    </div>
+                    <div class="mh">
+                        <button class="button button-block button-assertive"
+                            ng-disabled="registerDetailForm.$invalid"
+                            ng-click="registerMemberCard.onSubmit()">{{'registerMemberCard.done' | translate}}</button>
+                    </div>
+                </ng-form>
+            </div>
+
+        </cm-switcher>
+
+    </ion-content>
+</ion-modal-view>

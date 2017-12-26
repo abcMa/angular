@@ -1,0 +1,51 @@
+<ion-modal-view class="select-region-modal">
+    <div class="modal-title" on-tap="selectRegion.closeModal()">
+        {{'selectRegion.title' | translate}}
+        <span class="title-tip">{{'selectRegion.title1' | translate}}</span>
+        {{'selectRegion.title2' | translate}}
+    </div>
+
+    <ion-content class="select-region-panel" scroll="false">
+        <!-- 中英文语言切换 -->
+        <div class="lang-select">
+            <div class="lang-item fl"
+                ng-click="selectRegion.onToggleLanguage('zh-CN')"
+                ng-class="{'stable-bg': !(selectRegion.currentLanguage == 'zh-CN')}">
+                <span ng-class="{'active-text': selectRegion.currentLanguage == 'zh-CN'}">{{selectRegion.languageZhCn}}</span>
+            </div>
+            <div class="lang-item fl"
+                ng-click="selectRegion.onToggleLanguage('en')"
+                ng-class="{'stable-bg': !(selectRegion.currentLanguage == 'en')}">
+                <span ng-class="{'active-text': selectRegion.currentLanguage == 'en'}">{{selectRegion.languageEn}}</span>
+            </div>
+        </div>
+        <!--面包屑-->
+        <ion-scroll class="region-bread-navigator"
+            ng-if="selectRegion.storedSubsite.breadNavigator.length !== 0"
+            direction="x" scrollbar-x="false"
+            delegate-handle="breadNavigatorScroll">
+
+            <ul class="bread-navigator-list">
+                <li class="bread-navigator-item"
+                    ng-repeat="bread in selectRegion.storedSubsite.breadNavigator track by bread.regionId"
+                    ng-click="selectRegion.onBreadClick(bread,$index)">
+
+                    <span ng-if="$index !== 0">&gt;</span>
+                    {{bread.regionName}}
+                </li>
+            </ul>
+        </ion-scroll>
+        <!-- 地区列表 -->
+        <div class="region-container" ng-class="{'has-bread-navigator': selectRegion.storedSubsite.breadNavigator.length > 0}">
+            <ion-scroll delegate-handle="selectRegionScroll">
+                <ul class="region-list">
+                    <li class="region-item" ng-repeat="region in selectRegion.regionList track by region.regionName"
+                        cm-auto-scroll="region.active" scroller-handle="selectRegionScroll"
+                        ng-class="{'active': region.active}"
+                        ng-click="selectRegion.onClickRegion(region)">{{region.regionName}}</li>
+                </ul>
+            </ion-scroll>
+        </div>
+    </ion-content>
+
+</ion-modal-view>

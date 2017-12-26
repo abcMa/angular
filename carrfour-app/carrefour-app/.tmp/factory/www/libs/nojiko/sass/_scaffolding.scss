@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+@if $default-box-sizing == border-box {
+    * {
+        box-sizing: $default-box-sizing;
+    }
+
+    *:before, *:after {
+        box-sizing: $default-box-sizing;
+    }
+}
+
+body {
+    font: unquote('#{$font-size-base}/#{$line-height-base}') $font-family;
+    color: $text-color;
+    background: $background-color;
+}
+
+a {
+    text-decoration: none;
+    color: $link-color;
+
+    &:focus, &:hover {
+        color: $link-focus-color;
+        text-decoration: underline;
+    }
+}
+
+img {
+  vertical-align: middle;
+}
+
+hr {
+  margin-top: computed-line-height();
+  margin-bottom: computed-line-height();
+  border: 0;
+  border-top: 1px solid $line-color;
+}
+
+::placeholder {
+    color: $placeholder-color;
+}

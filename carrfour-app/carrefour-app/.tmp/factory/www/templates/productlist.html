@@ -1,0 +1,144 @@
+<ion-view class="product-list-view" hide-nav-bar="true" cm-hide-tabs="true" cm-download-banner>
+
+    <!-- 小购物车 始终出现 -->
+    <div class="float-panel cart-float-panel">
+        <span class="badge badge-assertive">{{shoppingCartCount}}</span>
+        <div class="button button-small" at-gesture="go_to_cart::search_listing" gesture-action="touch" ng-click="stateUtils.goCartNoTabs()">
+            <i class="cm-icon icon02"></i>
+        </div>
+    </div>
+
+    <!-- 返回顶部 -->
+    <div class="float-panel top-float-panel" cm-scroll-show="1">
+        <div class="button button-small" ng-click="productList.goBackTop()">
+            <i class="cm-icon icon18"></i>
+        </div>
+    </div>
+
+    <ion-header-bar class="bar-default" cm-search-bar>
+        <div class="row">
+            <div class="col col-adaptive">
+                <button class="button button-clear fl back-button" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-left"></i>
+                </button>
+            </div>
+            <form class="col textbar" ng-submit="productList.search()">
+                <span class="icon ion-ios-search-strong placeholder-text"></span>
+                <input type="search" placeholder="{{'search.searchTip' | translate}}" ng-model="productList.keyword" />
+            </form>
+        </div>
+    </ion-header-bar>
+
+    <div class="product-list-filter">
+        <button class="button filter-button button-clear {{productList.productOrders.is('default', productList.order) ? 'button-assertive' : 'button-stable'}}"
+            ng-click="productList.toggleOrder('default')">
+            {{'productList.order.default' | translate}}
+        </button>
+        <button class="button filter-button button-clear {{productList.productOrders.is('sold', productList.order) ? 'button-assertive' : 'button-stable'}}"
+            ng-click="productList.toggleOrder('sold')">
+            {{'productList.order.sold' | translate}}
+        </button>
+        <button class="button filter-button button-clear {{productList.productOrders.is('reviews', productList.order) ? 'button-assertive' : 'button-stable'}}"
+            ng-click="productList.toggleOrder('reviews')">
+            {{'productList.order.reviews' | translate}}
+        </button>
+        <button class="button filter-button button-clear {{productList.productOrders.is('price', productList.order) ? 'button-assertive' : 'button-stable'}}"
+            ng-click="productList.toggleOrder('price')">
+            {{'productList.order.price' | translate}}
+
+            <div class="svg-box">
+                <svg class="price-icon-svg" viewBox="0 0 10 18" preserveAspectRatio="xMidYMid meet">
+                    <g class="group {{productList.productOrders.getSortType(productList.order)}}">
+                        <path class="top" d="M 1 8 L 5 4 L 9 8 Z"/>
+                        <path class="bottom" d="M 1 11 L 5 15 L 9 11 Z"/>
+                    </g>
+                </svg>
+            </div>
+        </button>
+        <button class="button filter-button button-clear {{productList.filters ? 'button-assertive' : 'button-stable'}}"
+            ng-click="productList.openProductFilter()">
+            {{'productList.filter' | translate}}
+            <i class="cm-icon icon07"></i>
+        </button>
+    </div>
+
+    <ion-content class="product-list-main stable-bg" delegate-handle="productListScroll">
+
+        <!-- 空警告，当页面内没有数据时，显示该信息  -->
+        <div class="product-list-empty" ng-if="productList.data && !productList.data.items.length">
+            <div class="empty-img"></div>
+            <div class="empty-txt">{{'productList.emptyList' | translate}}</div>
+        </div>
+
+        <ion-refresher on-refresh="productList.refresh({showLoading: false})"></ion-refresher>
+        <ion-list class="product-list" ng-if="productList.data && productList.data.items.length">
+
+            <ion-item class="product-item ml clearfix" ng-repeat="product in productList.data.items track by product.id"
+                ng-click="productList.goProductInfo(product.id, product.goodsId, product.name, 'search', $index)"
+                at-search-result="{{productList.keyword}}"
+                screen-number="{{productList.pageIndex}}"
+                result-position="{{$index}}">
+                <!-- <div class="item-img fl" ng-class="{'unavailable':product.canSell !== 1 && product.canSell < 4 && product.stockTips}"> -->
+                <div class="item-img corner-mark-container fl">
+                    <img class="img" cm-lazyload="product.pic" />
+
+                    <!--角标-->
+                    <div ng-repeat="mark in product.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+                        <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+                    </div>
+
+                </div>
+                <div class="item-main pl">
+
+                    <p class="item-title">
+                        <span class="tag overseas-tag" ng-if="product.isOverseasShop">{{'overseasShop' | translate}}</span>
+                        {{product.name}}
+                    </p>
+                    <p class="item-tag">
+                        <!-- 促销标签 -->
+                        <span class="tag promotion-tag{{promotion.type}}" ng-repeat="promotion in product.promotionList">{{promotion.typeName}}</span>
+                        <!-- 配送标签 -->
+                        <!-- <span class="tag delivery-tag{{classifyName.id}}" ng-repeat="classifyName in product.classifyName">{{classifyName.name}}</span> -->
+                    </p>
+                    <p class="item-price">
+                         {{product.flashSale.price | currency:'&yen;'}}
+                         <span class="item-tip" ng-if="product.canSell !== 1">
+                             {{product.stockTips}}
+                         </span>
+
+                         <!-- 若商品已下架，显示「不可卖」，否则显示库存提示信息。 -->
+                         <!-- <span class="item-tip" ng-if="product.isOffShelve">
+                             {{'productList.offShelve' | translate}}
+                         </span> -->
+                    </p>
+
+                    <div class="item-num-cart row">
+                        <!-- <span class="item-num col col-center" ng-if="product.classifyName.length">
+                            {{'productList.order.sale' | translate }} {{product.salesCount}}
+                        </span> -->
+                        <!-- 配送标签 -->
+                        <span class="item-num col col-center" ng-if="product.specialCategory.length < 1"></span>
+                        <span class="item-num col col-center" ng-repeat="specialCtg in product.specialCategory">
+                            {{specialCtg.name}}
+                        </span>
+
+                        <button class="button button-clear cm-icon icon02 item-cart col-right col-center fr" ng-class="{'empty-shop-btn':product.canSell !== 1}"
+                                ng-click="productList.addToCart($event, product)"
+                                ng-disabled="product.canSell !== 1">
+                        </button>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+
+        <div class="list-bottom-placeholder" ng-if="!productList.canLoadNextPage && productList.data.totalItems > 0">
+            <p class="cm-icon icon04"></p>
+            <p>{{'listBottomPlaceholder.tooltip' | translate}}</p>
+        </div>
+
+        <ion-infinite-scroll ng-if="productList.canLoadNextPage"
+            on-infinite="productList.loadNextPage()" distance="7%"></ion-infinite-scroll>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,42 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.viewOrderItemList.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'viewOrderItemList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="order-item-list-panel stable-bg">
+
+        <ul>
+            <li class="item p light-bg" ng-repeat="item in viewOrderItemList.orderItemList.items">
+                <div class="item-img fl mr">
+                    <img class="img" cm-lazyload="item.pic"/>
+                    <p class="tag-row" ng-hide="item.type == 1 || item.type == 4">{{viewOrderItemList.itemTypeEnum[item.type]}}</p>
+                </div>
+                <p class="item-name">
+                    <span class="tag overseas-tag" ng-if="item.isOverseasShop">{{'overseasShop' | translate}}</span>
+                    <span class="item-tags" ng-repeat="specialCtg in item.specialCategory">
+                        <span class="tag delivery-tag{{specialCtg.id}}">{{specialCtg.name}}</span>
+                    </span>
+                    <!-- <span class="tag delivery-tag{{classifyName.id}}" ng-repeat="classifyName in item.classifyName">{{classifyName.name}}</span> -->
+                    {{item.name}}
+                </p>
+                <p class="item-price clearfix mbx">
+                    <span class="price fl">{{item.salesPrice.value | currency:'&yen;'}}</span>
+                    <span class="num fr">×{{item.number}}</span>
+                </p>
+                <p class="item-weight clearfix">
+                    <span class="weight fl">{{(item.weight / 1000).toFixed(3)}}kg</span>
+                    <span class="icon fr">
+                        <i class="cm-icon icon13" ng-show="!item.isSupportSevenDayRefund"></i>
+                        <i class="cm-icon icon14" ng-show="item.isSupportSevenDayRefund"></i>
+                    </span>
+                </p>
+            </li>
+        </ul>
+
+    </ion-content>
+
+</ion-modal-view>

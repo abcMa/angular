@@ -1,0 +1,27 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.storeMap.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{ storeMap.title }}</h1>
+    </ion-header-bar>
+
+    <ion-content scroll="false" class="store-map-view">
+        <div class="map-info-panel">
+            <div class="clearfix row">
+                <div class="col map-info-left">
+                    <ul class="marker-info">
+                        <li class="marker-info-name">{{storeMap.name | truncate: 8}}</li>
+                        <li class="marker-info-address">{{storeMap.address | truncate: 12}}</li>
+                    </ul>
+                </div>
+                <div class="col col-adaptive">
+                    <button class="button button-small icon-left ion-arrow-return-right button-energized" ng-click="storeMap.openNavigation()">{{'storeInfo.navigate' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <div id="map-content" key="storeMap.key"></div>
+    </ion-content>
+
+</ion-modal-view>

@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+//悬浮置顶横幅提示
+.update-consignee-hint {
+    margin-top: 1px;
+    padding: 5px 10px 5px 10px;
+    background-color: $stable;
+    color: $assertive;
+    font-size: $font-size-small;
+    border-bottom: 1px solid $line-color;
+    border-top: 1px solid $line-color;
+}
+.dynamic-tabs {
+    position: relative;
+    display: block;
+}
+.dynamic-tabs-scroll {
+    width: 100%;
+}

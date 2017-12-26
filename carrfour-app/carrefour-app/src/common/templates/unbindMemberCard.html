@@ -1,0 +1,44 @@
+<ion-view class="unbind-member-card-view" cm-hide-tabs="true" hide-nav-bar="true" >
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button icon ion-ios-arrow-left" ng-click="goBack()"></button>
+        <h1 class="title">{{'unbindMemberCard.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="unbind-member-card-panel stable-bg" scroll="false">
+
+        <ng-form name="unbindMemberCardVerifyForm" class="member-center-form-list">
+            <div class="list light-bg">
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                    <input type="text" name="mobile" ng-model="unbindMemberCard.mobile" value="unbindMemberCard.mobile" placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}" readonly required>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.cardMember' | translate}}</span>
+                    <input type="text" ng-model="unbindMemberCard.cardNumber" value="unbindMemberCard.cardNumber" placeholder="{{'memberCenterFormFields.memberCardPlaceholder' | translate}}" readonly required>
+                </label>
+                <div class="item item-input item-verify-code">
+                    <span class="input-label">{{'memberCenterFormFields.verifyCode' | translate}}</span>
+                    <input type="text"
+                           ng-model="unbindMemberCard.verifyCode"
+                           placeholder="{{'memberCenterFormFields.verifyCodePlaceholder' | translate}}"
+                           required>
+                    <button type="button" class="button button-clear button-verify-code"
+                        ng-click="unbindMemberCard.getUnbindVerifyCode()"
+                        ng-disabled="unbindMemberCard.countdown > 0 || !unbindMemberCardVerifyForm.mobile.$valid">
+                        {{unbindMemberCard.countdown > 0 ? 'memberCenterFormFields.resend' : 'memberCenterFormFields.getVerifyCode' | translate}}
+                        <span class="verify-cool-down" ng-show="unbindMemberCard.countdown > 0">({{unbindMemberCard.countdown}})</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-item form-item-button mh">
+                <button class="button button-block button-assertive"
+                    ng-disabled="unbindMemberCardVerifyForm.$invalid"
+                    ng-click="unbindMemberCard.onSubmit()">{{'unbindMemberCard.confirmBtn' | translate}}</button>
+            </div>
+
+        </ng-form>
+
+    </ion-content>
+</ion-view>

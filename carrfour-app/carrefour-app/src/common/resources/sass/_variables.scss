@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+@import "nojiko/sass/variables";
+
+// 颜色表定义
+$light:                    #ffffff;
+$gray-smog:                #f3f3f3;
+$stable:                   #f6f6f6;
+$gray-a5:                  #a5a5a5;
+$gray-5d:                  #5d5d5d;
+$positive:                 #005aaa;
+$calm:                     #00a0e8;
+$balanced:                 #33cd5f;
+
+$energized:                #ff7200;
+$energized-light:          #ffa900;
+
+$warm:                     #ff5a00;
+$warm-light:               #ff7200;
+
+$assertive:                #fc4b4e;
+$assertive-light:          $assertive;
+
+$royal:                    #92308d;
+$dark:                     #282828;
+$balanced:                 #4cc30b;
+
+$overseas-shop-primary-color:         $warm;
+$overseas-shop-primary-light-color:   $warm-light;
+$overseas-shop-primary-light-gradient-color:    #ff7800;
+
+$support-for-ie6:          false;
+$support-for-ie7:          false;
+$support-for-ie8:          false;
+
+$font-family:              sans-serif;
+
+$font-size-icon:           24px;
+
+$font-size-mini:           10px;
+$font-size-small:          12px;
+$font-size-base:           14px;
+$font-size-big:            16px;
+$font-size-large:          18px;
+$font-size-larger:         20px;
+$font-size-largest:        $font-size-icon;
+
+$primary-color:            $assertive;
+$color-maps:               set-color-maps(primary, $primary-color);
+
+$text-color:               #3c3c3c;
+$text-color-secondary:     #999999;
+$text-color-quiet:         $gray-light;
+$text-color-loud:          $text-color;
+$text-color-reverse:       $light;
+
+$link-color:               $positive;
+$link-focus-color:         darken($link-color, 15%);
+$link-visited-color:       $link-color;
+
+$placeholder-color:        lighten($text-color, 40%);
+
+$line-color:               #d0d0d0;
+
+$default-box-sizing:       border-box;
+
+// $distance-vertical:        convert-rem(10px);
+// $distance-horizontal:      convert-rem(10px);
+$distance-vertical:        10px;
+$distance-horizontal:      10px;
+
+$stable-border-color:      $stable;
+$stable-background:        $stable;
+$light-background:         $light;
+
+
+// 栅格配置
+// -----------------------------------------------------------------------------
+
+// 栅格列数
+$hina-column-number:       12;
+
+// 槽宽；px，2 的倍数
+$hina-gutter-width:        $distance-horizontal;
+
+
+// 复选框配置
+// -----------------------------------------------------------------------------
+
+$checkbox-size:            16px;
+
+$checkbox-bg:              transparent;
+$checkbox-border:          $energized;
+
+$checkbox-checked-bg:      $energized;
+$checkbox-checked-border:  $energized;
+$checkbox-checked-color:   $light;
+
+// 单选框配置
+// -----------------------------------------------------------------------------
+
+$radio-size:            20px;
+
+$radio-bg:              transparent;
+$radio-border:          $gray-dark;
+
+$radio-checked-bg:      $assertive-light;
+$radio-checked-border:  $assertive-light;
+$radio-checked-color:   $light;
+
+// 标题类内容的行高
+$title-line-height:        1.3;
+
+// 暗背景色，当需要使用背景色以分割列表项时，使用该背景色
+$darker-background-color:         $stable;
+
+// 商品图片边框颜色
+$product-image-border-color:      $gray-light;

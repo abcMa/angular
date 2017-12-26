@@ -1,0 +1,87 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'orderList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="order-list-panel"
+    ng-class="{'light-bg': (orderList.data.items.length == 0), 'stable-bg': (orderList.data.items.length > 0)}">
+        <ion-refresher on-refresh="orderList.refresh({showLoading:false})"></ion-refresher>
+
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="orderlist-empty" ng-if="!orderList.data || orderList.data.items.length == 0">
+            <div class="img-orderlist"></div>
+            <div class="text">
+                {{'orderList.empty' | translate}}
+            </div>
+        </div>
+
+        <ion-list ng-if="orderList.data.items && orderList.data.items.length>0">
+
+            <ion-item class="order-list-item mt" ng-repeat="order in orderList.data.items track by order.id">
+                <p class="order-date p"><!--
+                    <i class="ion-ios-help-outline fr primary-color order-list-helper"
+                       ng-if="order.rejectReason"
+                       ng-click="orderList.openRejectReason(order.rejectReason, order.colseReason)"></i> -->
+                    <span class="primary-color fr">{{order.orderStatusName}}</span>
+                    <span class="tag tag-overseas-shop" ng-if="order.isOverseasShop">{{'overseasShop' | translate}}</span>
+                    {{order.orderCreateTime}}
+                </p>
+                <div class="order-imgs pv pr ml" ng-click="stateUtils.goOrderInfo(order.id, order.isOverseasShop)">
+                    <i class="icon ion-ios-arrow-right fr"></i>
+                    <ion-scroll class="imgs-scroll" direction="x" scrollbar-x="false">
+                        <ul class="img-items">
+                            <li class="img-item fl" ng-repeat="goods in order.products track by goods.id" cm-adjust-parent-width>
+                                <img cm-lazyload="goods.imageUrl" load-immediate="true"/>
+                            </li>
+                        </ul>
+                    </ion-scroll>
+                </div>
+
+                <div class="order-total p">
+                    <!-- 总金额 -->
+                    {{'orderList.totalAmount' | translate}}：<span class="primary-color">{{order.payableAmount | currency:'&yen;'}}</span>
+
+                    <div class="fr">
+
+                        <!-- 取消订单 -->
+                        <button ng-if="order.isCancelable"
+                                class="button button-clear button-primary order-button"
+                                at-gesture="personal_space::cancel_order"
+                                gesture-action="touch"
+                                ng-click="orderList.cancelOrder(order.id)">
+                                {{'orderList.cancel' | translate}}
+                        </button><!--
+
+                        去评价 --><button ng-if="order.isCommentable"
+                                class="button button-clear button-primary order-button"
+                                ng-click="orderList.goOrderCommentList(order.id, order.isOverseasShop)">
+                                {{'orderList.goToComment' | translate}}
+                        </button><!--
+
+                        去支付 --><button ng-if="order.isPayable"
+                                class="button button-primary order-button"
+                                ng-click="orderList.paymentOrder(order,$event)">
+                                {{'orderList.nowPay' | translate}}
+                        </button><!--
+
+                        再次购买 --><button ng-if="order.isBuyAgain"
+                                class="button button-clear button-primary order-button"
+                                ng-click="orderList.reBuy(order.id, order.isOverseasShop)">
+                                {{'orderList.reBuy' | translate}}
+                        </button>
+                    </div>
+
+                </div>
+            </ion-item>
+
+        </ion-list>
+
+         <ion-infinite-scroll ng-if="orderList.canLoadNextPage" on-infinite="orderList.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>

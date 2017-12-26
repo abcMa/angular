@@ -1,0 +1,68 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+
+        <h1 class="title">{{'feedbackOptions.title' | translate}}</h1>
+
+    </ion-header-bar>
+
+    <ion-content>
+
+        <div class="feedback-opinion-content p">
+
+            <p class="note-tip">{{'feedbackOptions.noteTip' | translate}}</p>
+            <form ng-submit="feedbackOptions.submit()" name="form">
+                <div class="item item-input item-select">
+                    <div class="input-label">{{'feedbackOptions.noteType' | translate}}</div>
+                    <select class="feedbackOptions-select" ng-model="feedbackOptions.feedbackData.reason" ng-options="o.id as o.name for o in feedbackOptions.feedbackReasons">
+                    </select>
+                </div>
+
+                <label class="item item-input info-txt px mv text-reasons">
+                    <textarea class="feedback-info-txt"
+                            ng-model="feedbackOptions.feedbackData.reasons"
+                            ng-maxlength="500"
+                            maxlength="500"
+                            ng-change="feedbackOptions.changeReasonsTotal()"
+                            placeholder="{{'feedbackOptions.askTip' | translate}}">
+                            {{feedbackOptions.feedbackData.reasons}}
+                    </textarea>
+                    <span class="total">{{feedbackOptions.reasonsTotal}}/500</span>
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">{{'feedbackOptions.mobile' | translate}}</span>
+                    <input type="number" class="mobile-number" ng-model="feedbackOptions.feedbackData.mobile" />
+                </label>
+
+                <div class="mv add-img-content" ng-click="">
+                    
+                    <div class="fl add-img-view" ng-if="feedbackOptions.picturesAry">
+                        <div class="img-content" ng-repeat="(itemIndex, item) in feedbackOptions.picturesAry track by itemIndex">
+                            <i class="icon" ng-click="feedbackOptions.removeResizeImg(itemIndex)">-</i>
+
+                            <!--联调-->
+                            <img src="{{item}}" />
+                            <!--联调-->
+                            
+                        </div>
+                    </div>
+                    <div class="fl mr add-img" ng-click="feedbackOptions.getPictures()" ng-if="feedbackOptions.picturesTotal < 3">+</div>
+                    <span class="add-img-txt">{{'feedbackOptions.upImgTip' | translate}}</span>
+                </div>
+
+            </form>
+
+            <div class="form-item form-item-button">
+                <button class="button button-block button-primary" ng-click="feedbackOptions.submit()" ng-disabled="feedbackOptions.reasonsTotal < 5">{{'feedbackOptions.submit' | translate}}</button>
+            </div>
+            
+        </div>
+
+    </ion-content>
+
+</ion-view>

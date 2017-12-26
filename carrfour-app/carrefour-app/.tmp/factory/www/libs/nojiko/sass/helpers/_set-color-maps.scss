@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+$color-maps: () !default;
+
+/// 该方法用于操纵全局配色集合
+@function set-color-maps(
+    $name,
+    $color,
+    $text: null,
+    $border: null,
+    $is-default: false
+) {
+    @if $text {
+        $is-default: true;
+        $text: null;
+    }
+
+    @if $border {
+        $is-default: true;
+        $border: null;
+    }
+
+    // $text default value.
+    $text: if($text, $text, #fff);
+
+    // border default value.
+    $border: if($border, $border, darken($color, 7));
+
+    // set map
+    @if ($is-default and map-has-key($color-maps, $name)) == false {
+        @return map-set($color-maps, $name, (
+                            color: $color,
+                            border: $border,
+                            text: $text
+                        ));
+    }
+    @else {
+        @return $color-maps;
+    }
+}

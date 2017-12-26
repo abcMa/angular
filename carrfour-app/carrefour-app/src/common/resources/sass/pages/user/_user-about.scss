@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+// 会员中心 - 关于
+.user-about-panel {
+    font-size: 14px;
+    line-height: 2em;
+    text-align: center;
+
+    .about-img {
+        width: 110px;
+        height: 110px;
+        margin: 65px auto 20px;
+        background-image: url("#{$images-path}/user-about.jpg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 110px auto;
+    }
+
+    .about-tips {
+        position: relative;
+        margin: 0 12.5%;
+
+        &:before {
+            position: absolute;
+            top: 1em;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 1px;
+            background-color: $line-color;
+            content: '';
+        }
+    }
+
+    .tips-txt {
+        position: relative;
+        z-index: 10;
+    }
+
+    .about-copyright {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 40px;
+        color: $text-color-quiet;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,311 @@
+<ion-view hide-nav-bar="true" cm-hide-tabs="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'orderInfo.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="order-info-panel" ng-show="orderInfo.data" delegate-handle="orderInfoScroll">
+
+        <!-- 订单状态 -->
+        <div class="info-box light-bg mt">
+            <p class="info-box-title rel p">
+                <i class="icon cm-icon icon34"></i>
+                {{'orderInfo.orderStatus' | translate}}：
+                <!-- <span class="primary-txt">{{orderInfo.data.orderStatusName}}</span> -->
+                <span class="primary-txt">{{orderInfo.data.orderStatusName}}</span>
+            </p>
+            <div class="p">
+                <p class="order-info info-row pb">
+                    <span class="info-row-tit mrx">{{'orderInfo.orderTotal' | translate}}：</span>
+                    <span class="primary-txt">{{orderInfo.data.payableAmount | currency:'&yen;'}}</span>
+                    <span class="note-txt">（{{'orderInfo.freight' | translate}}{{orderInfo.data.freightFee | currency:'&yen;'}}）</span>
+                </p>
+                <p class="order-paid info-row pb" ng-if="orderInfo.data.orderStatus == 1 &&  orderInfo.data.paidAmount != 0.00">
+                    <span class="info-row-tit mrx">{{'orderInfo.amountPaid' | translate}}：</span>
+                    <span class="primary-txt">{{orderInfo.data.paidAmount | currency:'&yen;'}}</span>
+                </p>
+                <p class="info-row pb">
+                    <span class="info-row-tit mrx">{{'orderInfo.orderNumber' | translate}}</span>
+                    {{orderInfo.data.orderNumber}}
+                </p>
+                <p class="info-row pb" ng-if="orderInfo.data.isFetchSinceCode">
+                    <button class="button button-block button-primary" ng-show="orderInfo.params.lockSend" ng-click="orderInfo.sedMessage()">
+                        {{'orderInfo.myPickUpCode' | translate}}
+                    </button>
+                    <button class="button button-block disabled" ng-show="!orderInfo.params.lockSend">{{'orderInfo.readySendTipFir' | translate}}{{orderInfo.params.timeDown}}{{'orderInfo.readySendTipSed' | translate}}
+                    </button>
+                </p>
+                <button ng-if="orderInfo.data.orderStatus == 1 && orderInfo.data.payType == 2" class="button button-block button-primary" ng-click="orderInfo.paymentOrder()">{{'orderInfo.gotoPay' | translate}}</button>
+            </div>
+        </div>
+
+        <!-- 收货人、支付信息 -->
+        <div class="info-box light-bg mt p">
+            <p class="row">
+                <span class="receiver-name">{{orderInfo.data.receiverName}}</span>
+                <span class="col col-right">{{orderInfo.data.mobile}}</span>
+            </p>
+            <p class="info-sonsigee pv" ng-class="{'border-bt': !orderInfo.data.isOverseasShop}">
+                {{orderInfo.data.regionName}} <br />
+                <!-- {{orderInfo.data.address | addressFormat}} -->
+                {{orderInfo.data.address}}
+            </p>
+            <p class="row pb" ng-if="orderInfo.data.idCard" ng-class="{'border-bt': orderInfo.data.isOverseasShop}">
+                {{orderInfo.data.idCard}}
+            </p>
+            <p class="info-row pt pbx row">
+                <span class="info-row-tit col-center">{{'orderInfo.paymentType' | translate}}：</span>
+                <span class="col col-center col-right" ng-if="orderInfo.data.payType == 1">
+                    {{'orderInfo.payTypeName.delivery' | translate}}
+                </span>
+                <span class="col col-center col-right" ng-if="orderInfo.data.payType != 1">
+                    {{'orderInfo.payTypeName.online' | translate}}
+                </span>
+            </p>
+            <p class="info-row pbx row">
+                <span class="info-row-tit col-center">{{'orderInfo.deliveryType' | translate}}：</span>
+                <span class="col col-center col-right">
+                    {{orderInfo.data.deliveryModeName}}
+                </span>
+            </p>
+            <p class="info-row pbx row" ng-if="orderInfo.data.deliveryOntime">
+                <span class="info-row-tit col-center">{{'orderInfo.deliveryTime' | translate}}：</span>
+                <span class="col col-center col-right">
+                    {{orderInfo.data.deliveryOntime}}
+                </span>
+            </p>
+            <p class="info-row pbx row" ng-if="!orderInfo.data.isOverseasShop">
+                <span class="info-row-tit col-center">{{'orderInfo.invoiceInfo' | translate}}：</span>
+                <span class="col col-center col-right" ng-if="orderInfo.data.invoiceTitle">
+                    {{orderInfo.data.invoiceTitle}}
+                </span>
+                <span class="col col-center col-right" ng-if="!orderInfo.data.invoiceTitle">
+                    {{'orderInfo.noInvoice' | translate}}
+                </span>
+            </p>
+            <p class="info-row pbx row" ng-if="orderInfo.data.isOverseasShop">
+                <span class="info-row-tit col-center">{{'orderInfo.invoiceInfo' | translate}}：</span>
+                <span class="col col-center col-right" ng-if="!orderInfo.data.invoiceTitle">
+                    {{'nonSupportInvoice' | translate}}
+                </span>
+            </p>
+            <p class="info-row row" ng-if="orderInfo.data.taxpayerCode">
+                <span class="info-row-tit col-center"></span>
+                <span class="col col-center col-right">
+                    {{orderInfo.data.taxpayerCode}}
+                </span>
+            </p>
+            <p class="info-row row" ng-if="orderInfo.data.invoiceCategory">
+                <span class="info-row-tit col-center"></span>
+                <span class="col col-center col-right">
+                    {{orderInfo.data.invoiceCategory}}
+                </span>
+            </p>
+            <!-- 订单进度条信息 -->
+            <!-- <div class="info-step mt pt pbx" ng-show="orderInfo.data"
+                ng-class="{'step-count-2':orderInfo.data.orderStatus == 7 || orderInfo.data.orderStatus == 6,'step-count-3':orderInfo.data.payType ==1 ,'step-count-4':orderInfo.data.payType == 2 && orderInfo.data.orderStatus != 7 && orderInfo.data.orderStatus != 6}">
+                <ul class="info-step-list clearfix">
+                    <li class="info-step-item fl">
+                        <p class="info-step-name">{{'orderInfo.process.submitedOrder' | translate}}</p>
+                        <p class="info-step-node" ng-class="{'step-node-finish': orderInfo.data.orderStatus > 1, 'step-node-active': orderInfo.data.orderStatus == 1}">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.orderCreateTime | timeFormat"></p>
+                    </li>
+                    <li class="info-step-item fl"
+                    ng-if="orderInfo.data.payType == 2 && orderInfo.data.orderStatus!= 7 && orderInfo.data.orderStatus!= 6">
+                        <p class="info-step-name">{{'orderInfo.process.payedOrder' | translate}}</p>
+                        <p class="info-step-node"
+                            ng-class="{'step-node-active':orderInfo.data.payedTime && orderInfo.data.orderStatus == 2,'step-node-finish': orderInfo.data.payedTime && orderInfo.data.orderStatus > 2}">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.payedTime | timeFormat"></p>
+                    </li>
+
+                    <li class="info-step-item fl"
+                    ng-if="orderInfo.data.orderStatus==6">
+                        <p class="info-step-name">{{'orderInfo.process.canceledOrder' | translate}}</p>
+                        <p class="info-step-node"
+                            ng-class="{'step-node-active':orderInfo.data.orderStatus==6}">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.orderCancelTime | timeFormat"></p>
+                    </li>
+
+                    <li class="info-step-item fl"
+                    ng-if="orderInfo.data.orderStatus== 7">
+                        <p class="info-step-name">{{'orderInfo.process.closedOrder' | translate}}</p>
+                        <p class="info-step-node"
+                            ng-class="{'step-node-active':orderInfo.data.orderStatus ==7 }">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.orderCloseTime | timeFormat"></p>
+                    </li>
+
+                    <li class="info-step-item fl" ng-if="orderInfo.data.orderStatus!= 7 && orderInfo.data.orderStatus!= 6">
+                        <p class="order-delivery info-step-name">{{'orderInfo.process.deliveryOrder' | translate}}</p>
+                        <p class="info-step-node"
+                            ng-class="{'step-node-active':orderInfo.data.deliveryGoodsTime && orderInfo.data.orderStatus == 4,'step-node-finish': orderInfo.data.deliveryGoodsTime && orderInfo.data.orderStatus > 4}">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.deliveryGoodsTime | timeFormat"></p>
+                    </li>
+                    <li class="info-step-item fl" ng-if="orderInfo.data.orderStatus!= 7 && orderInfo.data.orderStatus!= 6">
+                        <p class="order-signed info-step-name">{{'orderInfo.process.reciveOrder' | translate}}</p>
+                        <p class="info-step-node"
+                            ng-class="{'step-node-active':orderInfo.data.receivedTime && orderInfo.data.orderStatus == 5}">
+                            <span class="step-active"></span>
+                        </p>
+                        <p class="info-step-time" ng-bind-html="orderInfo.data.receivedTime | timeFormat"></p>
+                    </li>
+                </ul>
+                <p class="info-step-row"></p>
+                <p class="info-step-row-active step-{{orderInfo.data.step}}-active"></p>
+            </div> -->
+            <div class="status-trace mt pt pbx">
+                <ul class="row">
+                    <li class="trace-item col col-center tc" ng-repeat="process in orderInfo.data.processBarList">
+                        <p class="trace-text">{{process.orderStatusName}}</p>
+                        <div class="trace-container">
+                            <p class="trace-node" ng-class="{'trace-current':process.isCurrent || ($last && process.isFinish)}">
+                                <span class="trace-finish" ng-show="process.isFinish || process.isCurrent"></span>
+                            </p>
+                            <p class="trace-process-bar" ng-class="{'first-node':$first, 'last-node':$last, 'process-finish':process.isFinish, 'process-current':process.isCurrent}"></p>
+                        </div>
+                        <p class="trace-text" ng-bind-html="process.operateTime | timeFormat"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box delivery-trace mt ph" ng-if="orderInfo.data.showTraceInfo">
+            <ul class="trace-list" ng-repeat="trace in orderInfo.data.orderTraces">
+                <li class="mbx" ng-class="{'last-update':$last}">
+                    <p>{{trace.createTime | date: 'yyyy-MM-dd HH:mm:ss'}} <br /> {{trace.description}}</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 商品清单信息 -->
+        <div class="info-box light-bg mt" max-show-size="5" hide-more="{{orderInfo.isShowAllItem}}" show-more>
+            <p class="info-box-title p">
+                {{'orderInfo.productList' | translate}}
+            </p>
+            <ion-list class="info-list">
+                <ion-item class="info-item ml" ng-repeat="goods in orderInfo.data.products">
+                    <div class="item-img mr fl">
+                        <img class="info-item-img" cm-lazyload="goods.imageUrl"
+                             ng-click="stateUtils.goProductInfo(goods.productId, goods.goodsId, goods.name, 'orderInfo', goods.isOverseasShop)"/>
+
+                        <span class="present-tag" ng-if="goods.itemType == 2 && goods.giftType == 0 && goods.price=='0.00' ">
+                            {{'checkout.present' | translate}}
+                        </span>
+                        <span class="present-tag" ng-if="goods.itemType == 2 && goods.giftType == 1 && goods.price=='0.00' ">
+                            {{'checkout.gift' | translate}}
+                        </span>
+                        <span class="present-tag" ng-if="goods.itemType == 2 && goods.price!='0.00'">
+                            {{'checkout.changeGoods' | translate}}
+                        </span>
+                    </div>
+
+                    <p class="info-item-name mtx">
+                        <span class="tag tag-overseas-shop" ng-if="goods.isOverseasShop">{{'overseasShop' | translate}}</span>
+                        {{goods.name}}
+                    </p>
+                    <p class="info-item-price pt">
+                        <i class="icon cm-icon icon13 fr" ng-show="!goods.isSupportSevenDayRefund"></i>
+                        <i class="icon cm-icon icon14 fr" ng-show="goods.isSupportSevenDayRefund"></i>
+                        <span class="price">{{goods.price | currency:'&yen;'}}</span> ×{{goods.quantity}}
+                    </p>
+                </ion-item>
+            </ion-list>
+            <p class="info-list-more pvx"  ng-show="orderInfo.data.products.length > 5">
+                <i class="icon ion-ios-arrow-down list-down"></i>
+                <i class="icon ion-ios-arrow-up list-up"></i>
+            </p>
+        </div>
+
+        <!-- 商品总计信息 -->
+        <div class="info-box light-bg mt">
+            <p class="info-box-title p row">
+                <span class="">{{orderInfo.data.productNum}}{{'orderInfo.productAmount' | translate}}</span>
+                <span class="col col-right">{{'orderInfo.totalWeight' | translate}}：{{orderInfo.data.orderWeight}}kg</span>
+            </p>
+            <div class="info-total pv pr ml">
+                <p class="info-row pbx row">
+                    <span class="info-row-tit col-40">{{'orderInfo.goodsAmount' | translate}}</span>
+                    <span class="primary-txt col col-right">
+                        {{orderInfo.data.productAmount | currency:'&yen;'}}
+                    </span>
+                </p>
+                <p class="info-row pbx row">
+                    <span class="info-row-tit col-center col-40">{{'orderInfo.discountAmount' | translate}}</span>
+                    <span class="primary-txt col col-right">
+                        -{{orderInfo.data.goodsDiscountAmount | currency:'&yen;'}}
+                    </span>
+                </p>
+                <p class="info-row pbx row">
+                    <span class="info-row-tit col-center col-40">{{'orderInfo.couponsDiscount' | translate}}</span>
+                    <span class="primary-txt col col-right">
+                        -{{orderInfo.data.cardPaymentValue | currency:'&yen;'}}
+                    </span>
+                </p>
+                <p class="info-row pbx row" ng-click="orderInfo.toggleFreight()">
+                    <span class="info-row-tit col-center col-40">{{'orderInfo.totalFreight' | translate}}</span>
+                    <span class="primary-txt col col-right">
+                        {{orderInfo.data.freightFee | currency:'&yen;'}}
+                    </span>
+                </p>
+                <ul class="freight-details pl" ng-show="orderInfo.isShowFreightDetails">
+                    <li class="info-row row">
+                        <span class="info-row-tit col-center col-40">{{'orderInfo.totalFreight' | translate}}</span>
+                        <span class="primary-txt col col-right">
+                            {{orderInfo.data.originalFreightFee | currency:'&yen;'}}
+                        </span>
+                    </li>
+                    <li class="info-row row">
+                        <span class="info-row-tit col-center col-40">{{'orderInfo.freightServiceFee' | translate}}</span>
+                        <span class="primary-txt col col-right">
+                            {{orderInfo.data.freightServiceFee | currency:'&yen;'}}
+                        </span>
+                    </li>
+                    <li class="info-row row">
+                        <span class="info-row-tit col-center col-40">{{'orderInfo.freightDiscount' | translate}}</span>
+                        <span class="primary-txt col col-right">
+                            -{{orderInfo.data.freightFeeDiscount | currency:'&yen;'}}
+                        </span>
+                    </li>
+                </ul>
+                <p class="info-row pbx row" ng-if="orderInfo.data.isOverseasShop">
+                    <span class="info-row-tit col-40">{{'taxAmount' | translate}}</span>
+                    <span class="primary-txt col col-right">
+                        {{orderInfo.data.taxAmount | currency:'&yen;'}}
+                    </span>
+                </p>
+            </div>
+            <p class="info-row p row col-40">
+                <span class="">{{'orderInfo.payableAmount' | translate}}</span>
+                <span class="primary-txt col col-right">
+                    {{orderInfo.data.payableAmount | currency:'&yen;'}}
+                </span>
+            </p>
+            <p class="info-row p row col-40" ng-if="orderInfo.data.unionpayKnock && orderInfo.data.unionpayKnock != 0">
+                <span class="">{{'orderInfo.unionpayKnock' | translate}}</span>
+                <span class="primary-txt col col-right">
+                    -{{orderInfo.data.unionpayKnock | currency:'&yen;'}}
+                </span>
+            </p>
+            <p class="info-row p row col-40" ng-if="orderInfo.data.realPay && orderInfo.data.realPay != 0">
+                <span class="">{{'orderInfo.realPay' | translate}}</span>
+                <span class="primary-txt col col-right">
+                    {{orderInfo.data.realPay | currency:'&yen;'}}
+                </span>
+            </p>
+        </div>
+
+    </ion-content>
+
+</ion-view>

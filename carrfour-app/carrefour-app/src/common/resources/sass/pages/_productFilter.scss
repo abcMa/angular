@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+.product-filter-modal-view {
+    width: 80%;
+    right: 0;
+    left: auto;
+
+    .panel {
+        height: 100%;
+    }
+
+    .item {
+        padding-top: 14px;
+        padding-bottom: 14px;
+
+        &.selected {
+            color: $primary-color;
+
+            .selected-flag {
+                display: block;
+            }
+        }
+    }
+
+    .item-enter-button {
+        min-width: initial;
+        min-height: 20px;
+        line-height: 20px;
+        font-size: 24px;
+        border: 0;
+
+        .icon {
+            font-size: 24px;
+
+            &:before {
+                line-height: 20px;
+                padding: 0;
+            }
+        }
+
+        &:after {
+            left: -40px;
+            right: -20px;
+            top: -10px;
+            bottom: -10px;
+        }
+    }
+
+    .clear-filter-button {
+        color: $primary-color;
+        padding-left: $distance-horizontal * 2;
+        padding-right: $distance-horizontal * 2;
+        border-color: $line-color;
+    }
+
+    .selected-flag {
+        $size: 18px;
+
+        display: none;
+        @include size($size);
+        margin-top: 1px;
+
+        background: #fb8a25;
+        color: #fff;
+
+        border-radius: 3px;
+        text-align: center;
+
+        &:before {
+            display: block;
+            font-size: $size * .8;
+            line-height: $size;
+        }
+    }
+
+    .item-note {
+        font-size: inherit;
+
+        .icon {
+            font-size: 24px;
+        }
+    }
+
+    .sub-list {
+        background: #f0f0f0;
+        padding-left: 30px;
+
+        .item {
+            background: transparent;
+            border-left: 0;
+            border-right: 0;
+
+            &.activated {
+                opacity: .5;
+            }
+        }
+    }
+
+    &.overseas-shop-view {
+
+        .item {
+
+            &.selected {
+                color: $overseas-shop-primary-color;
+            }
+        }
+
+        .selected-flag {
+            background-color: $energized;
+        }
+
+        .clear-filter-button {
+            color: $overseas-shop-primary-color;
+        }
+    }
+
+}
+

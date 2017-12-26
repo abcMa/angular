@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+// 搜索历史记录页面
+.search-view {
+
+    .button.button-primary {
+        font-size: $font-size-base;
+    }
+
+    .search-hot-box {
+        border-bottom: $line-color 1px solid;
+    }
+
+    .search-hot {
+        float: left;
+        display: inline-block;
+        margin: 0 10px 15px 0;
+        line-height: 2em;
+        font-size: $font-size-base;
+        background-color: $stable;
+        border: $line-color 1px solid;
+        border-radius: 15px;
+    }
+
+    .search-tit {
+        font-size: $font-size-big;
+        line-height: 1.5em;
+        color: $text-color-quiet;
+        margin-bottom: 0;
+    }
+
+    .search-item {
+        max-width: 100%;
+        font-size: $font-size-big;
+        line-height: 1.5em;
+        border-bottom: $line-color 1px solid;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

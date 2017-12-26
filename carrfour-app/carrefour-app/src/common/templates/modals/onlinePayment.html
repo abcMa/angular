@@ -1,0 +1,78 @@
+<ion-modal-view cm-download-banner>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.onlinePayment.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'checkout.onlinePayment.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="online-payment-panel stable-bg" delegate-handle="onlinePaymentScrollHandle">
+        <!-- 全部金额 -->
+        <p class="payment-total light-bg tc" ng-if="!onlinePayment.secondPay">
+            {{'checkout.onlinePayment.price' | translate}}
+            <span class="total"> {{onlinePayment.totalAmount | currency:'&yen;'}} </span>
+        </p>
+        <!-- 剩余金额 -->
+        <p class="payment-total light-bg tc" ng-if="onlinePayment.secondPay">
+            {{'checkout.onlinePayment.remainingTextTitle' | translate}}
+            <span class="total"> {{onlinePayment.remainingAmount | currency:'&yen;'}} </span>
+        </p>
+        <p class="payment-title pld">{{'checkout.onlinePayment.paymentType' | translate}}</p>
+        <ul ng-repeat="payMode in onlinePayment.payModeList" ng-class="{'show-fold-payment' : onlinePayment.showFoldPayment}">
+            <li class="fold-tip" ng-if="payMode.fold">
+                <div class="tip-title clearfix" ng-click="onlinePayment.showHidePayMode()">
+                    <p class="tip-title fl">{{'checkout.onlinePayment.morePayment' | translate}}</p>
+                    <p class="tip-icon fl" ng-class="{'hide-trangle': payMode.fold}"></p>
+                </div>
+            </li>
+            <li class="payment-item carrefour-wallet" ng-class="{'hide-payment' : payMode.fold}"
+                ng-repeat="payment in payMode.availablePaymethod"
+                ng-if="payment.id !== 13 || onlinePayment.applePay.isSupportApplePay === true"
+                ng-click="onlinePayment.choosePayMethod(payment)" ng-show="payment.id == 14">
+                <div class="row p" ng-class="{'has-discount-tips': payment.discountTips}">
+                    <img class="payment-img col-center" ng-src="{{payment.iconUrl}}" />
+                    <span class="payment-txt col col-center tr pr">{{payment.description}}</span>
+                    <i class="icon ion-ios-arrow-right col-center"></i>
+                </div>
+                <div class="payment-item-tips" ng-if="payment.discountTips">
+                    {{payment.discountTips}}
+                </div>
+            </li>
+            <li class="payment-item" ng-class="{'hide-payment' : payMode.fold}"
+                ng-repeat="payment in payMode.availablePaymethod"
+                ng-if="payment.id !== 13 || onlinePayment.applePay.isSupportApplePay === true"
+                ng-click="onlinePayment.choosePayMethod(payment)" ng-show="payment.id !== 14">
+                <div class="row p" ng-class="{'has-discount-tips': payment.discountTips}">
+                    <img class="payment-img col-center" ng-src="{{payment.iconUrl}}" />
+                    <span class="payment-txt col col-center tr pr">{{payment.description}}</span>
+                    <i class="icon ion-ios-arrow-right col-center"></i>
+                </div>
+                <div class="payment-item-tips" ng-if="payment.discountTips">
+                    {{payment.discountTips}}
+                </div>
+            </li>
+
+            <!-- 失效支付方式 -->
+            <li class="payment-item p row unavailable" ng-class="{'hide-payment' : payMode.fold}"
+                ng-repeat="payment in payMode.unavailablePaymethod"
+                ng-if="payment.id !== 13 || onlinePayment.applePay.isSupportApplePay === true">
+                <div class="payment-img-box">
+                    <img class="payment-img col-center" ng-src="{{payment.iconUrl}}" />
+                </div>
+                <div class="payment-content-box" ng-if="((payment.code == 8214) || (payment.code == 8220)) && onlinePayment.secondPay">
+                    <span class="payment-txt col col-center tr pr">{{'checkout.onlinePayment.remainingText' | translate}}</span>
+                    <span class="payment-txt paid-part-val fr col-center tr pr">{{onlinePayment.paidAmount | currency:'&yen;'}}</span>
+                    <span class="payment-txt col-center tr pr">{{'checkout.onlinePayment.currencyUnit' | translate}}</span>
+                </div>
+                <div class="payment-content-box" ng-if="(payment.code != 8214 && payment.code != 8220) || (payment.code == 8214 && !onlinePayment.secondPay) || (payment.code == 8220 && !onlinePayment.secondPay)">
+                    <span class="payment-txt col col-center tr pr">{{payment.description}}</span>
+                </div>
+            </li>
+        </ul>
+        <p class="oversease-warn mh" ng-if="onlinePayment.isOverseaseOrder">
+            <span class="warnning-text">{{'checkout.onlinePayment.warnText' | translate}}</span>
+        </p>
+    </ion-content>
+
+</ion-modal-view>

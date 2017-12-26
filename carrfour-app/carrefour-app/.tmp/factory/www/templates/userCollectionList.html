@@ -1,0 +1,82 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true" class="collection-list">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'userCollectionList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <!-- 小购物车 始终出现 -->
+    <div class="float-panel cart-float-panel">
+        <span class="badge badge-assertive">{{shoppingCartCount}}</span>
+        <div class="button button-small" ng-click="userCollectionList.goCart()">
+            <i class="cm-icon icon02"></i>
+        </div>
+    </div>
+
+    <ion-content class="collection-list-panel stable-bg">
+
+        <ion-refresher on-refresh="userCollectionList.refresh({showLoading: false})"></ion-refresher>
+        <ul class="light-bg" ng-if="userCollectionList.data.totalItems >= 0">
+
+            <li class="collection-item pv pr ml clearfix"
+            ng-repeat="product in userCollectionList.data.items track by product.id"
+            ng-click="stateUtils.goProductInfo(product.productId, product.goodsId, product.productName, 'wishlist', product.isOverseasShop)">
+                <img class="item-img mr fl" cm-lazyload="product.productImgUrl" />
+                <p class="item-name">
+                    <span class="tag tag-overseas-shop" ng-if="product.isOverseasShop">{{'overseasShop' | translate}}</span>
+                    {{product.productName}}
+                </p>
+                <p class="item-tag">
+                  <i ng-if="product.canSell ==4" class="tag promotion-tag8">{{'userCollectionList.limitedSale' | translate}}</i>
+                </p>
+                <p class="item-price pbx">
+                    <span class="price">
+                        {{product.flashSale.price | currency:'&yen;'}}
+                    </span>
+                    <span class="item-tip sale-description" ng-if="product.canSell !== 1">
+                        {{product.stockTips}}
+                    </span>
+
+                    <!-- 若商品已下架，显示「不可卖」，否则显示库存提示信息。 -->
+                    <!-- <span class="item-tip sale-description" ng-if="product.canSell !== 1 && product.canSell < 4">
+                        {{'productList.offShelve' | translate}}
+                    </span> -->
+                </p>
+                <p class="item-status row">
+                    <span class=" col col-center col-right">
+                        <button class="button button-clear" ng-click="userCollectionList.removeCollect(product.id, $event)">
+                            <i class="cm-icon icon28 ph"></i>
+                        </button>
+                        <button class="button button-clear item-cart col-right col-center"
+                                ng-click="userCollectionList.addToCart($event, product)"
+                                ng-disabled="product.canSell !== 1">
+                            <i class="cm-icon icon02 ph"></i>
+                        </button>
+                    </span>
+                </p>
+            </li>
+
+        </ul>
+
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="collection-empty" ng-if="!userCollectionList.data || userCollectionList.data.totalItems == 0">
+            <div class="img-collection"></div>
+            <div class="text">
+                {{'userCollectionList.empty' | translate}}
+            </div>
+            <button class="button button-small button-primary"
+                    ng-click="goIndex()">{{'userCollectionList.goIndex' | translate}}</button>
+        </div>
+
+        <div class="list-bottom-placeholder" ng-if="!userCollectionList.canLoadNextPage && userCollectionList.data.totalItems > 0">
+            <p class="cm-icon icon04"></p>
+            <p>{{'listBottomPlaceholder.tooltip' | translate}}</p>
+        </div>
+
+        <ion-infinite-scroll ng-if="userCollectionList.canLoadNextPage"
+            on-infinite="userCollectionList.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>

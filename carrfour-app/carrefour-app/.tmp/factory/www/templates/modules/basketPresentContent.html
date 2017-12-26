@@ -1,0 +1,19 @@
+<div class="imgbox" ng-click="$ctrl.goProductInfo(present.productId, present.goodsId, present.name, 'cart')">
+    <img ng-src="{{present.pic}}" />
+    <span class="present-tag" ng-if="rule.rewardType == 1">{{'cart.present' | translate}}</span>
+    <span class="present-tag" ng-if="rule.rewardType == 2">{{'cart.addToBuy' | translate}}</span>
+</div>
+<!-- 商品主内容区 -->
+<div class="cont" ng-click="$ctrl.goProductInfo(present.productId, present.goodsId, present.name, 'cart')">
+    <h2 class="title">{{present.name}}</h2>
+    <!-- 商品销售价格 -->
+    <div class="item-row">
+        <span class="price">{{present.salesPrice.value | currency:'&yen;'}}</span>
+        <span class="number">x{{present.number}}</span>
+    </div>
+    <div class="item-row">
+        <span class="weight" ng-show="present.weight">{{(present.weight / 1000).toFixed(3)}}kg</span>
+        <i class="seven-day cm-icon icon13" ng-if="!present.isSupportSevenDayRefund"></i>
+        <i class="seven-day cm-icon icon14" ng-if="present.isSupportSevenDayRefund"></i>
+    </div>
+</div>

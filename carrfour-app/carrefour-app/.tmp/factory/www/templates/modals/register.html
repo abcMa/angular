@@ -1,0 +1,82 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear left-btn back-button" ng-click="register.backup()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{register.title}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="register-panel" scroll="false">
+
+        <cm-switcher delegate-handle="register-modal" on-switch="register.onSwitchPanel($info)">
+
+            <div class="panel ph" data-name="input-login-name">
+                <form name="form" ng-submit="register.validateLoginName()" novalidate>
+                    <div class="form-item">
+                        <input name="loginName" ng-model="register.params.loginName" class="textbar" type="tel" placeholder="{{'register.inputMobile' | translate}}" minlength="11"  maxlength="11" required />
+                    </div>
+                    <div class="form-item service-agreement-form-item">
+                        <div class="flex-row">
+                          <ion-scroll scroll="true">
+                            <div class="agreement" ng-bind-html="register.agreementText"></div>
+                          </ion-scroll>
+                        </div>
+                        <div>
+                            {{'register.firstServiceAgreement' | translate}}<a href="javascript:" on-tap="register.openServiceAgreement()">{{'register.secondServiceAgreement' | translate}}</a>
+                            {{'register.lastServiceAgreement' | translate}}{{'register.endAgreement' | translate}}
+                        </div>
+                    </div>
+                    <div class="form-item form-item-button">
+                        <button class="button button-block button-primary">{{'register.agree' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+
+            <ion-scroll class="panel ph" data-name="input-sms-verify-code">
+                <form name="form" ng-submit="register.validateSMSVerifyCode()" novalidate>
+
+                    <div class="item-tip form-global-inform warning tm" ng-show="register.sendStatus == 0">
+                        <i class="icon"></i>
+                        <span class="tip">{{'register.readySendTip' | translate}}</span>
+                        <span class="mobile">{{register.params.loginName | textFormat}}</span>
+                    </div>
+
+                    <div class="item-tip form-global-inform warning tm" ng-show="register.sendStatus == 1">
+                        <i class="icon"></i>
+                        <span class="tip">{{'register.sendTip' | translate}} </span>
+                        <span class="mobile">{{register.params.loginName | textFormat}}</span>
+                    </div>
+                    <div class="form-item">
+                        <div class="textbar">
+                            <input name="smsVerifyCode" type="text" ng-model="register.params.smsVerifyCode" placeholder="{{'register.inputVerifyCode' | translate}}" required ng-minlength="6" ng-maxlength="6"/>
+                            <span class="sl"></span>
+                            <button type="button" ng-class="{'send-code-tip':!register.timeDown}" ng-click="register.sendSMSVerifyCode()" ng-disabled="register.timeDown!=undefined" class="button button-clear button-small">{{register.sendVerifyCodeText}}</button>
+                            <span style="color: red; margin-left: -10px;" ng-if="register.timeDown!=undefined">({{register.timeDown}})</span>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <button type="submit" class="button button-block button-primary"
+                                ng-disabled="form.$invalid">{{'register.next' | translate}}</button>
+                    </div>
+                </form>
+            </ion-scroll>
+
+            <ion-scroll class="panel ph" data-name="input-password">
+                <form name="form" ng-submit="register.submit()" novalidate>
+                    <div class="form-item">
+                        <div class="textbar" for="">
+                            <input name="password" type="password" ng-model="register.params.password" placeholder="{{'register.inputPassword' | translate}}"  maxlength="20"  ng-keyup="register.checkPassword()" required />
+                            <i class="cm-icon icon09" ng-click="register.clearPassword()"></i>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <button type="submit" class="button button-block button-primary"
+                                ng-disabled="form.$invalid">{{'register.complete' | translate}}</button>
+                    </div>
+                </form>
+            </ion-scroll>
+
+        </cm-switcher>
+
+    </ion-content>
+</ion-modal-view>

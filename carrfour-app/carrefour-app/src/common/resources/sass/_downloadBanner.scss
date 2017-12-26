@@ -1,0 +1,44 @@
+@charset "utf-8";
+$bar-height: 44px;
+
+.download-banner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: $bar-height;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('#{$images-path}/download-banner-zh-CN@2x.png');
+}
+.lang-en {
+    .download-banner {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url('#{$images-path}/download-banner-en@2x.png');
+    }
+}
+.has-download-banner {
+    .has-header {
+        margin-top: $bar-height;
+    }
+
+    .bar-header {
+        top: $bar-height;
+    }
+
+    .bar-subheader {
+        top: $bar-height*2;
+    }
+
+    .product-list-filter {
+        margin-top: $bar-height;
+    }
+
+    .scroll-content {
+        padding-top: 0;
+    }
+}

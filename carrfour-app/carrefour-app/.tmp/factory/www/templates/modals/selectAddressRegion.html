@@ -1,0 +1,33 @@
+<!-- 选择地区弹出层 -->
+
+<ion-modal-view class="select-address-region-modal">
+
+    <ion-header-bar class="bar">
+        <h1 class="title">{{'selectAddressRegion.regionList' | translate}}</h1>
+
+        <i class="icon cm-icon right-btn icon06" ng-click="modals.selectAddressRegion.close()"></i>
+    </ion-header-bar>
+
+    <ion-content class="region-content" scroll="false">
+
+        <div class="item item-style">
+            <span class="selected-region-name"
+                ng-repeat="region in selectAddressRegion.selectedRegionsList"
+                ng-click="selectAddressRegion.getSiblingsRegions(region)">
+                    {{region.name}}
+            </span>
+            <span class="please-select-tip ng-hide" ng-show="selectAddressRegion.hasNextLevel">{{'selectAddressRegion.selectText' | translate}}</span>
+        </div>
+
+        <ion-content class="address-region-content" delegate-handle="selectAddressRegionScroll">
+            <ion-list class="select-region-list">
+                <ion-item class="region-item" ng-repeat="region in selectAddressRegion.currentRegions"
+                          ng-click="selectAddressRegion.selectRegion(region)" ng-class="{'selected': region.selected}">
+                    {{region.name}}
+                </ion-item>
+            </ion-list>
+        </ion-content>
+
+    </ion-content>
+
+</ion-modal-view>

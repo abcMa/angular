@@ -1,0 +1,31 @@
+<ion-modal-view title="{{'checkout.submitSuccess.success' | translate}}">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button" ng-click="modals.submitOrderSuccess.close()">
+            <i class="icon ion-ios-close-empty"></i>
+        </button>
+        <h1 class="title">{{'checkout.submitSuccess.success' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="checkout-success-panel" scroll="false">
+
+        <div class="success-box pl mbd">
+            <p class="success-title p">
+                {{'checkout.submitSuccess.codPay' | translate}} <span class="total">{{submitOrderSuccess.price | currency:'&yen;'}}</span>
+            </p>
+            <p class="success-txt pl pvd">
+                {{'checkout.submitSuccess.orderTip' | translate}} <strong>{{submitOrderSuccess.orderNumber}}</strong>
+            </p>
+        </div>
+
+        <p class="success-tips pd">
+            {{'checkout.submitSuccess.tips' | translate}}
+        </p>
+
+        <p class="success-btn">
+            <button ng-click="submitOrderSuccess.goOrderInfo()" class="button button-block button-success">{{'checkout.submitSuccess.seeOrderDetail' | translate}}</button>
+        </p>
+
+    </ion-content>
+
+</ion-modal-view>

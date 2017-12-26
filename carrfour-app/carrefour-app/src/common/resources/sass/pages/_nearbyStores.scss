@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+.nearby-stores-view {
+    .store-category-bar .button {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 2px solid $line-color;
+
+        &.active {
+            border-bottom: 2px solid $energized;
+            opacity: 1;
+            color: $energized;
+        }
+
+        &.activated {
+            opacity: 1;
+        }
+    }
+}
+
+.nearby-stores-confirm-permission {
+    .popup-title {
+        font-weight: bold;
+    }
+
+    .popup-head {
+        padding-bottom: 0;
+    }
+
+    .popup-buttons {
+        padding: 0;
+        min-height: 0;
+        border-top: 1px solid $line-color;
+        position: relative;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            background-color: $line-color;
+        }
+    }
+}
+
+.stores-list-panel {
+    position: absolute;
+    top: 41px;
+    margin-top: 0;
+    padding-top: 0;
+
+    .store-card {
+        margin: 0 0 10px;
+    }
+
+    .item-image {
+        height: 140px;
+    }
+
+    .store-banner {
+        height: 100%;
+    }
+
+    .store-title {
+        color: $energized;
+        font-weight: bold;
+        font-size: $font-size-big;
+        margin-bottom: 16px;
+    }
+
+    .store-distance {
+        color: $energized-light;
+
+        .icon {
+            font-size: 20px;
+        }
+    }
+
+    .store-label {
+        color: $energized-light;
+        background-color: #fff0cd;
+        height: 22px;
+        font-size: $font-size-small;
+        border: 1px solid $energized-light;
+        border-radius: 2px;
+        display: inline-block;
+        position: relative;
+        padding: 0 10px 0 5px;
+        margin-right: 15px;
+
+        &:before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -4px;
+            z-index: 2;
+            width: 8px;
+            height: 8px;
+            border: 1px solid $energized-light;
+            border-radius: 4px;
+            background: white;
+        }
+
+        &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 2px;
+            right: -8px;
+            width: 16px;
+            height: 16px;
+            background-color: #fff0cd;
+            border: 1px solid $energized-light;
+            border-radius: 2px;
+            border-left: 0;
+            border-bottom: 0;
+            transform: rotate(45deg);
+        }
+    }
+
+    .stores-list-empty {
+        padding-top: 15.625%;
+
+        .img-empty {
+            margin: 0 auto;
+            width: 144px;
+            height: 166px;
+            background: url(../images/nearbyStore_empty.png) center center no-repeat;
+            background-size: 50% auto;
+        }
+
+        .text {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+    }
+}

@@ -1,0 +1,88 @@
+<!-- 浏览模式 -->
+<div class="basket-item basket-product-item"
+    ng-class="{'invalid': !item.valid , 'valid': item.valid}">
+    <!-- 浏览模式选择框，在商品失效时不显示 -->
+    <label class="checkbox item-valid" ng-show="$ctrl.opMode == OPMODES.VIEW">
+        <input type="checkbox" ng-model="item.selected" ng-change="$ctrl.onItemSelect(item)" />
+    </label>
+    <!-- 编辑模式选择框 -->
+    <label class="checkbox" ng-show="$ctrl.opMode == OPMODES.EDIT">
+        <input type="checkbox" ng-model="item.opSelected" ng-change="$ctrl.onItemOperationSelect(item)" />
+    </label>
+    <!-- 商品图片 -->
+    <div class="imgbox" ng-click="$ctrl.goProductInfo(item.productId, item.goodsId, item.name, 'cart')">
+        <img cm-lazyload="item.pic" animation="false"/>
+    </div>
+    <!-- 商品主内容区 -->
+    <div class="cont">
+        <!-- 编辑模式 计数器 -->
+        <div class="item-counter item-valid" ng-show="$ctrl.opMode == OPMODES.EDIT">
+            <cm-counter ng-model="item.number"
+                        data-max-num="item.salesPrice.type == 2 ? item.number : item.count"
+                        data-min-num="item.salesPrice.type == 2 ? item.number : 1"
+                        data-input-readonly="false"
+                        data-delay-trigger-change="true"
+                        on-change="$ctrl.changeNumber(item, $newNumber, $oldNumber)"></cm-counter>
+        </div>
+
+        <!-- 浏览模式 title -->
+        <h2 ng-show="$ctrl.opMode == OPMODES.VIEW" class="title" ng-click="$ctrl.goProductInfo(item.productId, item.goodsId, item.name, 'cart')">
+
+            <!-- 商品标签 -->
+            <span  ng-repeat="specialName in item.specialCategory track by specialName.id">
+                <span class="tag delivery-tag{{specialName.id}}">
+                   {{specialName.name}}
+                </span>
+            </span>
+            {{item.name}}
+        </h2>
+        <!-- 商品销售价格 -->
+        <div class="item-row" ng-click="$ctrl.goProductInfo(item.productId, item.goodsId, item.name, 'cart')">
+            <span class="price">{{item.salesPrice.value | currency:'&yen;'}}</span>
+            <span class="number" ng-show="$ctrl.opMode == OPMODES.VIEW">x{{item.number}}</span>
+            <span class="invalid-tip item-invalid">{{'cart.invalidTip' | translate}}</span>
+        </div>
+        <div class="item-row" ng-click="$ctrl.goProductInfo(item.productId, item.goodsId, item.name, 'cart')">
+            <span class="weight">{{item.weightKG}}kg</span>
+            <i class="seven-day cm-icon icon14" ng-show="item.isSupportSevenDayRefund  && $ctrl.opMode == OPMODES.VIEW"></i>
+            <i class="seven-day cm-icon icon13" ng-show="!item.isSupportSevenDayRefund && $ctrl.opMode == OPMODES.VIEW"></i>
+        </div>
+
+        <!-- 编辑模式删除按钮 -->
+        <div ng-show="$ctrl.opMode == OPMODES.EDIT">
+            <!-- 删除 -->
+            <button class="remove button button-clear button-icon cm-icon icon28"
+                ng-click="$ctrl.onDeleteItem(item)"></button>
+            <!-- 收藏 -->
+            <button class="collection button button-clear button-icon cm-icon"
+                ng-class="{'icon37': item.collect, 'icon36': !item.collect}"
+                ng-click="$ctrl.onCollectItem(item)"></button>
+        </div>
+    </div>
+</div>
+
+<!-- 单品促销规则 -->
+<div class="basket-rules item-valid" ng-if="item.rules.length > 0">
+    <div class="rule" ng-repeat="rule in item.rules track by rule.ruleId">
+        <!-- 当为赠赠品或加价购时，给出选择提示 -->
+        <span class="name rule-name">
+            <span class="mark">[{{rule.rewardMark}}]</span>
+            {{rule.ruleName}}
+        </span> <br />
+        <span class="tip" ng-if="rule.discountMark">
+            {{rule.discountMark}}
+            <i class="price">{{rule.discountAmount | currency:'&yen;'}}</i>
+        </span>
+        <button class="button button-outline button-assertive button-present" type="button"
+            ng-if="rule.rewardType == 1 || rule.rewardType == 2"
+            ng-click="$ctrl.onPresentSelect(item, rule)">
+            {{(rule.rewardType == 1) ? 'cart.pickPresent' : 'cart.pickAddToBuy' | translate}}
+        </button>
+        <!-- 赠品 -->
+        <div class="presents">
+            <div class="basket-item basket-present-item" ng-repeat="present in rule.presentBasketItems track by present.id"
+                ng-include="'templates/modules/basketPresentContent.html'">
+            </div>
+        </div>
+    </div>
+</div>

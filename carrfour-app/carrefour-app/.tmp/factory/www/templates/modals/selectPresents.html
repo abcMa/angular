@@ -1,0 +1,49 @@
+<ion-modal-view class="select-presents-modal">
+    <ion-header-bar class="bar-default">
+        <h1 class="title">
+            {{'cart.click' | translate}}{{(selectPresents.type == 1) ? 'cart.pickPresent' : 'cart.pickAddToBuy' | translate}}
+        </h1>
+    </ion-header-bar>
+
+    <ion-content>
+        <div class="present-list p">
+            <div class="present" ng-repeat="present in selectPresents.presents track by $index"
+                ng-class="{'invalid': !present.valid}">
+                <div class="present-image" ng-class="{'selected': present.selected}">
+                    <img ng-src="{{present.picUrl}}" ng-click="selectPresents.toggleSelection(present)" />
+                    <cm-counter ng-show="present.selected"
+                                ng-model="present.number"
+                                data-max-num="selectPresents.selectionRemain(present)"
+                                data-min-num="1"
+                                data-input-readonly="true"
+                                data-delay-trigger-change="false"></cm-counter>
+                </div>
+                <div class="present-name">
+                    {{present.presentName}}
+                </div>
+                <div class="present-price" ng-if="present.valid">
+                    {{present.presentPrice | currency:'&yen;'}}
+                </div>
+                <div class="present-invalid-tip" ng-if="!present.valid">
+                    {{'cart.invalidTip' | translate}}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+
+    <ion-footer-bar>
+        <div class="limit-tip">
+            {{'cart.presentLimitBefore' | translate}}
+            <span class="limit-number">{{selectPresents.totalSelected()}}</span>
+            {{'cart.presentLimitMiddle' | translate}}
+            <span class="limit-number">{{selectPresents.selectUpperLimit}}</span>
+            {{(selectPresents.type == 1) ? 'cart.presentLimitAfter' : 'cart.pickPresentLimitAfter' | translate}}
+        </div>
+
+        <button class="button-confirm-selection button button-assertive button-outline mr"
+                ng-click="selectPresents.confirmSelection()">
+            {{'cart.confirmSelection' | translate}}
+        </button>
+    </ion-footer-bar>
+
+</ion-modal-view>

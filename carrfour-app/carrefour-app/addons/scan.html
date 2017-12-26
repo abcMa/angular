@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新用户注册有“礼”</title>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link rel="stylesheet" href="scan_resources/css/ionic.min.css" />
+    <link rel="stylesheet" href="scan_resources/css/scan.css" />
+</head>
+
+<body>
+    <div class="page loading">
+        <div class="loading-img">
+            <img src="scan_resources/img/wait.gif">
+        </div>
+    </div>
+    <div class="page code hide">
+        <div class="logo">
+            <img src="scan_resources/img/logo.png" alt="">
+        </div>
+        <div class="content">
+            <div class="input-tip">
+                请输入验证口令
+            </div>
+        </div>
+        <div class="list code-list">
+            <label class="item item-input">
+                <span class="input-label">领取口令</span>
+                <input type="tel" id="password" placeholder="6位口令">
+            </label>
+        </div>
+        <div class="check-button-block">
+            <button type="button" class="button button-block button-assertive check-button">
+                口令核验
+            </button>
+        </div>
+    </div>
+    <div class="page confirm hide">
+        <div class="logo">
+            <img src="scan_resources/img/logo.png" alt="">
+        </div>
+        <div class="content">
+            <div class="success-tip line-1">
+                用户注册信息正确
+            </div>
+            <div class="success-tip line-2">
+                请将礼品给到用户
+            </div>
+            <div class="gift-circle">
+                <img src="scan_resources/img/gift.png" alt="">
+            </div>
+        </div>
+        <div class="button-bar">
+            <button type="button" class="button button-block button-assertive next-button" style="display: none;">
+                扫描下一个
+            </button>
+        </div>
+        <ul class="status">
+            <li>
+                今日共验证人数：<span class="todayCount">0</span>
+            </li>
+            <li>
+                截至目前共验证人数：<span class="totalCount">0</span>
+            </li>
+            <li>
+                您的顾客已下单：<span class="orderCreatedNumCount">0</span>
+            </li>
+            <li>
+                顾客已签收订单：<span class="orderReceivedNumCount">0 订单</span>
+            </li>
+            <li>
+                您已经赚取：<span class="rewardCount">0</span>
+            </li>
+        </ul>
+    </div>
+    <div class="page error hide">
+        <div class="logo">
+            <img src="scan_resources/img/logo.png" alt="">
+        </div>
+        <div class="content">
+            <div class="tip"></div>
+        </div>
+        <div class="gift-circle hide">
+            <img src="scan_resources/img/gift.png" alt="">
+        </div>
+        <div class="button-bar">
+            <button type="button" class="button button-block button-assertive next-button" style="display: none;">
+                扫描下一个
+            </button>
+        </div>
+        <ul class="status hide">
+            <li>
+                今日共验证人数：<span class="todayCount">0</span>
+            </li>
+            <li>
+                截至目前共验证人数：<span class="totalCount">0</span>
+            </li>
+            <li>
+                您的顾客已下单：<span class="orderCreatedNumCount">0</span>
+            </li>
+            <li>
+                顾客已签收订单：<span class="orderReceivedNumCount">0 订单</span>
+            </li>
+            <li>
+                您已经赚取：<span class="rewardCount">0</span>
+            </li>
+        </ul>
+    </div>
+    <script src="scan_resources/js/jquery-3.2.1.min.js" charset="utf-8"></script>
+    <script src="scan_resources/js/scan_1.js" charset="utf-8"></script>
+</body>
+
+</html>

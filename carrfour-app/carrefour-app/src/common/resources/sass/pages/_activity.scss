@@ -1,0 +1,32 @@
+@charset "utf-8";
+.activity-panel {
+    .activity-empty-view {
+        .count-down {
+            margin-top: 5px;
+            margin-right: 5px;
+            height: 24px;
+            width: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            color: $light;
+            background-color: #8c8c8c;
+        }
+
+        .activity-empty {
+            margin: 0 40px;
+            font-size: $font-size-big;
+            text-align: center;
+
+            .warn-text {
+                margin-top: 40%;
+            }
+
+            .home-button {
+                margin-top: 20%;
+                border: solid 1px $dark;
+                background-color: $light;
+            }
+        }
+    }
+}

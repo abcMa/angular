@@ -1,0 +1,21 @@
+{
+  "name": "carrefour-app",
+  "private": "true",
+  "devDependencies": {
+    "nojiko": "~0.5.6"
+  },
+  "dependencies": {
+    "ionic": "~1.2.4",
+    "ionic-datepicker": "~1.1.0",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "angular-messages": "~1.4.3",
+    "moment": "~2.10.6",
+    "angular-translate": "~2.7.2",
+    "angular-cm-switch": "cm-switch#^0.3.3",
+    "JsBarcode": "jsbarcode#^3.8.0"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
+  }
+}

@@ -1,0 +1,23 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{customerServiceArticleList.title}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="customer-service-panel">
+
+        <div class="list">
+            <a class="item item-icon-right"
+                ng-repeat="article in customerServiceArticleList.articles"
+                ng-click="customerServiceArticleList.openArticle(article.id,article.name)">
+                {{article.name}}
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+        </div>
+
+    </ion-content>
+
+</ion-view>

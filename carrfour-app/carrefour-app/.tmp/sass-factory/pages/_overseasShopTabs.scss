@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.overseas-shop-tabs {
+
+	.tab-nav {
+		background-color: $dark;
+		background-size: 0;
+
+		.tab-item-active {
+			color: $overseas-shop-primary-light-color;
+		}
+	}
+}

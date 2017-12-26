@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+.order-list-panel {
+
+    $order-list-item-bg: $light;
+
+    .order-list-item {
+        padding: 0;
+        background-color: $order-list-item-bg;
+    }
+
+    .order-date {
+        margin-bottom: 0;
+        font-size: $font-size-base;
+        line-height: 1.4em;
+        color: $text-color;
+        border-bottom: $line-color 1px solid;
+    }
+
+    .primary-color {
+        color: $primary-color;
+    }
+    .order-list-helper{
+		font-size:$font-size-large;
+		margin-left:5px;
+	}
+    .order-total {
+        font-size: $font-size-base;
+        line-height: 2.1em;
+        color: $text-color-quiet;
+    }
+
+    .order-button {
+        height: 30px;
+        min-height: 30px;
+        line-height: 28px;
+        border: $primary-color 1px solid !important;
+        margin-left: 5px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    .order-imgs {
+        border-bottom: $line-color 1px solid;
+        .img-items {
+            height: 55px;
+            overflow: hidden;
+        }
+    }
+
+    .img-item {
+        width: 65px;
+        height: 55px;
+
+        img {
+            width: 55px;
+            height: 55px;
+        }
+    }
+
+    .icon {
+        margin-top: 15px;
+        font-size: 24px;
+        color: $text-color-quiet;
+    }
+
+    .imgs-scroll {
+        margin-right: 50px;
+        background: $order-list-item-bg;
+
+        > .scroll {
+            background: $order-list-item-bg;
+    }
+    }
+
+    .orderlist-empty {
+        padding-top: 50px;
+
+        .img-orderlist {
+            margin: 0 auto;
+            width: 144px;
+            height: 166px;
+            background: url(../images/orderlist-empty.png) center center no-repeat;
+            background-size: 50% auto;
+        }
+
+        .text {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+    }
+}

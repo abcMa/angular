@@ -1,0 +1,36 @@
+{
+  "name": "nojiko",
+  "version": "0.5.8",
+  "title": "Nojiko",
+  "description": "a base style lib.",
+  "keywords": [
+    "nojiko",
+    "sass",
+    "scss",
+    "lib",
+    "base"
+  ],
+  "homepage": "https://github.com/BiosSun/nojiko",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BiosSun/nojiko.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BiosSun/nojiko/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/BiosSun/nojiko/blob/master/LICENSE-MIT"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "commander": "^2.5.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-header": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sassdoc": "^1.3.2",
+    "gulp-watch": "^4.2.4",
+    "sassdoc": "^2.1.13"
+  }
+}

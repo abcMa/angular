@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+.ionic-body,
+body {
+    // ionic 会设置 text-rendering 为 optimizeLegibility，这会导致设置单行溢出显示省略号时，
+    // 在安卓设备中省略号显示鬼畜的问题（有时显示 2 个点，有时显示 3 个点，有时他喵的不显示点），
+    // 因此修改为其默认值 auto。
+    //
+    // 相关资料：（中文）http://www.feeldesignstudio.com/2013/05/text-rendering/
+    //          （英文）https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering
+    text-rendering: auto;
+}
+
+a {
+    text-decoration: none;
+    color: $link-color;
+
+    &.activated {
+        opacity: 0.7;
+    }
+}
+
+.placeholder-text {
+    color: $placeholder-color;
+}
+// 修改 ionic 组件样式
+// -----------------------------------------------------------------------------
+
+ion-scroll {
+    display: block;
+}
+
+.bar {
+    padding: $bar-padding-portrait $distance-horizontal;
+}
+
+.item-divider {
+    background: transparent;
+    padding-top: $distance-vertical;
+    padding-bottom: $distance-vertical;
+    color: $text-color-quiet;
+    border: 0;
+}
+// 因为有选择地区等非全屏显示的 modal，因此这里默认开启 modal 的背景遮罩
+
+.modal-backdrop-bg {
+    @include transition(opacity 300ms ease-in-out);
+    background-color: $modal-backdrop-bg-active;
+    opacity: 0;
+}
+
+.active .modal-backdrop-bg {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: 0.5;
+}
+
+.back-button {
+    &:after {
+        left: -15px;
+        right: -15px;
+    }
+}
+
+.tab-item .badge {
+    right: calc(50% - 22px);
+    font-size: 10px;
+    line-height: 12px;
+    padding: 3px 6px;
+}
+
+.badge,
+.tabs .tab-item .badge {
+    $badge-warm-bg: $warm;
+    $badge-warm-text: #fff;
+
+    &.badge-warm {
+        @include badge-style($badge-warm-bg, $badge-warm-text);
+    }
+}
+//头部bar button
+
+.bar {
+    &.bar-default {
+        @extend .bar.bar-stable;
+    }
+}
+
+.bar-default {
+    @extend .bar-stable;
+}
+
+.bar {
+    &.bar-overseas-shop {
+        $bar-overseas-shop-bg: $overseas-shop-primary-color;
+        $bar-overseas-shop-border: #ff7300;
+        $bar-overseas-shop-text: $light;
+        @include bar-style($bar-overseas-shop-bg, $bar-overseas-shop-border, $bar-overseas-shop-text);
+
+        &.bar-footer {
+            background-image: linear-gradient(180deg, $bar-overseas-shop-border, $bar-overseas-shop-border 100%, transparent 100%);
+        }
+        background-image: none;
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#ff7300), to(#ff5a00));
+        background: -moz-linear-gradient(top, #ff7300, #ff5a00);
+        background: -ms-linear-gradient(top, #ff7300, #ff5a00);
+        background: -o-linear-gradient(top, #ff7300, #ff5a00);
+
+        .title {
+            color: $light;
+        }
+    }
+
+    &.bar-normal-shop {
+        background-image: none;
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#728feb), to(#6276e9));
+        background: -moz-linear-gradient(top, #728feb, #6276e9);
+        background: -ms-linear-gradient(top, #728feb, #6276e9);
+        background: -o-linear-gradient(top, #728feb, #6276e9);
+    }
+}
+
+.bar-overseas-shop {
+    .button {
+        $bar-overseas-shop-bg: $overseas-shop-primary-color;
+        $bar-overseas-shop-border: $overseas-shop-primary-color;
+        $bar-overseas-shop-text: $light;
+        $bar-overseas-shop-active-bg: $overseas-shop-primary-color;
+        $bar-overseas-shop-active-border: $overseas-shop-primary-color;
+        @include button-style($bar-overseas-shop-bg, $bar-overseas-shop-border, $bar-overseas-shop-active-bg, $bar-overseas-shop-active-border, $bar-overseas-shop-text);
+        @include button-clear($bar-overseas-shop-text, $bar-title-font-size);
+    }
+}
+// 自定义通用组件
+// -----------------------------------------------------------------------------
+
+.image-verify-code {
+    border-radius: 4px;
+}
+
+.bar-header {
+    .logo {
+        @include size(34px);
+        margin: 0;
+        background-size: 34px;
+        @include hide-text;
+    }
+    // .button.select-region-button {
+    //     font-size: 14px;
+    //     line-height: 18px;
+    //
+    //     .icon {
+    //         font-size: 12px;
+    //     }
+    //
+    //     .icon:before {
+    //         font-size: 18px;
+    //         line-height: 14px;
+    //     }
+    // }
+}
+// 使用js滚动时隐藏滚动条
+//
+
+.scroll-view {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+// 列表页底部占位符
+
+.list-bottom-placeholder {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: $text-color-quiet;
+    text-align: center;
+
+    .cm-icon {
+        &:before {
+            font-size: $font-size-icon*2;
+        }
+    }
+}
+
+// 使用footer实现的固定底部确认按钮
+// 应用场景： 支付配送方式，发票设置
+// 使用这个样式需要将容器的has-footer覆盖为 $footer-confirm-bar-height , 否则会导致遮挡底部内容
+$footer-confirm-bar-height: 60px;
+
+.bar-footer {
+    &.footer-confirm-bar {
+        height: $footer-confirm-bar-height;
+        padding: 0;
+
+        .footer-confirm-bar-row {
+            width: 100%;
+            height: $footer-confirm-bar-height;
+        }
+
+        .button {
+            height: $footer-confirm-bar-height - 20px;
+            min-height: $footer-confirm-bar-height - 20px;
+            margin: 0;
+            font-size: $font-size-big;
+            border: none;
+        }
+    }
+}

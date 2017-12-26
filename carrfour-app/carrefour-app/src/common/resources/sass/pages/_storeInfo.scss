@@ -1,0 +1,179 @@
+@charset "utf-8";
+
+.store-info-panel {
+    .store-top-carousel {
+        position: relative;
+
+        .wide-slider,
+        .wide-slider img {
+            width: 100%;
+            height: 225px;
+        }
+
+        .ui-switch-nav {
+            left: auto;
+            right: 10px;
+        }
+
+        .float-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+
+            .button {
+                z-index: 2;
+                background-color: rgba(255,255,255,0.6);
+                font-size: $font-size-large;
+                border-radius: 20px;
+                padding: 0 10px;
+            }
+        }
+    }
+
+    .icon-bus {
+        display: inline-block;
+        width: 27px;
+        height: 20px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('#{$images-path}/icon-bus@2x.png');
+        background-size: 27px auto;
+        margin-right: 0.5em;
+    }
+
+    .store-title {
+        font-weight: bold;
+        font-size: $font-size-large;
+    }
+
+    .store-info {
+        margin-top: 0;
+
+        .item {
+            border-left: none;
+            border-right: none;
+            padding-left: 0;
+            padding-right: 0;
+
+            &:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .item-line-title {
+        margin-bottom: 15px;
+    }
+
+    .item-line-content {
+        text-overflow: clip;
+        white-space: normal;
+    }
+
+    .store-innerlist {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $link-color;
+
+        .icon {
+            font-size: 24px;
+            left: 0;
+        }
+
+        .item-icon-left {
+            padding-left: 45px;
+        }
+    }
+
+    .store-detail {
+        // padding-left: 5em;
+    }
+
+    .store-detail-title {
+        color: $text-color-quiet;
+        font-size: $font-size-base;
+    }
+
+    .store-detail-content {
+        margin-left: 4.5em;
+        min-height: 1em;
+    }
+}
+
+.store-service-icon {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45px auto;
+
+    &.ss-wifi {
+        background-image: url('#{$images-path}/store-service/wifi@2x.png');
+    }
+
+    &.ss-bus {
+        background-image: url('#{$images-path}/store-service/bus@2x.png');
+    }
+
+    &.ss-atm {
+        background-image: url('#{$images-path}/store-service/atm@2x.png');
+    }
+
+    &.ss-card {
+        background-image: url('#{$images-path}/store-service/card@2x.png');
+    }
+
+    &.ss-charge {
+        background-image: url('#{$images-path}/store-service/charge@2x.png');
+    }
+
+    &.ss-food {
+        background-image: url('#{$images-path}/store-service/food@2x.png');
+    }
+
+    &.ss-onlinepay {
+        background-image: url('#{$images-path}/store-service/onlinepay@2x.png');
+    }
+
+    &.ss-parking {
+        background-image: url('#{$images-path}/store-service/parking@2x.png');
+    }
+
+    &.ss-baby {
+        background-image: url('#{$images-path}/store-service/baby@2x.png');
+    }
+
+    &.ss-cash {
+        background-image: url('#{$images-path}/store-service/cash@2x.png');
+    }
+
+    &.ss-disabledOnly {
+        background-image: url('#{$images-path}/store-service/disabledOnly@2x.png');
+    }
+
+    &.ss-electric {
+        background-image: url('#{$images-path}/store-service/electric@2x.png');
+    }
+
+    &.ss-gasStation {
+        background-image: url('#{$images-path}/store-service/gasStation@2x.png');
+    }
+
+    &.ss-luggage {
+        background-image: url('#{$images-path}/store-service/luggage@2x.png');
+    }
+
+    &.ss-nursery {
+        background-image: url('#{$images-path}/store-service/nursery@2x.png');
+    }
+
+    &.ss-petCare {
+        background-image: url('#{$images-path}/store-service/petCare@2x.png');
+    }
+
+    &.ss-toyHouse {
+        background-image: url('#{$images-path}/store-service/toyHouse@2x.png');
+    }
+}

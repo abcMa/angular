@@ -1,0 +1,96 @@
+<ion-modal-view class="invoice-modal-view stable-bg">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.invoice.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'checkout.invoice.setInvoiceInfo' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="invoice-panel" delegate-handle="invoiceScroll">
+
+        <!-- 选择发票 -->
+        <div class="invoice-box mt pl">
+            <div class="invoice-title">
+                {{'checkout.invoice.chooseInvoice' | translate}}：
+            </div>
+            <div class="invoice-type">
+                <button class="button button-outline mb phd"
+                    ng-class="{'button-primary': invoice.data.status == 0}"
+                    at-gesture="tunnel::step6_invoice::no_invoice" gesture-action="touch"
+                    ng-click="invoice.chooseInvoice(0)">{{'checkout.invoice.noInvoice' | translate}}</button> <br />
+                <button class="button button-outline mb phd"
+                    ng-class="{'button-primary': invoice.data.status == 1}"
+                    at-gesture="tunnel::step6_invoice::yes_invoice" gesture-action="touch"
+                    ng-click="invoice.chooseInvoice(1)">{{'checkout.invoice.needInvoice' | translate}}</button>
+            </div>
+        </div>
+
+        <div ng-if="invoice.data.status == 1">
+
+            <!-- 填写发票 -->
+            <div class="invoice-box mt pl">
+                <div class="invoice-title">
+                    {{'checkout.invoice.invoiceTitle' | translate}}：
+                    <button class="button button-outline phd"
+                    ng-class="{'button-primary ':invoice.data.type == 1}"
+                    ng-click="invoice.chooseInvoiceType(1)">{{'checkout.invoice.invoiceType.person' | translate}}</button>
+                    <button class="button button-outline phd"
+                    ng-class="{'button-primary ':invoice.data.type == 2}"
+                    ng-click="invoice.chooseInvoiceType(2)">{{'checkout.invoice.invoiceType.company' | translate}}</button>
+                </div>
+                <div class="invoice-row">
+                    <input class="invoice-input pv" type="text" ng-model="invoice.data.title"
+                           placeholder="{{invoice.placeholder[invoice.data.type].title}} " maxlength="50"/>
+                </div>
+                <div class="invoice-row" ng-if="invoice.data.type == 2">
+                    <input class="invoice-input pv" type="text" ng-model="invoice.data.taxpayerCode"
+                           ng-change="invoice.onTaxpayerCodeChange()"
+                           ng-trim="false"
+                           placeholder="{{invoice.placeholder[invoice.data.type].taxpayerCode}}" maxlength="20"/>
+                </div>
+            </div>
+
+            <!-- 发票提示 -->
+            <div class="ml mt">
+                <i class="icon ion-ios-information-outline fl"></i>
+                <p class="mld">
+                    <span class="invoice-link" ng-click="invoice.openTaxcodeInstruction()">{{'checkout.invoice.taxpayerCodeArticle' | translate}}</span>
+                </p>
+            </div>
+
+            <!-- 发票类别 -->
+            <div class="invoice-box mt pl" ng-if="invoice.invoiceCategorys.length > 0">
+                <div class="invoice-title">{{'checkout.invoice.invoiceCategory' | translate}}：</div>
+                <label class="invoice-radio-row row pv" ng-repeat="category in invoice.invoiceCategorys">
+                    <span class="col-center radio-box">
+                        <input class="radio" type="radio" name="invoice-type"
+                               ng-model="invoice.data.invoiceCategory" value="{{category.id}}">
+                    </span>
+                    <span class="col col-center">{{category.name}}</span>
+                </label>
+            </div>
+
+            <!-- 发票提示 -->
+            <div class="ml mt">
+                <i class="icon ion-ios-information-outline fl"></i>
+                <p class="mld">
+                    <span class="invoice-link pr" ng-click="invoice.openInvoiceInstruction()">{{'checkout.invoice.invoiceArticle' | translate}}</span>
+                    {{'checkout.invoice.invoiceUseDesc' | translate}}
+                </p>
+            </div>
+
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="footer-confirm-bar">
+        <div class="footer-confirm-bar-row pv phd">
+            <button class="button button-block button-primary"
+                    ng-click="invoice.submit()">
+                    {{'checkout.invoice.submit' | translate}}
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-modal-view>

@@ -1,0 +1,310 @@
+@charset "utf-8";
+
+// 会员中心首页
+
+.user-panel {
+    .user-top-wrap {
+        background-image: url('#{$images-path}/user-index.jpg');
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        @include clearfix;
+
+        .change-language-box {
+            @include expand-scope(-10px);
+            @include position(absolute, 20px null null 0, 10);
+            padding: 1px 18px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 0 18px 18px 0;
+            color: #fff;
+        }
+
+        .message-center-box {
+            @include position(absolute, 20px 16px null null, 10);
+
+            .button {
+                $size: 22px;
+
+                @include size(20px);
+                @include min-size(20px);
+                padding: 0;;
+                border: 0;
+                color: $light;
+
+                .icon:before {
+                    font-size: $size * 0.9;
+                    line-height: $size;
+        }
+            }
+
+            .has-message-badge:after {
+                top: 2%;
+                right: 2%;
+            }
+        }
+
+        .icon-change-language {
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin-top: 5px;
+            background-image: url('#{$images-path}/icon-change.png');
+            background-position: 0 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+
+    .user-top {
+        position: relative;
+        height: 225px;
+        text-align: center;
+        color: $light;
+
+        .platform-ios.platform-cordova & {
+            margin-top: 20px;
+        }
+    }
+
+    .user-top-img {
+        padding-bottom: 15px;
+        margin-top: 11.719%;
+
+        .img {
+            display: block;
+            width: 65px;
+            height: 65px;
+            margin: 0 auto;
+            border: $light 1px solid;
+            border-radius: 50%;
+        }
+
+        .img-default {
+            background: url('#{$images-path}/user-default.jpg') center center no-repeat;
+            background-size: 100% auto;
+        }
+    }
+
+    .user-top-name {
+        font-size: $font-size-base;
+        line-height: 1.5em;
+
+        .icon {
+            font-size: $font-size-mini;
+            color: $calm;
+            border: $calm 1px solid;
+            border-radius: 2px;
+        }
+    }
+
+    .user-login-row {
+        position: absolute;
+        top: 50%;
+        left: 31.25%;
+        right: 31.25%;
+        height: 30px;
+        margin-top: -15px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .user-login-btn {
+        height: 30px;
+        margin: 0;
+        line-height: 30px;
+        color: $light;
+        font-size: $font-size-base;
+        background-color: #3a7fbc;
+        border-radius: 12px;
+    }
+
+    .user-top-btns {
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        height: 50px;
+        padding: 10px 0;
+        border-top: #0d70c8 1px solid;
+
+        .button {
+            width: 50%;
+            height: 30px;
+            min-height: 30px;
+            line-height: 30px;
+            color: $light;
+            font-size: $font-size-base;
+
+            &:first-child {
+                border-right: #0d70c8 1px solid;
+            }
+        }
+    }
+
+    .user-list {
+        border-top: $line-color 1px solid;
+        border-bottom: $line-color 1px solid;
+    }
+
+    .user-item {
+        line-height: 50px;
+        font-size: $font-size-base;
+        border-top: $line-color 1px solid;
+
+        &.user-left-icon {
+            margin-left: 40px;
+        }
+
+        &:first-child {
+            border-top: none;
+        }
+
+        // .left-txt {
+        //     min-width: convert-rem(120px);
+        // }
+
+        .item-birthday {
+            min-width: 50%;
+        }
+    }
+
+    .item-left-icon {
+        height: 50px;
+        margin-left: -40px;
+
+        .icon {
+            font-size: 30px;
+        }
+
+        .iconbig01 {
+            color: #53b5e2;
+        }
+
+        .iconbig03 {
+            color: #ef7979;
+        }
+
+        .iconbig04 {
+            color: #78d17e;
+        }
+
+        .iconbig05 {
+            color: #ff8e09;
+        }
+
+        .iconziti0211 {
+            color: #2181d7;
+        }
+        .icon-huiyuanqia {
+            color: #0072ce;
+        }
+
+        .icon-lbs {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: url("#{$images-path}/lbs-icon@2x.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 30px auto;
+            vertical-align: middle;
+        }
+
+        .icon-carr-wallet {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            color: #ff6195;
+            font-size: 34px;
+        }
+    }
+
+    .item-left-txt {
+        min-width: 46.154%;
+        white-space: nowrap;
+    }
+
+    .item-right-txt {
+        width: 45.154%;
+        height: 50px;
+        font-size: $font-size-base;
+        color: $text-color-quiet;
+        text-align: right;
+        @include text-overflow-ellipsis;
+
+        .font {
+            color: $assertive;
+            font-size: $font-size-big;
+        }
+    }
+
+    .item-right-icon {
+        font-size: $font-size-icon;
+        color: $text-color-quiet;
+    }
+
+    .button-order {
+        width: 30%;
+        padding: 10px 0;
+        line-height: 20px;
+        font-size: $font-size-base;
+        color: $text-color-quiet;
+        text-align: center;
+
+        .button-order-txt {
+            margin-bottom: 0;
+        }
+
+        .icon {
+            position: relative;
+            font-size: 26px;
+        }
+
+        &:nth-child(2) {
+            width: 40%;
+        }
+    }
+
+    .order-count {
+        position: absolute;
+        left: 15px;
+        top: 0;
+        height: 16px;
+        line-height: 16px;
+        color: $light;
+        text-style: normal;
+        font-size: $font-size-mini;
+        background-color: $assertive;
+        border-radius: 8px;
+    }
+}
+
+// 会员中心个人资料
+.user-panel {
+
+    .user-info-list {
+        border-bottom: $line-color 1px solid;
+
+        .icon-holder {
+            opacity: 0;
+        }
+    }
+
+    .item-right-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .default-img {
+        background: url('#{$images-path}/user-default.jpg') center center no-repeat;
+        background-size: 100% auto;
+    }
+}
+
+.popup-container {
+    &.show-up {
+       bottom: 150px;
+    }
+}

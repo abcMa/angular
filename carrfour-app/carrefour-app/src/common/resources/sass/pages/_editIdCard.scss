@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+// 结算中心--身份证信息填写
+.edit-select-idcard-view {
+    background: $darker-background-color;
+
+    .edit-id-card input{
+        width:100%;
+        height: 50px;
+        padding: 15px;
+        line-height: 20px;
+        font-size: 14px;
+    }
+
+    .edit-id-card-bg {
+        .p {
+            color: #818181;
+            display: block;
+        }
+
+        .tip2 {
+            padding-top: 0;
+        }
+    }
+
+    .footer-bar {
+        padding: 10px 0;
+        height: 60px;
+    }
+
+    .has-footer {
+        bottom: $bar-footer-height;
+    }
+
+    .edit-id-card-btn {
+        width: 260px;
+        background-color: $warm;
+        color: $light;
+        border: none;
+        margin: 0 auto;
+        font-size: $font-size-big;
+    }
+
+    .gary {
+        background: #aaa;
+    }
+
+}
+
+.cardHint {
+    .popup {
+        .popup-buttons
+            .button{
+            background: #ff7300;
+        }
+    }
+
+}

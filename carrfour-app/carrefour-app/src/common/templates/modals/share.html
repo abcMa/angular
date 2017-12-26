@@ -1,0 +1,56 @@
+<ion-modal-view class="modal-share-panel"
+    ng-class="{'more-share': share.shareType == 'app'}"
+    ng-click="modals.share.close()">
+    <ion-content scroll="false">
+        <div class="share-banner">
+            <i class="gradient-line"></i>
+            <i class="tilt-block"></i>
+            {{ 'share.shareto' | translate }}
+            <i class="tilt-block"></i>
+            <i class="gradient-line-inverse"></i>
+        </div>
+        <div class="share-list">
+            <div class="share"
+                 ng-if="share.wechat_installed"
+                 ng-click="share.share(share.platform.wechat)">
+                <div class="share-img wechat-logo"></div>
+                <div class="share-title">
+                    {{ 'share.wechat' | translate }}
+                </div>
+            </div>
+            <div class="share"
+                 ng-if="share.wechat_installed"
+                 ng-click="share.share(share.platform.moments)">
+                <div class="share-img moments-logo"></div>
+                <div class="share-title">
+                    {{ 'share.moments' | translate }}
+                </div>
+            </div>
+            <div class="share" ng-if="share.shareType == 'app'" ng-click="share.share(share.platform.weibo)">
+                <div class="share-img weibo-logo"></div>
+                <div class="share-title">
+                    {{ 'share.weibo' | translate }}
+                </div>
+            </div>
+            <div class="share"
+                 ng-if="share.shareType == 'app' && share.QQ_installed"
+                 ng-click="share.share(share.platform.qq)">
+                <div class="share-img qq-logo"></div>
+                <div class="share-title">
+                    {{ 'share.qq' | translate }}
+                </div>
+            </div>
+            <!-- <div class="share"
+                 ng-if="share.shareType == 'app' && share.QQ_installed"
+                 ng-click="share.share(share.platform.qzone)">
+                <div class="share-img qzone-logo"></div>
+                <div class="share-title">
+                    {{ 'share.qzone' | translate }}
+                </div>
+            </div> -->
+        </div>
+        <div class="cancel" ng-click="modals.share.close()">
+            {{ 'cancel' | translate }}
+        </div>
+    </ion-content>
+</ion-modal-view>

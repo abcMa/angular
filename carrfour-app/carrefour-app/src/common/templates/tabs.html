@@ -1,0 +1,40 @@
+<ion-view>
+    <ion-tabs class="app-tabs tabs-icon-top" cm-hide-tabs-flag>
+        <ion-tab title="{{'tabs.index' | translate}}"
+                 icon-on="cm-icon icon04"
+                 icon-off="cm-icon icon04"
+                 href="#/tabs/index">
+            <ion-nav-view name="index"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="{{'tabs.category' | translate}}"
+                 icon-on="cm-icon icon03"
+                 icon-off="cm-icon icon03"
+                 href="#/tabs/categories">
+            <ion-nav-view name="categories"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="{{'tabs.scan' | translate}}"
+                 icon-on="tab-scan-item cm-icon icon08"
+                 icon-off="tab-scan-item cm-icon icon08"
+                 ng-click="scanCode()">
+            <ion-nav-view name="scan"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="{{'tabs.cart' | translate}}"
+                 icon-on="cm-icon icon02"
+                 icon-off="cm-icon icon02"
+                 href="#/tabs/cart/shoppingCart"
+                 badge="shoppingCartCount"
+                 badge-style="badge-assertive">
+            <ion-nav-view name="cart"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="{{'tabs.me' | translate}}"
+                 icon-on="cm-icon icon01"
+                 icon-off="cm-icon icon01"
+                 href="#/tabs/user">
+            <ion-nav-view name="user"></ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

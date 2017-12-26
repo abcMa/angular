@@ -1,0 +1,142 @@
+<ion-modal-view class="confirm-order-modal-view">
+
+    <ion-header-bar class="bar-default bar-header-overseas-shop">
+        <button class="button-clear button back-button" ng-click="selectPayDelivery.onCancel()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'checkout.selectPayDelivery.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="select-pay-delivery-panel" scroll="true">
+
+        <!-- 支付方式 -->
+        <div class="delivery-box panel-flex mt p pbx">
+            <p class="panel-title pvx">{{'checkout.selectPayDelivery.payMode' | translate}}</p>
+            <div class="pay-type clearfix pb">
+                <!-- <button class="button button-outline button-primary mr fl">在线支付</button> -->
+                <div class="button mt button-outline canuse-delivery mr fl"
+                ng-class="{'button-primary': mode.selected, 'button-quiet': !mode.selected}"
+                at-gesture="tunnel::step3_select_payment_delivery::{{mode.analyticsName}}" gesture-action="touch"
+                ng-click="!mode.selected && selectPayDelivery.onChangePayMode(mode)"
+                ng-repeat="mode in selectPayDelivery.payMode">{{mode.name}}</div>
+            </div>
+        </div>
+
+        <!-- 配送方式 -->
+        <div class="delivery-box panel-flex dilivery-msg-box mt p pbx" ng-if="selectPayDelivery.deliveryModes.length > 0">
+            <p class="panel-title panel-flex pvx">{{'checkout.selectPayDelivery.deliveryMode' | translate}}</p>
+            <div class="clearfix panel-flex pb">
+                <div class="button mt button-outline button-quiet mr fl"
+                     ng-class="{'button-primary': mode.selected, 'canuse-delivery': mode.status == 1 && mode.deliveryModeUnused == 2}"
+                     at-gesture="tunnel::step3_select_payment_delivery::{{mode.analyticsName}}" gesture-action="touch"
+                     ng-click="selectPayDelivery.onChangeDeliveryModes(mode)"
+                     ng-repeat="mode in selectPayDelivery.deliveryModes track by $index">
+                    {{mode.name}}
+                </div>
+            </div>
+            <!-- 自提点选择 -->
+            <div class="addons-panel mtx" ng-show="selectPayDelivery.pickupId">
+                <p class="panel-title pvx mbx">{{'checkout.selectPayDelivery.pickup' | translate}}:</p>
+                <div class="pickup-type clearfix pb">
+                <i class="cm-icon icon24 "></i>
+                    {{selectPayDelivery.getPickupNames(selectPayDelivery.pickupId)}}
+                </div>
+                <select class="checkout-pickup"
+                    data-tap-disabled="true"
+                    ng-model="selectPayDelivery.pickupId"
+                    ng-change="selectPayDelivery.onSelectChanged()"
+                    ng-options="pickup.id as pickup.address for pickup in selectPayDelivery.pickupes"
+                    cm-blur-select>
+                </select>
+            </div>
+<!-- 自提时间选择 -->
+<div class="addons-panel mtx" ng-if="selectPayDelivery.getCurrentDeliveryMode().id == selectPayDelivery.DELIVERY.PICKUP" ng-click="selectPayDelivery.onClickSelect()">
+
+	<p class="panel-title pvx mbx">{{ 'checkout.selectPayDelivery.pickupTime' | translate }}</p>
+	<div class="pickup-type clearfix pb">
+		<i class="cm-icon icon24 "></i>
+		{{ selectPayDelivery.pickupTime.showDate ? selectPayDelivery.pickupTime.showDate : selectPayDelivery.pleaseSelected | translate }}
+	</div>
+</div>
+            <!-- 极速达 -->
+            <ion-scroll class="addons-panel mtx" ng-show="selectPayDelivery.getCurrentDeliveryMode().id == selectPayDelivery.DELIVERY.FASTER">
+                <!-- 当日达 -->
+                <div class="day-delivery">
+                    <p class="day-delivery-cont day-title">{{ 'checkout.dayDelivery.warnText' | translate }}</p>
+                    <p class="day-delivery-cont day-title">{{ 'checkout.dayDelivery.firstWarn' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subfirst1' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subfirst2' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subfirst3' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subfirst4' | translate }}
+                        <a class=" day-link" ng-click="selectPayDelivery.openFasterArticle()">{{ 'checkout.dayDelivery.linkText' | translate }}</a>
+                        <span class="day-sub">{{ 'checkout.dayDelivery.endLink' | translate }}</span>
+                    </p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subfirst5' | translate }}</p>
+                    <p class="day-delivery-cont day-title">{{ 'checkout.dayDelivery.secondWarn' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subSecond1' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subSecond2' | translate }}</p>
+                    <p class="day-delivery-cont day-sub">{{ 'checkout.dayDelivery.subSecond3' | translate }}</p>
+                    <p class="day-delivery-cont day-title">{{ 'checkout.dayDelivery.warnText2' | translate }}</p>
+                    <p class="day-delivery-cont day-title">{{ 'checkout.dayDelivery.warnText3' | translate }}</p>
+                </div>
+            </ion-scroll>
+        </div>
+
+        <!-- 自提须知 -->
+        <div class="mtx ph expressage-notice" ng-if="selectPayDelivery.getCurrentDeliveryMode().id == selectPayDelivery.DELIVERY.PICKUP">
+            {{ 'checkout.notePickUpMessage' | translate }}
+        </div>
+
+        <!-- 0 普通准时达  1 生鲜达 -->
+        <div class="delivery-box expressage-warning panel-flex mt p"
+            ng-if="selectPayDelivery.deliveryModeUnused !== 2
+                && !selectPayDelivery.isDeliveryModesSelected()">
+            <p class="unused-tips">
+                {{ 'checkout.deliveryUnusedOne' + selectPayDelivery.deliveryModeUnused | translate }}
+            </p>
+            <p class="unused-tips">
+                {{ 'checkout.deliveryUnusedTwo' + selectPayDelivery.deliveryModeUnused | translate }}
+            </p>
+            <p class="unused-tips">
+                {{ 'checkout.deliveryUnusedThree' + selectPayDelivery.deliveryModeUnused | translate }}
+            </p>
+        </div>
+        <!-- 快递配送方式相关操作 -->
+        <div class="panel-flex" ng-if="selectPayDelivery.getCurrentDeliveryMode().id == selectPayDelivery.DELIVERY.EXPRESSAGE">
+            <!-- 准时达（或生鲜达）送达日期选择及展示区域 -->
+            <div class="delivery-box expressage-box mt ph" ng-if="selectPayDelivery.deliveryOntimeData.length > 0" ng-click="selectPayDelivery.goSelectDeliveryOntime()">
+                <div class="row panel-title pvx" ng-if="selectPayDelivery.deliveryOntime">
+                    <div class="col">
+                        {{ 'checkout.deliveryTime' | translate }}
+                    </div>
+                    <div class="col col-adaptive service-fee">
+                        {{ 'checkout.freightServiceFee' | translate }}
+                        {{ selectPayDelivery.deliveryOntime.serverFee  | currency: '&yen;'}}
+                    </div>
+                </div>
+                {{ selectPayDelivery.deliveryOntime.showDate ? selectPayDelivery.deliveryOntime.showDate : 'unselected' | translate }}
+            </div>
+
+            <!-- 若当前所选配送地区不支持准时达（或生鲜达），则显示该提示 -->
+            <div class="mtd ph expressage-notice" ng-if="!(selectPayDelivery.deliveryOntimeData.length > 0)">
+                {{ 'checkout.notSupportExpressageDelivery' | translate }}
+            </div>
+
+            <!-- 快递温馨提示 -->
+            <div class="mtx ph expressage-notice">
+                {{ 'checkout.selectPayDelivery.expressageInform' | translate }}
+            </div>
+
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="footer-confirm-bar">
+        <div class="footer-confirm-bar-row pv phd">
+            <button class="button button-block button-primary"
+                    ng-disabled="!selectPayDelivery.isDeliveryModesSelected() || !selectPayDelivery.isPaymodesSelected()"
+                    ng-click="selectPayDelivery.onSumbit()">{{'checkout.selectPayDelivery.confirm' | translate}}</button>
+        </div>
+    </ion-footer-bar>
+
+</ion-modal-view>

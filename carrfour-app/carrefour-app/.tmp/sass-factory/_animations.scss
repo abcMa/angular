@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.slide-in-right {
+  @include translate3d(100%, 0, 0);
+}
+
+.slide-in-right.ng-enter,
+.slide-in-right > .ng-enter {
+  @include transition(all cubic-bezier(.1, .7, .1, 1) 400ms);
+}
+
+.slide-in-right.ng-enter-active,
+.slide-in-right > .ng-enter-active {
+  @include translate3d(0, 0, 0);
+}
+
+.slide-in-right.ng-leave,
+.slide-in-right > .ng-leave {
+  @include transition(all ease-in-out 250ms);
+}

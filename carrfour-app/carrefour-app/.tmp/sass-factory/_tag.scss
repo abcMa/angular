@@ -1,0 +1,109 @@
+@charset "utf-8";
+
+// @mixin set-tag-style($color) {
+//     border-color: $color;
+//     color: $color;
+//
+//     &.active {
+//         color: #fff;
+//         background: $color;
+//     }
+// }
+//
+// .tag {
+//     border: 1px solid $base-color;
+//     color: $base-color;
+//     line-height: 1.2;
+//     padding: 0.15em 0.3em;
+//     display: inline-block;
+//     border-radius: 0.2em;
+//     text-align: center;
+//     white-space: nowrap;
+//
+//     &.active {
+//         background: $base-color;
+//         color: #fff;
+//     }
+// }
+//
+// .tag-primary   { @include set-tag-style($primary-color); }
+// .tag-assertive { @include set-tag-style($assertive);     }
+// .tag-positive  { @include set-tag-style($positive);      }
+// .tag-calm      { @include set-tag-style($calm);          }
+// .tag-balanced  { @include set-tag-style($balanced);      }
+// .tag-energized { @include set-tag-style($energized);     }
+// .tag-royal     { @include set-tag-style($royal);         }
+// .tag-dark      { @include set-tag-style($dark);          }
+
+
+.tag {
+    display: inline-block;
+
+    padding: .2em .4em;
+    margin-right: .2em;
+
+    font-size: 88%;
+    line-height: 1.1;
+
+    color: $light;
+    border-radius: 2px;
+
+    text-align: center;
+    white-space: nowrap;
+
+    line-height: 100%;
+
+    &.promotion-tag1 {
+        background-color: #fd777c;
+    }
+
+    &.promotion-tag2 {
+        background-color: #fe8dff;
+    }
+
+    &.promotion-tag3 {
+        background-color: #cf85fe;
+    }
+
+    &.promotion-tag4 {
+        background-color: #86d5ab;
+    }
+
+    &.promotion-tag5 {
+        background-color: $assertive;
+    }
+
+    &.promotion-tag6 {
+        background-color: #aeaeae;
+    }
+
+    &.promotion-tag7 {
+        background-color: #69abf6;
+    }
+
+    &.promotion-tag8 {
+        background-color: $assertive;
+    }
+
+    &.delivery-tag1,
+    &.icon-green {
+        // 生鲜
+        background-color: #51a222;
+    }
+
+    &.delivery-tag2,
+    &.icon-orange {
+        // 极速
+        background-color: #fc7905;
+    }
+
+    &.delivery-tag3,
+    &.icon-orange {
+        // 预购
+        background-color: #f93;
+    }
+
+    &.tag-overseas-shop {
+        background-color: $overseas-shop-primary-light-color;
+    }
+}

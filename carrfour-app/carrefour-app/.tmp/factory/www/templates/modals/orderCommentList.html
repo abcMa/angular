@@ -1,0 +1,34 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.orderCommentList.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'userCommentList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="comment-order-panel stable-bg">
+    <ion-refresher on-refresh="orderCommentList.refresh({showLoading:false})"></ion-refresher>
+        <ul class="light-bg">
+            <li class="comment-item pv pr ml clearfix"
+                ng-repeat="orderGoods in orderCommentList.data.items"
+                ng-click="orderCommentList.goProductInfo(orderGoods.productId, orderGoods.goodsId, orderGoods.name, 'orderComment');">
+                <img class="item-img fl mr" cm-lazyload="orderGoods.picUrl" />
+                <p class="item-name mtx">{{orderGoods.name}}</p>
+                <p class="item-state">
+                    <button class="button button-light"
+                        ng-if="orderGoods.status == 0"
+                        ng-click="orderCommentList.goOrderCommentInfo(orderGoods, $event)">
+                        {{'userCommentList.goToComment' | translate}}
+                    </button>
+                    <button class="button button-clear button-disabled"
+                        ng-if="orderGoods.status == 1" disabled>
+                        {{'userCommentList.reviewed' | translate}}
+                    </button>
+                </p>
+            </li>
+        </ul>
+
+    </ion-content>
+
+</ion-modal-view>

@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+.selecter-view {
+    .item {
+
+        &.cannot-use {
+            opacity: 0.5;
+        }
+        
+        .text {
+            white-space: nowrap;
+        }
+
+        .subtext {
+            text-align: right;
+            float: right;
+            color: $primary-color;
+
+            @include text-overflow-ellipsis();
+        }
+    }
+}

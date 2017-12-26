@@ -1,0 +1,48 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.editMemberCardMoblie.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'editMemberCardMoblie.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="edit-member-mobile-panel stable-bg" scroll="false">
+        <ng-form name="editMemberCardMoblieForm" class="member-center-form-list">
+            <div class="list light-bg">
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                    <input type="text" name="mobile"
+                           ng-model="editMemberCardMoblie.mobile"
+                           value="editMemberCardMoblie.mobile"
+                           maxlength="11"
+                           pattern="^1\d{10}$"
+                           placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}"
+                           required>
+                </label>
+                <div class="item item-input item-verify-code">
+                    <span class="input-label">{{'memberCenterFormFields.verifyCode' | translate}}</span>
+                    <input type="text" ng-model="editMemberCardMoblie.verifyCode"
+                        placeholder="{{'memberCenterFormFields.verifyCodePlaceholder' | translate}}" required>
+                    <button type="button" class="button button-clear button-verify-code"
+                        ng-if="editMemberCardMoblie.isSendCode"
+                        ng-disabled="!editMemberCardMoblieForm.mobile.$valid"
+                        ng-click="editMemberCardMoblie.getVerifyCode()">
+                        {{'memberCenterFormFields.getVerifyCode' | translate}}
+                    </button>
+                    <button type="button" class="button button-clear button-verify-code resend-button"
+                        ng-if="!editMemberCardMoblie.isSendCode" disabled>
+                        {{'memberCenterFormFields.resend' | translate}}
+                        <span class="verify-cool-down">({{editMemberCardMoblie.countdownTime}})</span>
+                    </button>
+                </div>
+            </div>
+            <div class="mh">
+                <button class="button button-block button-assertive"
+                    ng-disabled="editMemberCardMoblieForm.$invalid"
+                    ng-click="editMemberCardMoblie.onSubmit()">{{'editMemberCardMoblie.confirmBtn' | translate}}</button>
+            </div>
+        </ng-form>
+    </ion-content>
+
+</ion-modal-view>

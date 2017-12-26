@@ -1,0 +1,37 @@
+<ion-view cm-hide-tabs="true" cm-download-banner>
+
+    <ion-header-bar class="bar bar-header bar-default disable-user-behavior">
+        <div class="buttons buttons-left">
+            <span class="left-buttons">
+                <button class="button back-button button-clear button header-item" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-left"></i>
+                </button>
+            </span>
+        </div>
+        <div class="title title-center header-item">
+            {{activity.title}}
+        </div>
+        <div class="buttons">
+            <button class="button button-clear"
+                cm-share share-data="{{activity.articleId}}" share-type="article">
+                <i class="cm-icon icon-share"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="activity-panel light-bg has-header">
+        <div class="activity-empty-view clearfix" ng-if="activity.empty">
+            <span class="count-down fr">{{activity.countDown}}</span>
+            <div class="activity-empty">
+                <p class="warn-text">{{'activity.warnText' | translate}}</p>
+                <button type="button" name="button" class="button home-button" ng-click="activity.goIndex();">{{'activity.btnText' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="" ng-if="!activity.empty">
+            <activity-page content="activity.activityContent" />
+            <div class="activity-content"></div>
+        </div>
+    </ion-content>
+
+</ion-view>

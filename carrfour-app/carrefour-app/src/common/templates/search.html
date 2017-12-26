@@ -1,0 +1,50 @@
+<ion-view class="search-view" hide-nav-bar="true" cm-hide-tabs="true" cm-download-banner>
+
+    <ion-header-bar class="bar-default bar-header-overseas-shop" cm-search-bar>
+        <div class="row">
+            <form class="col textbar" method="get" ng-submit="search.search()">
+                <i class="icon ion-ios-search-strong placeholder-text"></i>
+                <input type="search" placeholder="{{'search.searchTip' | translate}}" ng-model="search.keyword" />
+            </form>
+            <div class="col col-adaptive">
+                <button class="button button-clear" on-tap="goBack()">{{'search.cancel' | translate}}</button>
+            </div>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="search-panel pv">
+
+        <!-- 热门搜索 -->
+        <div class="search-hot-box pbx" ng-if="search.hotKeywords.length != 0">
+            <p class="search-tit ph">{{'search.hotKeywords' | translate}}</p>
+            <ul class="ph pt">
+                <li class="search-item">
+                    <span class="search-hot ph"
+                          ng-repeat="keyword in hotKeywords"
+                          ng-click="search.search(keyword)">
+                          {{keyword}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 历史搜索 -->
+        <p class="search-tit pt ph">{{'search.history' | translate}}</p>
+        <ul>
+            <li class="search-item pv pr ml"
+                ng-repeat="keyword in search.historyKeywords"
+                ng-click="search.search(keyword)">
+                {{keyword}}
+            </li>
+            <li class="search-item fg-quiet tc p" ng-if="search.historyKeywords.length === 0">
+                {{'search.emptyHistory' | translate}}
+            </li>
+        </ul>
+
+        <div class="mhd mbd mt" ng-if="search.historyKeywords.length !== 0">
+            <button class="button button-block button-outline button-primary" on-tap="search.clearHistory()">{{'search.clearHistory' | translate}}</button>
+        </div>
+
+    </ion-content>
+
+</ion-view>

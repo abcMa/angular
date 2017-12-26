@@ -1,0 +1,89 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'storeInfo.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="store-info-panel">
+        <div class="store-top-carousel" ng-if="storeInfo.data">
+            <div class="float-button">
+                <button class="button icon-right button-small ion-navigate button-clear button-dark"
+                    ng-click="storeInfo.openNavigation()">{{'storeInfo.navigate' | translate}}</button>
+            </div>
+            <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000">
+                <cm-switch-content>
+                    <cm-switch-panel ng-repeat="pic in storeInfo.data.pictureList track by $index">
+                        <img ng-src="{{pic}}" load-immediate="true" />
+                    </cm-switch-panel>
+                </cm-switch-content>
+                <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+            </cm-switch>
+        </div>
+        <ul class="list list-inset store-info" ng-if="storeInfo.data">
+
+            <li class="item">
+                <h2 class="store-title pvx">{{storeInfo.data.storesName}}</h2>
+            </li>
+
+            <li class="list store-innerlist">
+
+                <a class="item item-icon-left item-text-wrap" ng-click="storeInfo.openMap()">
+                    <i class="icon ion-navigate"></i> {{storeInfo.data.storesAddress}}
+                </a>
+
+                <a class="item item-icon-left" href="tel:{{storeInfo.data.storesPhone}}">
+                    <i class="icon ion-ios-telephone-outline"></i> {{storeInfo.data.storesPhone}}
+                </a>
+            </li>
+
+            <li class="item">
+                <i class="icon-bus fl"></i>
+                <h2 class="item-line-title">{{'storeInfo.shuttleBus' | translate}}</h2>
+                <p class="item-line-content">
+                    {{storeInfo.data.shuttleBus}}
+                </p>
+            </li>
+
+            <li class="item">
+                <h2 class="item-line-title">{{'storeInfo.service' | translate}}</h2>
+                <p class="item-line-content">
+                    <i class="store-service-icon mrx ss-{{tag}}" ng-repeat="tag in storeInfo.data.serviceTags"></i>
+                    <!-- <i class="store-service-icon ss-wifi"></i>
+                    <i class="store-service-icon ss-atm"></i>
+                    <i class="store-service-icon ss-bus"></i>
+                    <i class="store-service-icon ss-food"></i>
+                    <i class="store-service-icon ss-onlinepay"></i>
+                    <i class="store-service-icon ss-parking"></i>
+                    <i class="store-service-icon ss-card"></i>
+                    <i class="store-service-icon ss-charge"></i> -->
+                </p>
+            </li>
+
+            <li class="item store-detail item-text-wrap">
+                <span class="store-detail-title fl">{{'storeInfo.businessTime' | translate}}:</span>
+                <div class="store-detail-content">{{storeInfo.data.businessTime}}</div>
+            </li>
+
+            <li class="item store-detail item-text-wrap">
+                <span class="store-detail-title fl">{{'storeInfo.bus' | translate}}:</span>
+                <div class="store-detail-content">{{storeInfo.data.storesTrafficRoutes}}</div>
+            </li>
+
+            <li class="item store-detail item-text-wrap">
+                <span class="store-detail-title fl">{{'storeInfo.subway' | translate}}:</span>
+                <div class="store-detail-content">{{storeInfo.data.storesSubwayRoute}}</div>
+            </li>
+
+            <li class="item store-detail item-text-wrap">
+                <span class="store-detail-title fl">{{'storeInfo.parking' | translate}}:</span>
+                <div class="store-detail-content">{{storeInfo.data.storesParkingConsulting}}</div>
+            </li>
+
+        </ul>
+    </ion-content>
+
+</ion-view>

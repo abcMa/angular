@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="44dp"
+    android:background="@drawable/nav_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/nav_btn_left"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="10.0dip"
+        android:background="@drawable/nav_back"
+        android:textColor="@android:color/white"
+        android:onClick="leftButtonClickHandler" />
+
+    <TextView
+        android:id="@+id/nav_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/navbar_title"
+        android:textColor="@android:color/white"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/nav_btn_right"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="10.0dip"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/white" />
+</LinearLayout>

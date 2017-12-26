@@ -1,0 +1,322 @@
+@charset "utf-8";
+
+.bar.product-list-header-bar {
+    border-bottom: none;
+}
+
+// 列表页头部搜索
+.has-back-btn {
+
+    .button {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        padding: 0;
+        line-height: 30px;
+    }
+
+    .search-form-area {
+        margin-left: 35px;
+    }
+}
+
+.product-list {
+    .list {
+        background-color: $light-background;
+    }
+}
+
+// 筛选条件
+.product-list-filter {
+    position: absolute;
+    top: 44px;
+    width: 100%;
+    height: 40px;
+    background-color: $stable-background;
+    border-bottom: $stable-border-color 1px solid;
+
+    .button {
+        padding: 0;
+        float: left;
+        width: 20%;
+        font-size: $font-size-big;
+    }
+
+    .icon-filter {
+        position: relative;
+        display: inline-block;
+        width: 15px;
+        height: 20px;
+
+        &:before {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            width: 15px;
+            height: 20px;
+            background: url('#{$images-path}/icon-filter.png') 0 0 no-repeat;
+            background-size: 100% auto;
+            content: '';
+        }
+    }
+
+    .svg-box {
+        display: inline-block;
+        width: 10px;
+    }
+
+    .price-icon-svg {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        margin: auto;
+        transform: translateY(-1px);
+
+        .group {
+            stroke: #b2b2b2;
+            fill: none;
+        }
+    }
+
+    .button-assertive {
+        .group {
+            stroke: $primary-color;
+        }
+
+        .descending {
+            .bottom {
+                fill: $primary-color;
+            }
+        }
+
+        .ascending {
+            .top {
+                fill: $primary-color;
+            }
+        }
+    }
+
+    .button-assertive {
+        position: relative;
+        color: $primary-color;
+
+        &:before {
+            position: absolute;
+            content: '';
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: $primary-color;
+        }
+    }
+}
+
+.platform-ios.platform-cordova {
+
+    .product-list-main {
+        top: 105px !important;
+    }
+
+    .product-list-filter {
+        top: 64px !important;
+    }
+}
+
+// 列表页商品信息
+.product-list-main {
+    top: 85px;
+
+    .product-list-empty {
+        padding-top: 70px;
+
+        .empty-img {
+            width: 55px;
+            height: 70px;
+            margin: 0 auto 10px;
+            background: url('#{$images-path}/list-empty.png') center center no-repeat;
+            background-size: 100% auto;
+        }
+
+        .empty-txt {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+    }
+
+    .product-item {
+        padding-left: 0;
+        border-left: none;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .item-img {
+        position: relative;
+        width: 100px;
+        height: 100px;
+
+        .img {
+            width: 100%;
+            height: auto;
+        }
+
+        &.unavailable {
+            .img {
+                opacity: 0.5;
+            }
+
+            &:after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                background: url(../images/icon-goods-unavailable.png) center center no-repeat;
+                content: ' ';
+            }
+        }
+    }
+
+    .item-main {
+        margin-left: 100px;
+    }
+
+    .item-title {
+        height: 3em;
+        margin: 0;
+        line-height: 1.5em;
+        font-size: $font-size-base;
+        white-space: normal;
+    }
+
+    .item-tag {
+        margin-bottom: 0;
+        padding-top: 3px;
+        white-space: normal;
+    }
+
+    .item-link {
+        color: $text-color;
+    }
+
+    .item-price {
+        margin-bottom: 0;
+        font-size: $font-size-big;
+        color: $primary-color;
+        font-weight: bold;
+    }
+
+    .item-tip {
+        font-weight: normal;
+    }
+
+    .item-num-cart {
+        margin: -6px 0 0;
+    }
+
+    .item-num {
+        padding: 0;
+        color: $text-color-quiet;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .item-cart {
+        min-height: 0;
+        height: 30px;
+        padding: 0 15px;
+        font-size: $font-size-icon;
+        color: $primary-color;
+        border: none;
+        border-left: $line-color 1px solid;
+        border-radius: 0;
+
+        &.col-right {
+            text-align: right;
+        }
+    }
+}
+
+
+//全球购 列表页
+.overseas-shop-view {
+
+    .product-list-view {
+
+        .product-list-filter {
+            background-color: $light;
+
+            .filter-button {
+                color: $dark;
+            }
+
+            .icon07 {
+                color: #737373;
+            }
+
+            .button-assertive {
+                color: $overseas-shop-primary-color;
+
+                &:before {
+                    background-color: $warm;
+                }
+
+                .icon07 {
+                    color: $overseas-shop-primary-color;
+                }
+            }
+        }
+
+        .overseas-tag {
+            background-color: $overseas-shop-primary-color;
+        }
+
+        .price-icon-svg {
+            .group {
+                stroke: #737373;
+            }
+        }
+
+        .button-assertive {
+            .group {
+                stroke: $warm;
+            }
+
+            .price-down {
+                .bottom {
+                    fill: $warm;
+                }
+            }
+
+            .price-up {
+                .top {
+                    fill: $warm;
+                }
+            }
+        }
+
+        .product-list-main {
+
+            .item-title {
+                color: #1c1c1c;
+            }
+            .item-cart {
+                color: $warm-light;
+            }
+            .empty-shop-btn {
+                color: $gray-a5;
+            }
+        }
+    }
+}

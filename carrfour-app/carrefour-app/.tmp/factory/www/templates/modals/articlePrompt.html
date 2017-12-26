@@ -1,0 +1,13 @@
+<ion-modal-view class="article-prompt-view">
+    <div class="prompt-title">
+        <div class="title">
+            {{articlePrompt.title}}
+        </div>
+        <span class="info-close ion-ios-close-empty" ng-click="modals.articlePrompt.close()"></span>
+    </div>
+    <ion-content class="article-prompt-content" scroll="true">
+        <div class="info-box">
+            <div class="info-content" cm-dynamic-template="articlePrompt.data"></div>
+        </div>
+    </ion-content>
+</ion-modal-view>

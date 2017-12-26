@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+// 结算中心--配送方式选择
+.delivery-panel {
+    background-color: $stable;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .delivery-box {
+        background-color: $light;
+
+        &:first-child {
+            border-top: $line-color 1px solid;
+        }
+    }
+
+    .delivery-title {
+        font-size: $font-size-big;
+        color: $text-color-quiet;
+    }
+
+    .delivery-txt {
+        border-bottom: $line-color 1px solid;
+    }
+
+    .icon {
+        font-size: $font-size-large;
+        color: $text-color-quiet;
+    }
+
+    .button {
+        height: 30px;
+        line-height: 28px;
+        min-height: 30px;
+        font-size: $font-size-base;
+    }
+
+    .button-quiet {
+        color: $text-color;
+        border-color: $line-color;
+    }
+}
+
+// 结算中心--选择自提点
+.delivery-pickup-modal {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 55%;
+    width: 100%;
+    height: 45%;
+    min-height: 45%;
+    background-color: $light;
+
+    .pickup-title {
+        background-color: $stable;
+    }
+
+    .button {
+        font-size: $font-size-big;
+    }
+
+    .pickup-main {
+        position: absolute;
+        top: 40px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+    }
+
+    .pickup-main-scroll {
+        height: 100%;
+    }
+
+    .pickup-list {
+        text-align: center;
+        color: $text-color-quiet;
+    }
+
+    .pickup-item {
+        border-bottom: $line-color 1px solid;
+        @include text-overflow-ellipsis;
+    }
+
+    .active {
+        color: $text-color;
+    }
+}

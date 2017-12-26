@@ -1,0 +1,307 @@
+@charset "utf-8";
+$header-height: 44px;
+$input-inset-height: 42px;
+
+.platform-cordova.platform-ios {
+    .user-coupon-list-view {
+        .item-input-inset {
+            top: $header-height + 20px;
+        }
+
+        .coupon-list-panel {
+            top: $header-height + 20px;
+        }
+
+        .coupon-category-bar.fixed {
+            top: $header-height + 20px;
+        }
+    }
+}
+
+.coupon-list-view {
+
+    .button.button-clear.button-header-coupon.change-click-color {
+        color: $text-color;
+    }
+
+    .item-input-inset {
+        .item-input-wrapper {
+            border: 1px solid $line-color;
+
+            > input {
+                width: 100%;
+            }
+        }
+    }
+
+    .coupon-list-panel {
+        top: $header-height;
+    }
+
+    .button-exchange {
+        width: 75px;
+    }
+
+    .coupon-category-bar {
+        position: relative;
+
+        &.fixed {
+            top: $header-height;
+        }
+
+        &:before {
+            position: absolute;
+            bottom: 0;
+            content: " ";
+            width: 100%;
+            height: 2px;
+            background-color: $line-color;
+        }
+    }
+
+    .coupon-category-bar .button {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 2px solid $line-color;
+        padding: 0;
+        // margin: 0 10px;
+        font-size: $font-size-base;
+
+        &.active {
+            border-bottom: 2px solid $primary-color;
+            opacity: 1;
+            color: $primary-color;
+        }
+
+        &.activated {
+            opacity: 1;
+        }
+    }
+}
+
+.coupon-list-panel {
+    .coupon-empty {
+        padding-top: 50px;
+
+        .img-coupon {
+            margin: 0 auto;
+            width: 100px;
+            height: 150px;
+            background: url('#{$images-path}/userCoupons_empty.png') center center no-repeat;
+            background-size: 100% auto;
+        }
+
+        .text {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+    }
+
+    .coupon-list li {
+        position: relative;
+        border-radius: 10px;
+        background-color: $primary-color;
+
+        .coupon-ruler {
+            padding: 5px 10px;
+            border-top: 1px dashed $light;
+            color: $light;
+
+            .coupon-ruler-info {
+                line-height: 1.3em;
+                font-size: 12px;
+                padding: 0 0 5px 1em;
+            }
+        }
+    }
+
+    .coupon-item {
+        height: 93px;
+        color: $light;
+        padding: 7px 10px 7px 2px;
+        position: relative;
+        font-size: $font-size-small;
+        overflow: hidden;
+
+        &:after {
+            position: absolute;
+            display: block;
+            content: " ";
+            width: 12px;
+            height: 100%;
+            top: 0;
+            left: 40%;
+            background: url('#{$images-path}/coupon-bg.png') right top no-repeat;
+            background-size: 12px 94px;
+        }
+
+    }
+
+    .harf-road {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 10px;
+        background: $light;
+        left: 40%;
+    }
+
+    .harf-road-top {
+        top: -6px;
+    }
+
+    .harf-road-bottom {
+        bottom: -6px;
+    }
+
+    .coupon-disabled {
+        opacity: 0.5;
+    }
+
+    .coupon-price-panel {
+        width: 41%;
+        height: 100%;
+        white-space: nowrap;
+        margin-right: 5%;
+        text-align: center;
+
+        .coupon-type {
+            font-size: $font-size-big;
+            letter-spacing: 2px;
+        }
+
+        .price-wrap {
+            font-weight: bold;
+
+            .price-prefix {
+                font-size: $font-size-small;
+            }
+
+            .price {
+                font-size: 26px;
+                line-height: 1.5em;
+            }
+        }
+    }
+
+    .coupon-info {
+        width: 54%;
+    }
+
+    .coupon-detail-panel {
+        position: relative;
+        height: 100%;
+        margin-left: 35%;
+    }
+
+    .coupon-access {
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: 5px;
+    }
+
+    .coupon-timesleft {
+        line-height: 1em;
+        padding-top: 4px;
+        white-space: nowrap;
+        letter-spacing: 0.5px;
+    }
+
+    .userCoupon-day {
+        width: 82%;
+        text-align: center;
+        line-height: 1em;
+    }
+
+    .coupon-title {
+        min-height: 2em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.2em;
+    }
+
+    .show-btn {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        width: 28px;
+        line-height: 24px;
+        height: 26px;
+        text-align: center;
+        color: #fff;
+        transform:rotate(90deg);
+    }
+
+    .up-btn.show-btn {
+        transform:rotate(-90deg);
+    }
+    .coupon-access-tags {
+        color: $primary-color;
+        border-radius: 4px;
+        background: $light;
+        padding: 1px 4px;
+    }
+
+    .coupon-notice {
+        font-size: $font-size-small;
+        color: $primary-color;
+        position: relative;
+        padding-left: 20px;
+        margin: 0;
+
+        .icon38 {
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    .radio-box {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+
+        .radio {
+            pointer-events: none;
+        }
+    }
+
+    .radio-box .radio:checked:before {
+        background-color: #fff;
+        border: none;
+    }
+
+    .radio-box .radio:checked:after {
+        // background-color: #fff;
+        border-left: red 2px solid;
+        border-bottom: red 2px solid;
+        //background: url('#{$images-path}/radio-checked1.png') right top no-repeat;
+    }
+}
+
+.button.button-clear.button-header-coupon {
+    color: $text-color-quiet;
+}
+.coupon-list-panel .coupon-price-panel .coupon-type {
+    letter-spacing: 1px;
+}
+.lang-en {
+    .coupon-list-panel .coupon-price-panel .short-ruler-name {
+        white-space: normal;
+        word-wrap: break-word;
+        line-height: 1em;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.overseas-shop-view {
+    .coupon-list-view{
+        .button.button-clear.button-header-coupon.change-click-color {
+            color: $light;
+        }
+    }
+}

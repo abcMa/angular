@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+.select-address-region-modal {
+
+    top: 40%;
+    min-height: 60%;
+    height: 60%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .bar {
+        background-size: 0;
+
+        .title {
+            color: $text-color-quiet;
+        }
+    }
+
+    .right-btn {
+
+        &:before {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            font-size: 28px;
+            color: $text-color-quiet;
+        }
+    }
+    .item-style {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $text-color-quiet;
+        border-top: none;
+        border-bottom: 1px solid $line-color;
+        min-height: 30px;
+        font-weight: 500;
+    }
+
+    .selected-region-name {
+        padding: 0 10px;
+    }
+
+    .please-select-tip {
+        position: relative;
+        color: $primary-color;
+
+        &:after {
+            position: absolute;
+            top: 28px;
+            left: -2px;
+            content: "";
+            width: 52px;
+            height: 1px;
+            background-color: $primary-color;
+        }
+    }
+
+    .select-region-list {
+        .region-item {
+            border: none;
+
+            &.selected {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .address-region-content {
+        top: 42px;
+    }
+}

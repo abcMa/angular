@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+.select-pay-delivery-panel {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+
+    .button {
+        height: 30px;
+        min-height: 30px;
+        line-height: 28px;
+        font-size: $font-size-base;
+        min-width: 28%;
+        padding: 0 10px;
+        white-space: nowrap;
+    }
+
+    .panel-title {
+        font-size: $font-size-big;
+        margin: 0;
+
+        .col {
+            padding: 0;
+        }
+    }
+
+    .panel-flex {
+        flex: 0 0 auto;
+    }
+
+    .service-fee {
+        white-space: nowrap;
+    }
+
+    .dilivery-msg-box {
+        display: flex;
+        flex-direction: column;
+        flex-flow: column;
+        flex: 0 1 auto;
+    }
+
+    .delivery-box {
+        border-top: $line-color 1px solid;
+        border-bottom: $line-color 1px solid;
+
+        .unused-tips {
+            margin: 0;
+            text-indent: 2em;
+            color: $primary-color;
+        }
+
+        &.expressage-warning {
+            font-size: 12px;
+            line-height: 1.2em;
+        }
+    }
+
+    .expressage-box {
+        font-size: 12px;
+        transform: translate3d(0,0,0);
+    }
+
+    .expressage-notice {
+        color: $primary-color;
+        font-size: 14px;
+        line-height: 1.2em;
+    }
+
+    .pickup-type {
+        padding-right: 25px;
+
+        .cm-icon {
+            right: 5px;
+            color: $text-color-quiet;
+            position: absolute;
+            font-size: 24px;
+        }
+    }
+
+    .addons-panel {
+        border-top: $line-color 1px solid;
+        position: relative;
+    }
+
+    .checkout-pickup {
+        @include position(absolute, 0, 100);
+        @include size(100%);
+        opacity: 0;
+        -webkit-appearance: none;
+    }
+    // .button-outline {
+    //     border-color: #1a1a1a;
+    //     color: #1a1a1a;
+    // }
+
+    .canuse-delivery {
+        border-color: $dark;
+        color: $dark;
+    }
+
+    //当日达
+    .day-delivery {
+        margin: 10px;
+        font-size: $font-size-small;
+        line-height: 14px;
+    }
+}

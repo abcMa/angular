@@ -1,0 +1,24 @@
+<div ng-class="{'expiredMessage' : messageItem.content.isExpired}" ng-repeat="messageItem in messageList.data.items" class="message-item" ng-click="messageList.goByNewMessage(messageItem)">
+    <div class="message-date">{{messageItem.sendTime | messageTime}}</div>
+    <div class="list message-card card">
+
+        <div class="item item-title">
+            <h2>{{messageItem.content.title}}</h2>
+        </div>
+
+        <div class="item item-body" ng-class="{'has-image' : messageItem.content.imgUrl}">
+            <div class="full-image-box" ng-if="messageItem.content.imgUrl" >
+                <img class="full-image" ng-src="{{messageItem.content.imgUrl}}">
+            </div>
+            <p class="item-content">
+                {{messageItem.content.contentText}}
+            </p>
+        </div>
+        <div class="item item-footer item-icon-right" ng-if="messageItem.typeId === 2">
+            <div class="item-footer-content">
+                {{'messageCenter.systemMsg.viewDetails' | translate}}
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </div>
+    </div>
+</div>

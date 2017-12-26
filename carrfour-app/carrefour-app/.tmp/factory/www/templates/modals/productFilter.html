@@ -1,0 +1,116 @@
+<ion-modal-view class="product-filter-modal-view">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="productFilter.backup()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'productFilter.title' | translate}}</h1>
+        <button class="button-clear button sure-button" ng-click="productFilter.confirm()">
+            {{'productFilter.confirm' | translate}}
+        </button>
+    </ion-header-bar>
+
+    <ion-content scroll="false">
+
+        <cm-switcher delegate-handle="product-filter-switcher">
+            <ion-scroll class="panel" data-name="first">
+                <ion-list>
+                    <ion-item ng-if="productFilter.data.categories"
+                        at-gesture="product_list::filter::categories" gesture-action="touch"
+                        ng-click="productFilter.goSelectCategories()">
+                        {{'productFilter.categories' | translate}}
+                        <span class="item-note">
+                            <span ng-if="productFilter.selectedFilter.category">{{productFilter.selectedFilter.category.text | truncate: 10}}</span>
+                            <span ng-if="!productFilter.selectedFilter.category">{{'productFilter.all' | translate}}</span>
+                        <button class="button button-clear item-enter-button">
+                            <i class="icon ion-ios-arrow-right"></i>
+                        </button>
+                        </span>
+                    </ion-item>
+                    <ion-item ng-if="productFilter.data.brands"
+                        at-gesture="product_list::filter::brands" gesture-action="touch"
+                        ng-click="productFilter.goSelectBrands()">
+                        {{'productFilter.brands' | translate}}
+                        <span class="item-note">
+                            <span ng-if="productFilter.selectedFilter.brands">{{productFilter.selectedFilter.brands | brandsFormat}}</span>
+                            <span ng-if="!productFilter.selectedFilter.brands">{{'productFilter.all' | translate}}</span>
+                            <button class="button button-clear item-enter-button">
+                                <i class="icon ion-ios-arrow-right"></i>
+                            </button>
+                        </span>
+                    </ion-item>
+                    <ion-item ng-if="productFilter.data.priceRange"
+                        at-gesture="product_list::filter::price_ranges" gesture-action="touch"
+                        ng-click="productFilter.goSelectPriceRanges()">
+                        {{'productFilter.priceRanges' | translate}}
+                        <span class="item-note">
+                            <span ng-if="productFilter.selectedFilter.priceRange">{{productFilter.selectedFilter.priceRange | priceRangeFormat}}</span>
+                            <span ng-if="!productFilter.selectedFilter.priceRange">{{'productFilter.all' | translate}}</span>
+                            <button class="button button-clear item-enter-button">
+                                <i class="icon ion-ios-arrow-right"></i>
+                            </button>
+                        </span>
+                    </ion-item>
+                </ion-list>
+
+                <div class="mtd tc">
+                    <button class="button button-outline clear-filter-button" ng-click="productFilter.clear()">{{'productFilter.clear' | translate}}</button>
+                </div>
+            </ion-scroll>
+            <ion-scroll class="panel" data-name="categories">
+                <div class="list">
+                    <ion-item class="item-icon-right"
+                              ng-repeat-start="category in productFilter.data.categories"
+                              ng-if="category.children"
+                              ng-click="productFilter.toggleSubCategories(category)">
+                        <div class="item-content">
+                            {{category.text}}
+                            <span class="item-note" ng-if="category.children">
+                                <i class="icon ion-ios-arrow-down"></i>
+                            </span>
+                        </div>
+                    </ion-item>
+                    <div class="sub-list" ng-if="category.children" ng-show="category.isOpenSubCategories" ng-repeat-end>
+                        <ion-item ng-repeat="subCategory in category.children"
+                                  ng-class="{selected: subCategory.id == productFilter.selectedFilter.category.id}"
+                                  ng-click="productFilter.selectCategory(subCategory)">
+                            {{subCategory.text}}
+                            <span class="item-note">
+                                <i class="selected-flag icon ion-android-done fg-primary"></i>
+                            </span>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-scroll>
+            <ion-scroll class="panel" data-name="brands">
+                <div class="list">
+                    <ion-item ng-repeat="(brandId, brandName) in productFilter.data.brands"
+                              ng-class="{selected: productFilter.selectedFilter.brands[brandId]}"
+                              ng-click="productFilter.selectedBrand(brandId, brandName)">
+                        <div class="item-content">
+                            {{brandName}}
+                            <span class="item-note">
+                                <i class="selected-flag icon ion-android-done fg-primary"></i>
+                            </span>
+                        </div>
+                    </ion-item>
+                </div>
+            </ion-scroll>
+            <ion-scroll class="panel" data-name="priceRanges">
+                <div class="list">
+                    <ion-item ng-repeat="priceRange in productFilter.data.priceRange"
+                              ng-class="{selected: productFilter.selectedFilter.priceRange[0] == priceRange[0] && productFilter.selectedFilter.priceRange[1] == priceRange[1]}"
+                              ng-click="productFilter.selectedPriceRange(priceRange)">
+                        <div class="item-content">
+                            {{priceRange | priceRangeFormat}}
+                            <span class="item-note">
+                                <i class="selected-flag icon ion-android-done fg-primary"></i>
+                            </span>
+                        </div>
+                    </ion-item>
+                </div>
+            </ion-scroll>
+        </cm-switcher>
+
+    </ion-content>
+</ion-modal-view>

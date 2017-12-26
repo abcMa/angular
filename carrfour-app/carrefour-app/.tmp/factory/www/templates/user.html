@@ -1,0 +1,124 @@
+<ion-view hide-nav-bar="true" cm-hide-tabs="false">
+
+    <ion-content class="user-panel stable-bg">
+
+        <div class="user-top-wrap">
+            <div class="change-language-box" at-gesture="personal_space::toggle_language" ng-click="user.onToggleLanguage()">
+                <!-- <i class="icon icon-change-language"></i> -->
+                <span class="change-language">{{user.wantLanguage}}</span>
+            </div>
+
+            <div class="message-center-box" ng-show="APP_CONFIG.os !== 'weixin'">
+                <button class="button button-clear message-center-button" ng-click="goMessageCenter()">
+                    <span class="icon cm-icon icon-message" ng-class="{ 'has-message-badge': user.messageCenterService.unreadCount > 0 }"></span>
+                </button>
+            </div>
+
+            <div class="user-top">
+
+                <!-- 登录后 -->
+                <div class="user-top-img" ng-click="user.goUserInfo()" ng-if="user.userInfo.id">
+                    <div class="img-default img" ng-if="!user.userInfo.pic"></div>
+                    <img ng-if="user.userInfo.pic" class="img" ng-src="{{user.userInfo.pic}}" />
+                </div>
+                <div class="user-top-name" ng-if="user.userInfo.id">
+                    {{user.userInfo.loginName}}
+                    <i class="icon mlx phx" ng-if="user.userInfo.grand">{{user.userInfo.grand}}</i>
+                </div>
+
+                <!-- 登录前 -->
+                <div class="user-login-row" ng-if="!user.userInfo.id">
+                    <p class="user-login-btn" ng-click="user.openLogin()">{{'user.login' | translate}}</p>
+                </div>
+
+                <div class="user-top-btns">
+                    <button class="button button-clear fl" ng-click="user.goCollectionList()">{{'user.collectionItems' | translate}} {{user.userInfo.collectCount}}</button>
+                    <button class="button button-clear fl" ng-click="user.goBrowerList()">{{'user.viewHistroy' | translate}} {{user.viewHistoryCount}}</button>
+                </div>
+            </div>
+        </div>
+
+        <ul class="user-list light-bg mt pl">
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goOrderList(0)">
+                <span class="item-left-icon fl"><i class="icon cm-icon iconbig01"></i></span>
+                <span class="item-left-txt fl">{{'user.myOrder' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+                <span class="item-right-txt fr">{{'user.allOrder' | translate}}</span>
+            </li>
+            <li class="user-item user-left-icon pr clearfix">
+                <div class="button-order fl" ng-click="user.goOrderList(1)">
+                    <p class="button-order-txt">
+                        <i class="icon cm-icon icon25">
+                            <span class="order-count phx" ng-if="user.userInfo.unPayOrderCount > 0">{{user.userInfo.unPayOrderCount}}</span>
+                        </i>
+                    </p>
+                    <p class="button-order-txt">{{'user.waitingPayment' | translate}}</p>
+                </div>
+                <div class="button-order fl" ng-click="user.goOrderList(2)">
+                    <p class="button-order-txt">
+                        <i class="icon cm-icon icon26">
+                            <span class="order-count phx" ng-if="user.userInfo.unReceiveOrderCount > 0">{{user.userInfo.unReceiveOrderCount}}</span>
+                        </i>
+                    </p>
+                    <p class="button-order-txt">{{'user.receivePackage' | translate}}</p>
+                </div>
+                <div class="button-order fl" ng-click="user.goOrderList(3)">
+                    <p class="button-order-txt">
+                        <i class="icon cm-icon icon27">
+                            <span class="order-count phx" ng-if="user.userInfo.unRemarkOrderCount > 0">{{user.userInfo.unRemarkOrderCount}}</span>
+                        </i>
+                    </p>
+                    <p class="button-order-txt">{{'user.boBeEvaluated' | translate}}</p>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="user-list light-bg mt pl">
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goMemberCenter()">
+                <span class="item-left-icon fl"><i class="icon cm-icon icon-huiyuanqia"></i></span>
+                <span class="item-left-txt fl">{{'memberCenter.title' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goUserCoupons()">
+                <span class="item-left-icon fl"><i class="icon cm-icon iconbig05"></i></span>
+                <span class="item-left-txt fl">{{'user.userCoupon' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+                <span class="item-right-txt fr"><i class="font prx">{{user.userInfo.memberCouponCount}}</i></span>
+            </li>
+
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goUserConsignee()">
+                <span class="item-left-icon fl"><i class="icon cm-icon iconziti0211"></i></span>
+                <span class="item-left-txt fl">{{'user.userConsignee' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+        </ul>
+
+        <ul class="user-list light-bg mt pl" ng-show="APP_CONFIG.os !== 'weixin'">
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goNearbyStore()">
+                <span class="item-left-icon fl"><i class="icon-lbs"></i></span>
+                <span class="item-left-txt fl">{{'user.nearbyStores' | translate}}</span>
+            </li>
+        </ul>
+
+        <ul class="user-list light-bg mt pl" ng-show="APP_CONFIG.os !== 'weixin'">
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goCarrefourWallet()">
+                <span class="item-left-icon fl"><i class="icon cm-icon icon-carr-wallet"></i></span>
+                <span class="item-left-txt fl">{{'user.carrefourWallet' | translate}}</span>
+            </li>
+        </ul>
+
+        <ul class="user-list light-bg mt pl">
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goCustomerService()">
+                <span class="item-left-icon fl"><i class="icon cm-icon iconbig03"></i></span>
+                <span>{{'user.customerService' | translate}}</span>
+            </li>
+            <li class="user-item user-left-icon pr clearfix" ng-click="user.goSettings()">
+                <span class="item-left-icon fl"><i class="icon cm-icon iconbig04"></i></span>
+                <span>{{'user.settings' | translate}}</span>
+            </li>
+        </ul>
+
+    </ion-content>
+
+</ion-view>

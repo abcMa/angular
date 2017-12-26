@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.comall.preference"
+    version="1.0.0">
+    <name>Preference</name>
+    <description>Read/Write preferences from/to config.xml</description>
+    <license>Apache 2.0</license>
+    <keywords>comall, preference, config</keywords>
+
+    <js-module src="www/preference.js" name="Preference">
+        <clobbers target="plugins.preference" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Preference">
+                <param name="android-package" value="com.comall.preference.Preference"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/Preference.java" target-dir="src/com/comall/preference" />
+    </platform>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Preference">
+                <param name="ios-package" value="Preference" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/Preference.h" />
+        <source-file src="src/ios/Preference.m" />
+    </platform>
+
+</plugin>

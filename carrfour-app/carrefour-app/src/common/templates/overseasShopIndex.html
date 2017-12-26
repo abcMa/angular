@@ -1,0 +1,170 @@
+<ion-view class="overseas-shop-index-view" cm-hide-tabs="true" cm-download-banner can-swipe-back="false">
+    <ion-header-bar class="header-bar bar bar-default">
+        <!-- <div class="buttons buttons-left">
+            <button class="button button-clear cm-icon icon05" type="button" ng-click="goBackForOverseasShop()"></button>
+        </div> -->
+        <!-- <span class="title" ng-class="{'title-en':'lang-{{APP_CONFIG.language}}'=='lang-en'}"></span>
+        <div class="buttons buttons-right">
+            <button class="button button-clear cm-icon icon20" type="button" ng-click="stateUtils.goOverseasShopSearch()"></button>
+        </div> -->
+        <button class="button-clear button back-button" ng-click="goBackForOverseasShop()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <span class="title" ng-class="{'title-en':'lang-{{APP_CONFIG.language}}'=='lang-en'}"></span>
+        <button class="button-clear button back-button" ng-click="stateUtils.goOverseasShopSearch()">
+            <i class="icon ion-ios-search-strong"></i>
+        </button>
+    </ion-header-bar>
+
+    <!-- 返回顶部 -->
+    <div class="float-panel top-float-panel" cm-scroll-show="1">
+        <div class="button button-small" ng-click="overseasShopIndex.goBackTop()">
+            <i class="cm-icon icon18"></i>
+        </div>
+    </div>
+
+    <ion-content delegate-handle="overseas-shop-index-scroll" cm-scroll-to-top>
+        <!--下拉刷新频道数据-->
+        <ion-refresher on-refresh="overseasShopIndex.refresh({emptyData:false,showLoading:false})"></ion-refresher>
+
+        <!-- 头部大轮播图 -->
+        <cm-switch class="wide-slider home-top-wide-slider" class-prefix="ui-switch" data-type="slider" auto-play="5000" cm-dynamic-height="$width * 0.53125">
+            <cm-switch-content>
+                <cm-switch-panel ng-repeat="item in overseasShopIndex.indexInfo.carouselItems"
+                    ng-click="stateUtils.goOverseasShopAdvRedirect(item.type, item.skipParam)"
+                    at-ads="item">
+                    <img cm-lazyload="item.picUrl" load-immediate="true" />
+                </cm-switch-panel>
+            </cm-switch-content>
+            <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+        </cm-switch>
+
+        <!--单品精选-->
+        <div class="floor recommend-product" ng-if="overseasShopIndex.indexInfo">
+            <header class="floor-header">
+                <div class="floor-title">{{'overseasShopIndex.recommendProduct' | translate}}</div>
+                <div class="floor-note" ng-if="overseasShopIndex.indexInfo.singleProducts.words[0]"
+                     ng-click="stateUtils.goOverseasShopAdvRedirect(overseasShopIndex.indexInfo.singleProducts.words[0].type, overseasShopIndex.indexInfo.singleProducts.words[0].skipParam)">
+                    {{'overseasShopIndex.more' | translate}}
+                </div>
+            </header>
+            <ul class="recommend-product-list">
+                <li class="recommend-product-item clearfix" ng-repeat="item in overseasShopIndex.indexInfo.singleProducts.productsInfo"
+                    at-ads="item"
+                    ng-click="stateUtils.goOverseasShopProductInfo(undefined, item.goodsId, item.name)">
+                    <div class="recommend-product-image corner-mark-container fl">
+                        <img cm-lazyload="item.picUrl" class="image"/>
+
+                        <!--角标-->
+                        <div ng-repeat="mark in item.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+                            <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+                        </div>
+                    </div>
+                    <div class="item-info clearfix">
+                        <div class="item-title">
+                            <span class="tag tag-overseas-shop" ng-if="item.isOverseasShop">{{'overseasShop' | translate}}</span>
+                            {{item.name}}
+                        </div>
+                        <div class="item-promotion-tags" ng-if="item.promotionsTxt">
+                            <span class="tag promotion-tag{{promotion.type}}" ng-repeat="promotion in item.promotionsTxt">
+                                {{promotion.typeName}}
+                            </span>
+                        </div>
+                        <div class="item-price-cart clearfix">
+                            <span class="fl item-price">{{item.price | currency:'&yen;'}}</span>
+                            <button class="fr button button-small button-buy button-overseas-shop-primary fr" ng-disabled="item.canSell === false"
+                                    ng-click="overseasShopIndex.addToCart(item); $event.stopPropagation()">
+                                {{'overseasShopIndex.addToCart' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 各个馆 -->
+        <div class="venues" ng-if="overseasShopIndex.indexInfo">
+            <!-- 滑动导航 -->
+           <div class="venue-tabs">
+               <ion-scroll direction="x" scrollbar-x="false" scrollbar-y="false">
+                   <div class="venue-tab">
+                       <div class="venue-tab-inner"
+                            cm-adjust-parent-width="overseasShopIndex.indexInfo.markets.length"
+                            ng-repeat="market in overseasShopIndex.indexInfo.markets"
+                            ng-click="overseasShopIndex.goAnchor('overseasShopIndex-searchs-' + $index)">
+                           {{market.words[0].name}}
+                       </div>
+                   </div>
+               </ion-scroll>
+           </div>
+           <div class="floor venue-floor" ng-repeat="market in overseasShopIndex.indexInfo.markets" id="{{'overseasShopIndex-searchs-' + $index}}">
+               <div class="floor-header">
+                   <div class="floor-title">{{market.words[0].name}}</div>
+               </div>
+               <a class="image-box" href="javascript:" cm-dynamic-height="$width * 0.34375" ng-repeat="picAdv in market.advertisements"
+                   at-ads="picAdv"
+                   ng-click="stateUtils.goOverseasShopAdvRedirect(picAdv.type, picAdv.skipParam)">
+                   <img cm-lazyload="picAdv.picUrl" class="image"/>
+               </a>
+            </div>
+        </div>
+
+        <!--大家都在买-->
+        <div class="home-all-buy" ng-if="overseasShopIndex.indexInfo" ng-repeat="buyWhat in overseasShopIndex.indexInfo.buyWhat">
+            <ul class="clearfix">
+                <!--大家都在买推荐模块-->
+                <li class="recommend-module fl">
+                    <div class="module-title">{{'overseasShopIndex.everyoneIsBuying.title' | translate}}</div>
+                    <div class="module-sub-title">{{'overseasShopIndex.everyoneIsBuying.subtitle' | translate}}</div>
+                    <div class="buy-what-box">
+                        <a href="javascript:" class="recommend-name" ng-repeat="wordAdv in buyWhat.words"
+                            at-ads="wordAdv"
+                            ng-click="stateUtils.goOverseasShopAdvRedirect(wordAdv.type, wordAdv.skipParam)">
+                            {{wordAdv.name}}
+                        </a>
+                    </div>
+                </li>
+
+                <!--商品列表-->
+                <li class="product-item-box fl"
+                    ng-repeat="item in buyWhat.productsInfo"
+                    ng-click="stateUtils.goOverseasShopProductInfo(undefined, item.goodsId,item.name)"
+                    at-ads="item">
+                    <div class="product-item">
+                        <div class="product-image corner-mark-container" cm-dynamic-height="$width">
+                            <img cm-lazyload="item.picUrl">
+
+                            <!--角标-->
+                            <div ng-repeat="mark in item.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+                                <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+                            </div>
+                        </div>
+
+                        <div class="product-title">
+                            <span class="tag tag-overseas-shop" ng-if="item.isOverseasShop">{{'overseasShop' | translate}}</span>
+                            <span class="tag promotion-tag{{promotion.type}}" ng-repeat="promotion in item.promotionsTxt">
+                                {{promotion.typeName}}
+                            </span>
+                            <span class="title">{{item.name}}</span>
+                        </div>
+                        <span class="product-price">{{item.price | currency: '&yen;'}}</span>
+                        <button class="button button-clear button-small button-overseas-shop-primary fr"
+                                ng-click="overseasShopIndex.addToCart(item); $event.stopPropagation()"
+                                ng-disabled="item.canSell === false">
+                            <i class="cm-icon icon02"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!--底部广告位-->
+            <div class="recommend-ad" cm-dynamic-height="$width * 0.28125"
+                 ng-if="buyWhat.advertisements.length > 0"
+                 ng-click="stateUtils.goOverseasShopAdvRedirect(buyWhat.advertisements[0].type, buyWhat.advertisements[0].skipParam)">
+                <img cm-lazyload="buyWhat.advertisements[0].picUrl"/>
+            </div>
+        </div>
+    </ion-content>
+
+    <cm-overseas-shop-tabs></cm-overseas-shop-tabs>
+
+</ion-view>

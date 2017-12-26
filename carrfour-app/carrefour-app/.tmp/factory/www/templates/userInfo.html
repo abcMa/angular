@@ -1,0 +1,41 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'user.info.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="user-panel stable-bg" scroll="false">
+
+        <ul class="user-info-list light-bg">
+            <li class="user-item ml pr pv clearfix" ng-click="userInfo.uploadProfile()">
+                <span class="fl">{{'user.info.pic' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr" ng-class="{'icon-holder': APP_CONFIG.os === 'weixin'}"></i>
+                <img class="item-right-img fr" load-immediate="true"
+                     ng-if="!!userInfo.userInfo.pic" cm-lazyload="userInfo.userInfo.pic" alt="" />
+                <span class="item-right-img default-img fr" ng-if="!userInfo.userInfo.pic"></span>
+            </li>
+            <li class="user-item ml pr clearfix" ng-click="userInfo.editNickname()">
+                <span class="fl">{{'user.info.nickname' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+                <span class="item-right-txt fr">{{userInfo.userInfo.nickname}}</span>
+            </li>
+            <li class="user-item ml pr clearfix" ng-click="userInfo.editSex()">
+                <span class="fl">{{'user.info.sex.title' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+                <span class="item-right-txt fr">{{userInfo.sexEnum[userInfo.userInfo.sex]}}</span>
+            </li>
+            <li class="user-item ml pr clearfix" ng-click="userInfo.goDatePicker()">
+                <span class="item-birthday fl">{{'user.info.birthday' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr" ng-class="{'icon-holder': APP_CONFIG.os === 'weixin'}"></i>
+                <span class="item-right-txt fr">{{userInfo.userInfo.birthday | date:'yyyy-MM-dd'}}</span>
+            </li>
+            <li class="user-item ml pr clearfix" ng-click="userInfo.goMemberCenter()">
+                <span class="fl">{{'memberCenter.title' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

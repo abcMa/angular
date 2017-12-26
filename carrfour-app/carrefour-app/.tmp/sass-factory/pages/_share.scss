@@ -1,0 +1,188 @@
+@charset "utf-8";
+
+$blue:        #599bff;
+$grey:        #757575;
+$grey-light:  #bbbbbb;
+
+// 分享
+.modal-share-panel {
+    top: auto;
+    bottom: 0;
+    height: 168px;
+    min-height: 0;
+    max-height: 100%;
+    background: none;
+
+    .share-banner {
+        padding-top: 10px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: $light;
+        color: $grey;
+    }
+
+    .tilt-block {
+        width: 5px;
+        height: 5px;
+        display: inline-block;
+        background: $grey-light;
+        margin: 0 5px;
+        transform: rotate(45deg);
+    }
+
+    .gradient-line {
+        width: 90px;
+        height: 1px;
+        background: linear-gradient(to right, $light , $stable-border-color);
+    }
+
+    .gradient-line-inverse {
+        width: 90px;
+        height: 1px;
+        background: linear-gradient(to left, $light , $stable-border-color);
+    }
+
+    .share-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: $light;
+        z-index: 999;
+    }
+
+    .share {
+        margin: 18px 0 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    @media screen and (max-width: 350px) {
+        &.more-share {
+            .share {
+                width: 60px;
+                height: 52px;
+            }
+        }
+
+        .share {
+            width: 102px;
+            height: 52px;
+        }
+
+        .share-img {
+            width: 34px;
+            height: 34px;
+        }
+    }
+    @media screen and (min-width: 350px) {
+        &.more-share {
+            .share {
+                width: 77.5px;
+                height: 61px;
+            }
+        }
+
+        .share {
+            width: 132px;
+            height: 61px;
+        }
+
+        .share-img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media screen and (min-width: 400px) {
+        &.more-share {
+            .share {
+                width: 70.5px;
+                height: 67.5px;
+            }
+        }
+
+        .share {
+            width: 94.5px;
+            height: 67.5px;
+        }
+
+        .share-img {
+            width: 44px;
+            height: 44px;
+        }
+    }
+
+    .share-img {
+        margin-bottom: 3px;
+    }
+
+    .share-title {
+        font-size: 12px;
+        color: $grey;
+        white-space: nowrap;
+    }
+
+    .wechat-logo {
+        background: url('../images/share_wechat_logo@2x.png') center center no-repeat;
+        background-size: 100%;
+    }
+
+    .moments-logo {
+        background: url('../images/share_moments_logo@2x.png') center center no-repeat;
+        background-size: 100%;
+    }
+
+    .weibo-logo {
+        background: url('../images/share_weibo_logo@2x.png') center center no-repeat;
+        background-size: 100%;
+    }
+
+    .qq-logo {
+        background: url('../images/share_qq_logo@2x.png') center center no-repeat;
+        background-size: 100%;
+    }
+
+    .qzone-logo {
+        background: url('../images/share_qzone_logo@2x.png') center center no-repeat;
+        background-size: 100%;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .cancel {
+        border-top: $line-color 1px solid;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        background: $light;
+        color: $blue;
+        z-index: 999;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .modal-share-panel {
+        height: 168px;
+    }
+}
+@media screen and (min-width: 350px) {
+    .modal-share-panel {
+        height: 177px;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .modal-share-panel {
+        height: 183.5px;
+    }
+}

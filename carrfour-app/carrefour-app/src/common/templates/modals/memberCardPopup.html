@@ -1,0 +1,19 @@
+<ion-modal-view class="article-memberCardPopup-view">
+    <div class="memberCardPopup-title">
+        <div class="title">
+            {{memberCardPopup.title}}
+        </div>
+    </div>
+    <ion-content class="article-memberCardPopup-content" scroll="false">
+        <div class="info-box">
+            <div class="info-content">
+                <p class="info-content">{{memberCardPopup.content}}</p>
+            </div>
+        </div>
+        <div class="btn-wrap">
+            <div class="memberCardPopup-btn" ng-click="memberCardPopup.selectFunA()">{{memberCardPopup.selectA}}</div>
+            <div class="memberCardPopup-btn" ng-click="memberCardPopup.selectFunB()">{{memberCardPopup.selectB}}</div>
+            <div class="memberCardPopup-btn" ng-click="modals.memberCardPopup.close()">{{memberCardPopup.cancel}}</div>
+        </div>
+    </ion-content>
+</ion-modal-view>

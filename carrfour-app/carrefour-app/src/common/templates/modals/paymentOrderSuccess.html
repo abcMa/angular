@@ -1,0 +1,83 @@
+<ion-modal-view title="{{'checkout.paySuccess.success' | translate}}">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button" ng-click="modals.paymentOrderSuccess.close()">
+            <i class="icon ion-ios-close-empty"></i>
+        </button>
+        <h1 class="title">{{'checkout.paySuccess.success' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="checkout-success-panel" scroll="true">
+
+        <div class="success-box pl mbd">
+            <div class="success-title p">
+                <div class="row">
+                    <div class="col col-adaptive">
+                <i class="cm-icon icon39"></i>
+                    </div>
+                    <div class="col">
+                        <div class="title">
+                {{'checkout.paySuccess.title' | translate}}
+                        </div>
+                        <div class="apple-pay-flag" ng-if="paymentOrderSuccess.isApplePay"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="success-txt pl pvd">
+                {{'checkout.paySuccess.orderTip' | translate}} <strong>{{paymentOrderSuccess.orderNumber}}</strong> <br />
+                {{'checkout.paySuccess.payedTip' | translate}} <strong>{{paymentOrderSuccess.price | currency:'&yen;'}}</strong><br />
+                <span ng-if="paymentOrderSuccess.orderRewardPoints">
+                    {{'checkout.paySuccess.orderAward' | translate}} <strong>{{paymentOrderSuccess.orderRewardPoints}}</strong>
+                    {{'checkout.paySuccess.orderRewardPoints' | translate}}
+                    <i class="cm-icon icon-tax-rate question-icon"
+                       ng-click="paymentOrderSuccess.pointsTip()"></i>
+                </span>
+            </p>
+
+            <div class="apple-pay-discount-amount pl pbd"
+                 ng-if="paymentOrderSuccess.isApplePay && paymentOrderSuccess.paymentDiscountAmount">
+                <div class="row">
+                    <div class="col discount-name">{{'checkout.paySuccess.applePayDiscountAmount' | translate}}</div>
+                    <div class="col col-adaptive discount-value">-{{paymentOrderSuccess.paymentDiscountAmount | currency: '&yen;'}}</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="success-tips pd">
+            {{'checkout.paySuccess.tips' | translate}}
+        </p>
+
+        <p class="success-btn">
+            <button class="button button-block button-success" ng-click="paymentOrderSuccess.goOrderInfo()">{{'checkout.paySuccess.seeOrderDetail' | translate}}</button>
+        </p>
+
+        <!-- 二维码广告位，暂时放一张图片 -->
+        <div class="wechat-box" ng-show="paymentOrderSuccess.isWap">
+            <p class="success-tips ng-binding">
+                {{'checkout.paySuccess.messageTip' | translate}}
+                <span class="text-tip">{{'checkout.paySuccess.messageTip1' | translate}}</span>
+                {{'checkout.paySuccess.messageTip2' | translate}}
+                <span class="text-tip">{{'checkout.paySuccess.messageTip3' | translate}}</span>
+                {{'checkout.paySuccess.messageTip4' | translate}}
+            </p>
+        </div>
+        <div class="union-pay-adv" ng-if="paymentOrderSuccess.data" ng-show="!paymentOrderSuccess.isWap">
+            <div class="adv-table">
+                <div class="adv-cell">
+                    <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000" cm-dynamic-height="$width * 0.603125">
+                        <cm-switch-content>
+                            <cm-switch-panel ng-repeat="item in paymentOrderSuccess.data">
+                                <img cm-lazyload="item.picUrl" class="adv-pic" at-ads="item.adid" ng-click="paymentOrderSuccess.goAdv(item.skipParam)" load-immediate="true" />
+                            </cm-switch-panel>
+                        </cm-switch-content>
+                        <cm-switch-nav class="ui-switch-nav" ng-show="paymentOrderSuccess.data.length > 1"></cm-switch-nav>
+                    </cm-switch>
+                </div>
+            </div>
+        </div>
+
+
+    </ion-content>
+
+</ion-modal-view>

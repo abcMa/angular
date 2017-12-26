@@ -1,0 +1,56 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'settings.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="user-panel stable-bg" scroll="false">
+
+        <ul class="user-info-list light-bg">
+
+            <li class="user-item ml pr clearfix" ng-click="settings.onToggleLanguage()">
+                <span class="item-left-txt fl">{{'settings.languageTxt' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+            <li class="user-item ml pr clearfix" ng-click="settings.goUserAboutUs()" ng-if="APP_CONFIG.os !== 'weixin'">
+                <span class="item-left-txt fl">{{'settings.versionTxt' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+                <span class="item-right-txt fr">V{{settings.version}}</span>
+            </li>
+
+            <li class="user-item ml pr clearfix" ng-click="settings.onClearCache()" ng-if="APP_CONFIG.os !== 'weixin'">
+                <span class="item-left-txt fl">{{'settings.clearCache' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+            <li class="user-item ml pr clearfix" ng-click="settings.notes()" ng-if="APP_CONFIG.os !== 'weixin'">
+                <span class="item-left-txt fl">{{'settings.notes' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+            <li class="user-item ml pr clearfix" ng-click="settings.goAppStore()" ng-if="APP_CONFIG.os == 'ios'">
+                <span class="item-left-txt fl">{{'settings.feedbackOptions' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+            <li class="user-item ml pr clearfix" ng-if="settings.canShare"
+                cm-share share-data="0" share-type="app">
+                <span class="item-left-txt fl">{{'settings.appshare' | translate}}</span>
+                <i class="icon ion-ios-arrow-right item-right-icon mlx fr"></i>
+            </li>
+
+        </ul>
+    </ion-content>
+    <ion-footer-bar class="footer-confirm-bar" ng-if="settings.isLogin()">
+        <div class="footer-confirm-bar-row pv phd">
+            <button class="button button-block button-primary"
+                    at-gesture="personal_space::sign_out" gesture-action="exit"
+                    ng-click="settings.logout()">{{'settings.logout' | translate}}</button>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

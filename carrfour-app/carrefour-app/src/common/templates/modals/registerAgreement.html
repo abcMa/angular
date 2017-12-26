@@ -1,0 +1,13 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear left-btn" ng-click="modals.registerAgreement.close()">{{'register.confirm' | translate}}</button>
+        <h1 class="title">{{'register.registerAgreement' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="padding">
+        <div ng-if="modals.registerAgreement.data" ng-bind-html="modals.registerAgreement.data"></div>
+        <div ng-if="!modals.registerAgreement.data" class="tc mvd fg-quiet">{{'register.notFoundAgreement' | translate}}</div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,295 @@
+<ion-modal-view class="checkout-panel stable-bg" cm-dynamic-content-bottom>
+
+    <ion-header-bar class="bar-default bar-header-overseas-shop">
+        <button class="button-clear button back-button" ng-click="modals.confirmOrder.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'checkout.confirmOrder' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="index-panel"  delegate-handle="confirmOrderScroll" >
+
+        <!--  海关提示信息-->
+        <cm-dynamic-tabs scroll-fixed="true" ng-if="APP_CONFIG.isInOverseasShopView">
+            <div class="customs-hint" ng-if="confirmOrder.customsHint == true">
+                <i class="icon cm-icon icon-ring icon-abs icon-left"></i>
+                <p class="character">{{'checkout.editIdCard.tip3' | translate}}</p>
+                <i class="icon-abs cha" ng-click="confirmOrder.closeCustomsHint()">x</i>
+            </div>
+        </cm-dynamic-tabs>
+
+
+        <!-- 收货人信息 -->
+        <div class="checkout-cont mt">
+
+            <!--选中的收货地址-->
+            <div class="checkout-consignee has-consignee"
+                ng-if="!confirmOrder.data.showConsignee && confirmOrder.data.selectedConsignee"
+                ng-click="confirmOrder.goSelectConsignee()">
+                <i class="cm-icon icon-abs icon-left icon30"></i>
+                <i class="cm-icon icon-abs icon-right icon24"></i>
+
+                <div>
+                    <p class="font-big pbx row">
+                        <span class="col-left">{{confirmOrder.data.selectedConsignee.name}}</span>
+                        <span class="col col-center col-right">{{confirmOrder.data.selectedConsignee.mobile || confirmOrder.data.selectedConsignee.phone}}</span>
+                    </p>
+                    <p class="pt">
+                        {{confirmOrder.getShowAddress(confirmOrder.data.selectedConsignee)}} <br>
+                        <!-- {{confirmOrder.data.selectedConsignee.address | addressFormat}} -->
+                        {{confirmOrder.data.selectedConsignee.address}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- 新建收货地址 -->
+            <div class="checkout-consignee no-consignee"
+                ng-if="confirmOrder.data.showConsignee || !confirmOrder.data.selectedConsignee"
+                ng-click="confirmOrder.goAddConsignee()">
+                <i class="cm-icon icon-abs icon-left icon30"></i>
+                <i class="cm-icon icon-abs icon-right icon24"></i>
+                <div ng-class="!confirmOrder.data.consigneeTip? 'new-consignee' : '' ">
+                    <span class="font-quite">
+                        <!-- {{'checkout.addConsignee' | translate}} -->
+                        {{confirmOrder.data.addressTip}}
+                    </span>
+                </div>
+                <!--  consigneeTip 存在时则展示提示-->
+                <span ng-if="confirmOrder.data.consigneeTip" class="consignee-hint">{{confirmOrder.data.consigneeTip}}</span>
+            </div>
+        </div>
+
+        <!--  填写身份证信息 -->
+        <div class="checkout-cont mt" ng-if="confirmOrder.data.isOverseasShop" ng-click="confirmOrder.goeditIdCard()">
+         <div class=" id-card checkout-delivery">
+             <i class="cm-icon icon-abs icon-id-card icon-left"></i>
+             <i class="cm-icon icon-abs icon24 icon-right"></i>
+             <p class="checkout-delivery-row row">
+                 <span class="font-quite ">  {{'idCard' | translate}}</span>
+                 <span class="col col-center col-right pay-row-txt mld">{{confirmOrder.data.idCard}}</span>
+             </p>
+         </div>
+        </div>
+
+        <!-- 配送方式 + 发票信息 -->
+        <div class="checkout-cont mt">
+            <!-- 预售展示,和普通商品展示互斥 -->
+            <div class="checkout-delivery" ng-if="confirmOrder.data.isPresell">
+              <div class="checkout-delivery-content">
+                  <i class="cm-icon icon-abs icon31 icon-left"></i>
+                  <p class="checkout-presell-row pay-row row row-center">
+                      {{'checkout.presell.payment' | translate}}<br />
+                      {{confirmOrder.data.presellTip}}
+                  </p>
+              </div>
+            </div>
+            <!-- 支付及配送 -->
+            <div class="checkout-delivery" ng-click="confirmOrder.goSelectPayDelivery()" ng-if="!confirmOrder.data.isPresell">
+                <div class="checkout-delivery-content">
+                    <i class="cm-icon icon-abs icon31 icon-left"></i>
+                    <i class="cm-icon icon-abs icon24 icon-right" ng-if="!confirmOrder.data.isOverseasShop"></i>
+                    <p class="checkout-delivery-row pay-row row row-center">
+                        <span class="delivery-tit col-center font-quite">{{'checkout.payDelivery' | translate}}</span>
+                        <!-- 配送方式 -->
+                        <span class="col col-center col-right pay-row-txt mld" ng-class="{'font-quite': confirmOrder.data.isOverseasShop}">
+                            {{confirmOrder.data.selectedPayment.name}}<br />
+                            {{confirmOrder.data.selectedDeliveryMode.name}}<br />
+                        </span>
+                        <span class="cm-icon icon-tax-rate" ng-click="confirmOrder.selectPayDeliveryInfo()" ng-if="confirmOrder.data.isOverseasShop"></span>
+                        <span class="col col-center col-right pay-row-txt mld font-primary"
+                              ng-if="!confirmOrder.data.selectedPayment && !confirmOrder.data.selectedDeliveryMode.name">
+                            {{'checkout.needpayDelivery' | translate}}
+                        </span>
+                    </p>
+                </div>
+                <div class="checkout-delivery-footer tc" ng-if="confirmOrder.data.selectedDeliveryOntime">
+                   {{ confirmOrder.data.selectedDeliveryOntime.showDate }}
+                </div>
+            </div>
+
+            <!-- 普通商品发票信息 confirmOrder.data.isOverseasShop !== true && confirmOrder.goInvoice()-->
+            <div class="checkout-delivery" ng-click="confirmOrder.goInvoice()">
+                <div class="checkout-delivery-content">
+                    <i class="cm-icon icon-abs icon32 icon-left"></i>
+                    <i class="cm-icon icon-abs icon24 icon-right" ng-if="!confirmOrder.data.isOverseasShop"></i>
+
+                    <!--  全球购不支持发票 -->
+                    <p class="checkout-delivery-row row" ng-if="confirmOrder.data.isOverseasShop">
+                        <span class="col-center col-left font-quite">{{'checkout.invoiceInfo' | translate}}</span>
+                        <span class="col col-center font-quite col-right">
+                             {{'nonSupportInvoice' | translate}}
+                        </span>
+                        <span class="cm-icon icon-tax-rate" ng-if="confirmOrder.data.isOverseasShop" ng-click="confirmOrder.goInvoiceInfo()"></span>
+                    </p>
+                    <!--  非全球购支持发票 -->
+                    <p class="checkout-delivery-row row" ng-if="!confirmOrder.data.isOverseasShop">
+                        <span class="col-center col-left font-quite">{{'checkout.invoiceInfo' | translate}}</span>
+
+                        <span class="col col-center col-right"
+                            ng-if="confirmOrder.data.invoice
+                                && confirmOrder.data.invoice.status == 1
+                                && confirmOrder.data.invoice.title">
+                            {{confirmOrder.data.invoice.title}}
+                        </span>
+
+                        <span class="col col-center col-right"
+                            ng-if="confirmOrder.data.invoice.status == 1
+                                && confirmOrder.data.invoice.type == 1
+                                && !confirmOrder.data.invoice.title">
+                            {{'checkout.invoice.invoiceType.person' | translate}}
+                        </span>
+
+                        <span class="col col-center col-right" ng-if="!confirmOrder.data.invoice || confirmOrder.data.invoice.status == 0">
+                            {{'checkout.noInvoice' | translate}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 优惠券信息【2期新增 20151103】 -->
+        <div class="checkout-cont mt" ng-click="confirmOrder.goSelectCoupons()">
+         <div class="checkout-delivery">
+             <i class="cm-icon icon-abs icon33 icon-left"></i>
+             <i class="cm-icon icon-abs icon24 icon-right"></i>
+             <p class="checkout-delivery-row row">
+                 <span class="col-left col-center font-quite">{{'checkout.couponInfo' | translate}}</span>
+                 <span class="col col-center font-quite col-right" ng-if=" confirmOrder.data.couponNmber == 0">
+                     {{'checkout.noAvailableCoupon' | translate}}
+                 </span>
+                 <span class="col col-center col-right font-primary" ng-if="!confirmOrder.selectedCouponCount && confirmOrder.data.couponNmber > 0">
+                     {{'checkout.noCoupon' | translate}}
+                 </span>
+                 <span class="col col-center col-right" ng-if="confirmOrder.selectedCouponCount && confirmOrder.data.couponNmber > 0">
+                     {{confirmOrder.selectedCouponCount}}
+                 </span>
+             </p>
+         </div>
+        </div>
+
+        <!-- 商品清单【新版】 -->
+        <div class="checkout-product-list checkout-cont mt" ng-click="confirmOrder.goOrderItemList()">
+            <i class="cm-icon icon-abs icon24 icon-right"></i>
+            <div class="product-list row p clearfix">
+                <p class="product-img col col-center mr">
+                    <img class="product-list-img fl" ng-repeat="item in confirmOrder.data.basket.items"
+                         cm-lazyload="item.pic" load-immediate="true"/>
+                </p>
+                <p class="col-center mr" ng-if="confirmOrder.data.basket.items.length > 3">
+                    <i class="icon cm-icon ion-ios-more font-quite"></i>
+                </p>
+                <p class="col-center" ng-if="confirmOrder.data.basket.totalQuantity < 2">
+                    {{confirmOrder.data.basket.totalQuantity}}{{'checkout.unit' | translate}}
+                </p>
+                <p class="col-center" ng-if="confirmOrder.data.basket.totalQuantity > 1">
+                    {{confirmOrder.data.basket.totalQuantity}}{{'checkout.unites' | translate}}
+                </p>
+            </div>
+        </div>
+
+        <!-- 商品总计【新版】 -->
+        <div class="checkout-cont checkout-product-total mt">
+            <p class="checkout-total-row row pv pr">
+                <span class="font-quite col-left">
+                    {{'checkout.goodsAmount' | translate}}
+                </span>
+                <span class="col col-right font-primary">
+                    {{confirmOrder.data.info.totalAmount | currency:'&yen;'}}
+                </span>
+            </p>
+            <p class="checkout-total-row row pv pr">
+                <span class="font-quite col-left">
+                    {{'checkout.discountAmount' | translate}}
+                </span>
+                <span class="col col-right font-primary">
+                    -{{confirmOrder.data.info.discountAmount + confirmOrder.data.info.checkoutDiscountAmount + confirmOrder.data.info.specialSaleTax | currency:'&yen;'}}
+                </span>
+            </p>
+            <p class="checkout-total-row row pv pr">
+                <span class="font-quite col-left">
+                    {{'checkout.couponInfo' | translate}}
+                </span>
+                <span class="col col-right font-primary">
+                    -{{confirmOrder.data.info.couponDiscountAmount | currency:'&yen;'}}
+                </span>
+            </p>
+            <p class="checkout-total-row row pr"
+                ng-class="{'pt':confirmOrder.freight, 'pv':!confirmOrder.freight}"
+                ng-click="confirmOrder.freightFn()">
+                <span class="col font-quite mr">
+                    {{'checkout.totalFreight' | translate}}
+                </span>
+                <span class="col-right font-primary">
+                    {{confirmOrder.data.info.totalFreight | currency:'&yen;'}}
+                </span>
+            </p>
+            <div ng-show="confirmOrder.freight">
+                <p class="checkout-freight-row row pr">
+                    <span class="col mr">{{'checkout.freight' | translate}}</span>
+                    <span class="col-right ">{{confirmOrder.data.info.freight | currency:'&yen;'}}</span>
+                </p>
+                <p class="checkout-freight-row row pr" ng-if="!confirmOrder.data.isOverseasShop">
+                    <span class="col mr">{{'checkout.freightServiceFee' | translate}}</span>
+                    <span class="col-right ">{{confirmOrder.data.info.freightServiceFee | currency:'&yen;'}}</span>
+                </p>
+                <p class="checkout-freight-row row pr">
+                    <span class="col mr">{{'checkout.freightDiscount' | translate}}</span>
+                    <span class="col-right ">-{{confirmOrder.data.info.discountFreight + confirmOrder.data.info.checkoutDiscountFreight | currency:'&yen;'}}</span>
+                </p>
+                <p class="checkout-freight-row row pr">
+                    <span class="col mr">{{'checkout.couponsDiscount' | translate}}</span>
+                    <span class="col-right ">-{{confirmOrder.data.info.couponDiscountFreight | currency:'&yen;'}}</span>
+                </p>
+            </div>
+            <!-- 税费   -->
+            <p class="checkout-total-row tax-rate-line row pv pr" ng-if="confirmOrder.data.isOverseasShop">
+                <span class="font-quite col-left">{{'taxAmount' | translate}}</span>
+                <span class="cm-icon icon-tax-rate"  ng-click="confirmOrder.goTaxRateInfo()"></span>
+                <span class="col col-right font-primary">{{confirmOrder.data.info.saleTax | currency:'&yen;'}}</span>
+            </p>
+        </div>
+    </ion-content>
+
+    <!-- 免责声明 -->
+    <!-- 因为时间紧急，先写死，以后再做成像上面一样的动态 -->
+    <div class="checkout-rules-prompt row ph pv stable-bg"
+        ng-class="{'overseas-shop':confirmOrder.data.isOverseasShop}"
+        cm-dynamic-content-footer>
+        <div class="col col-adaptive">
+            <label class="checkbox mr">
+                <input type="checkbox" ng-model="confirmOrder.isConfirmAgreement">
+            </label>
+        </div>
+        <div class="col" cm-dynamic-template="confirmOrder.data.overseasShopInfo" ng-if="confirmOrder.data.isOverseasShop"></div>
+        <div class="col" ng-if="!confirmOrder.data.isOverseasShop">
+            <p>
+                {{'checkout.rulesPrompt.line1' | translate}}
+                <a href="javascript:" ng-click="confirmOrder.openServiceAgreement()">
+                    {{'checkout.rulesPrompt.line2' | translate}}
+                </a>
+                {{'checkout.rulesPrompt.line3' | translate}}
+            </p>
+            <p>
+                {{'checkout.rulesPrompt.line4' | translate}}
+                <i class="seven-day cm-icon icon13"></i>
+                &nbsp;&nbsp;&nbsp;{{'checkout.rulesPrompt.line5' | translate}}
+            </p>
+        </div>
+    </div>
+
+    <!-- 提交订单【新版】 -->
+    <ion-footer-bar class="add-to-cart-bar" cm-dynamic-content-footer>
+        <ul class="info-footer-list">
+            <li class="info-pay-left fl pl">{{'checkout.payableAmount' | translate}}：<span>{{confirmOrder.data.info.payableAmount | currency:'&yen;'}}</span></li>
+            <li class="item-right fr">
+                <button class="button button-block button-primary button-add"
+                        ng-click="confirmOrder.submitOrder()"
+                        ng-disabled="!confirmOrder.isConfirmAgreement">
+                        {{'checkout.submit' | translate}}
+                </button>
+            </li>
+        </ul>
+    </ion-footer-bar>
+
+</ion-modal-view>

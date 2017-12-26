@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.comall.barcodescanner"
+    version="1.0.0">
+
+    <name>BarcodeScanner</name>
+    <description>
+        The com.phonegap.plugins.barcodescanner customized for zhongmianshangcheng.
+    </description>
+    <license>MIT</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/barcodescanner.js" name="BarcodeScanner">
+        <clobbers target="cordova.plugins.barcodeScanner" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <!-- Cordova >= 2.8 -->
+        <config-file target="config.xml" parent="/*">
+            <feature name="BarcodeScanner">
+                <param name="ios-package" value="CDVBarcodeScanner" />
+            </feature>
+        </config-file>
+
+        <resource-file src="src/ios/scannerOverlay.xib" />
+
+        <header-file src="src/ios/zxing-all-in-one.h" />
+
+        <source-file src="src/ios/CDVBarcodeScanner.mm" compiler-flags="-fno-objc-arc" />
+        <source-file src="src/ios/zxing-all-in-one.cpp" />
+
+        <resource-file src="src/ios/resources/nav_back.png" />
+        <resource-file src="src/ios/resources/nav_back@2x.png" />
+
+        <framework src="libiconv.dylib" />
+        <framework src="AVFoundation.framework" />
+        <framework src="AssetsLibrary.framework" />
+        <framework src="CoreVideo.framework" />
+        <framework src="QuartzCore.framework" />
+    </platform>
+
+    <!-- android -->
+    <platform name="android">
+
+        <source-file src="src/android/com/phonegap/plugins/barcodescanner/BarcodeScanner.java" target-dir="src/com/phonegap/plugins/barcodescanner" />
+        <source-file src="src/android/com/phonegap/plugins/barcodescanner/ScannerActivity.java" target-dir="src/com/phonegap/plugins/barcodescanner" />
+        <source-file src="src/android/me/dm7/barcodescanner/core/BarcodeScannerView.java" target-dir="src/me/dm7/barcodescanner/core" />
+        <source-file src="src/android/me/dm7/barcodescanner/core/CameraPreview.java" target-dir="src/me/dm7/barcodescanner/core" />
+        <source-file src="src/android/me/dm7/barcodescanner/core/CameraUtils.java" target-dir="src/me/dm7/barcodescanner/core" />
+        <source-file src="src/android/me/dm7/barcodescanner/core/DisplayUtils.java" target-dir="src/me/dm7/barcodescanner/core" />
+        <source-file src="src/android/me/dm7/barcodescanner/core/ViewFinderView.java" target-dir="src/me/dm7/barcodescanner/core" />
+        <source-file src="src/android/me/dm7/barcodescanner/zxing/ZXingScannerView.java" target-dir="src/me/dm7/barcodescanner/zxing" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BarcodeScanner">
+                <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.phonegap.plugins.barcodescanner.ScannerActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-feature android:name="android.hardware.camera" />
+            <uses-feature android:name="android.hardware.camera.autofocus" />
+            <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+            <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+            <uses-permission android:name="android.permission.CAMERA" />
+        </config-file>
+
+        <source-file src="src/android/com.google.zxing.client.android.captureactivity.jar" target-dir="libs"/>
+
+        <resource-file src="src/android/res/values" target="res/values" />
+        <resource-file src="src/android/res/values-hdpi" target="res/values-hdpi" />
+        <resource-file src="src/android/res/values-xhdpi" target="res/values-xhdpi" />
+        <resource-file src="src/android/res/values-xxhdpi" target="res/values-xxhdpi" />
+        <resource-file src="src/android/res/layout" target="res/layout" />
+        <resource-file src="src/android/res/drawable" target="res/drawable" />
+    </platform>
+
+</plugin>

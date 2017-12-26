@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+.register-member-card-modal {
+    .transform-ele {
+        transform: translate3d(0,0,0);
+    }
+}
+
+.register-member-card-panel {
+
+    .scroll {
+        height: 100%;
+    }
+
+    .panel {
+        position: absolute;
+        top: 1px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .agreements {
+        flex-shrink: 0;
+        font-size: $font-size-small;
+
+        .agreement-link {
+            color: $link-color;
+        }
+    }
+
+    .verify-cool-down {
+        color: $assertive;
+    }
+    .next-step {
+        flex-shrink: 0;
+    }
+}

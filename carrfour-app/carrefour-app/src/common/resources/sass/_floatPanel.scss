@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+// 回到顶部 + 列表页小购物车
+.float-panel {
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    width: 50px;
+    transition: transform 0.3s ease-in-out;
+    transform: translate3d(0, 160px, 0);
+
+    .button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: $light;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        .cm-icon:before {
+            font-size: 30px;
+            line-height: 44px;
+        }
+    }
+
+    // 小购物车
+    &.cart-float-panel {
+        bottom: 25px;
+        z-index: 100;
+        transform: translate3d(0, 0, 0);
+
+        .badge {
+            @include position(absolute, 8px 8px null null, 1);
+            padding: 1px 2px;
+            min-width: 14px;
+            font-size: 10px;
+            line-height: 1.2;
+            text-align: center;
+            background: $light;
+            color: $primary-color;
+            font-weight: 300;
+        }
+    }
+
+    //返回顶部
+    &.top-float-panel {
+        bottom: 80px;
+    }
+
+}
+
+.home-view {
+    .float-panel {
+        bottom: 100px;
+    }
+}

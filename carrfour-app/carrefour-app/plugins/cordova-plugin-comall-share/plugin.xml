@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-comall-share"
+        version="1.0.2">
+  <name>CMShare</name>
+  <description>CoMall Share Plugin</description>
+  <keywords>CoMall, Share</keywords>
+
+  <preference name="TENCENT_URL_SCHEME" />
+  <preference name="QQ_URL_SCHEME" />
+  <preference name="QQ_IOS_URLSCHEME" />
+  <preference name="TENCENT_IOS_URLSCHEME" />
+  <preference name="WEIBO_URL_SCHEME" />
+
+  <js-module src="www/CMShare.js" name="CMShare">
+    <clobbers target="CMShare" />
+  </js-module>
+
+  <!-- android -->
+  <platform name="android">
+	<config-file target="res/xml/config.xml" parent="/*">
+      <feature name="CMShare">
+        <param name="android-package" value="com.comall.cordova.cmshare.CMShare" />
+      </feature>
+    </config-file>
+
+	 <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+      <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.READ_LOGS" />
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+      <uses-permission android:name="android.permission.GET_TASKS" />
+      <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+      <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+      <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+      <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+      <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    </config-file>
+
+	<config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <!-- tencent -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="$TENCENT_URL_SCHEME"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+		<activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </config-file>
+
+    <source-file src="src/android/cmshare/CMShare.java" target-dir="src/com/comall/cordova/cmshare/" />
+	<source-file src="src/android/cmshare/Constants.java" target-dir="src/com/comall/cordova/cmshare/" />
+
+    <resource-file src="src/android/cmshare/drawable" target="res/drawable" />
+    <resource-file src="src/android/cmshare/drawable-xxhdpi" target="res/drawable-xxhdpi" />
+	<resource-file src="src/android/cmshare/assets/geo_global_ca.cer" target="assets/" />
+
+
+	<resource-file src="src/android/cmshare/libs" target="libs/" />
+	<resource-file src="src/android/cmshare/arm64-v8a" target="libs/arm64-v8a" />
+	<resource-file src="src/android/cmshare/armeabi" target="libs/armeabi" />
+	<resource-file src="src/android/cmshare/armeabi-v7a" target="libs/armeabi-v7a" />
+	<resource-file src="src/android/cmshare/mips" target="libs/mips" />
+	<resource-file src="src/android/cmshare/mips64" target="libs/mips" />
+	<resource-file src="src/android/cmshare/x86" target="libs/x86" />
+	<resource-file src="src/android/cmshare/x86_64" target="libs/x86_64" />
+
+  </platform>
+
+  <!-- ios -->
+  <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+          <feature name="CMShare">
+              <param name="ios-package" value="CMShare"/>
+          </feature>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+          <array>
+              <dict>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>$QQ_IOS_URLSCHEME</string>
+                  </array>
+              </dict>
+          </array>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+          <array>
+              <dict>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>$TENCENT_IOS_URLSCHEME</string>
+                  </array>
+              </dict>
+          </array>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+          <array>
+              <dict>
+                  <key>CFBundleURLSchemes</key>
+                  <array>
+                      <string>$WEIBO_URL_SCHEME</string>
+                  </array>
+              </dict>
+          </array>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+          <dict>
+              <key>NSExceptionDomains</key>
+              <dict>
+                  <!-- 集成新浪微博对应的HTTP白名单-->
+                  <key>sina.cn</key>
+                  <dict>
+                      <key>NSIncludesSubdomains</key>
+                      <true/>
+                      <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                      <false/>
+                  </dict>
+              </dict>
+              <key>NSAllowsArbitraryLoads</key>
+              <true/>
+          </dict>
+      </config-file>
+
+      <config-file parent="LSApplicationQueriesSchemes" target="*-Info.plist">
+          <array>
+              <string>sinaweibohd</string>
+              <string>sinaweibo</string>
+              <string>sinaweibosso</string>
+              <string>weibosdk</string>
+              <string>weibosdk2.5</string>
+              <string>mqqapi</string>
+              <string>mqq</string>
+              <string>mqqOpensdkSSoLogin</string>
+              <string>mqqconnect</string>
+              <string>mqqopensdkdataline</string>
+              <string>mqqopensdkgrouptribeshare</string>
+              <string>mqqopensdkfriend</string>
+              <string>mqqopensdkapi</string>
+              <string>mqqopensdkapiV2</string>
+              <string>mqqopensdkapiV3</string>
+              <string>mqzoneopensdk</string>
+              <string>wtloginmqq</string>
+              <string>wtloginmqq2</string>
+              <string>mqqwpa</string>
+              <string>mqzone</string>
+              <string>mqzonev2</string>
+              <string>mqzoneshare</string>
+              <string>wtloginqzone</string>
+              <string>mqzonewx</string>
+              <string>mqzoneopensdkapiV2</string>
+              <string>mqzoneopensdkapi19</string>
+              <string>mqzoneopensdkapi</string>
+              <string>mqqbrowser</string>
+              <string>mttbrowser</string>
+          </array>
+      </config-file>
+
+      <header-file src="src/ios/CMShare.h" />
+      <source-file src="src/ios/CMShare.m" />
+      <header-file src="src/ios/CMShareMsgObject.h" />
+      <source-file src="src/ios/CMShareMsgObject.m" />
+
+      <framework src="CoreGraphics.framework" />
+      <framework src="CoreTelephony.framework" />
+      <framework src="SystemConfiguration.framework" />
+      <framework src="Security.framework" />
+      <framework src="Foundation.framework" />
+      <framework src="UIKit.framework" />
+      <framework src="CoreText.framework" />
+      <framework src="ImageIO.framework" />
+      <framework src="QuartzCore.framework" />
+      <framework src="libiconv.tbd" />
+      <framework src="libsqlite3.tbd" />
+      <framework src="libstdc++.tbd" />
+      <framework src="libz.tbd" />
+
+      <!-- weiboSDK -->
+      <header-file src="src/ios/weiboSDK/WBHttpRequest.h" />
+      <header-file src="src/ios/weiboSDK/WBHttpRequest+WeiboToken.h" />
+      <header-file src="src/ios/weiboSDK/WeiboSDK.h" />
+      <header-file src="src/ios/weiboSDK/WeiboSDK+Statistics.h" />
+      <source-file src="src/ios/weiboSDK/libWeiboSDK.a" framework="true"  compiler-flags="-ObjC"/>
+      <resource-file src="src/ios/weiboSDK/WeiboSDK.bundle" />
+
+      <!-- tencentSDK -->
+      <framework src="src/ios/tencentSDK/TencentOpenAPI.framework" custom="true" />
+      <resource-file src="src/ios/tencentSDK/TencentOpenApi_IOS_Bundle.bundle" />
+
+  </platform>
+</plugin>

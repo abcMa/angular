@@ -1,0 +1,116 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+}
+
+.page {
+    height: 100%;
+    width: 100%;
+    background-color: #ffe8ee;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 45px;
+}
+
+.logo img {
+    display: block;
+    width: 100%;
+}
+
+.content {
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.code-list {
+    margin-top: 20px;
+}
+
+.input-label {
+    color: #f16b6a;
+}
+
+.tip {
+    text-align: center;
+    color: #f16b6a;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.input-tip {
+    text-align: center;
+    color: #f16b6a;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.success-tip {
+    text-align: center;
+    color: #f16b6a;
+}
+
+.success-tip.line-1 {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.success-tip.line-2 {
+    margin-top: 10px;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.button-bar {
+    padding: 0 50px;
+}
+
+.button-bar .button {
+    font-size: 24px;
+}
+
+.page.loading {}
+
+.page.loading .loading-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-button-block {
+    padding: 0 10px;
+}
+
+.gift-circle {
+    margin: 10px auto;
+    height: 220px;
+    width: 220px;
+    background-color: #fff;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gift-circle img {
+    width: 55%;
+}
+
+.status {
+    margin-left: 120px;
+    font-size: 16px;
+}
+
+.status li {
+    white-space: nowrap;
+}

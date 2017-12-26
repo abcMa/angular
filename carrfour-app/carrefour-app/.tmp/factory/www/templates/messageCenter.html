@@ -1,0 +1,30 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-stable">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'messageCenter.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="message-center-panel" scroll="false">
+        <ul class="list message-category-list">
+
+            <li class="item message-cateroy-item" ng-repeat="channel in messageCenter.channels" ng-click="messageCenter.goList(channel.id)">
+                <i class="message-icon icon-{{channel.name}}">
+                    <span ng-class="{'has-ellipsis': channel.unreadCount > 9}" ng-if="channel.unreadCount > 0" class="badge badge-assertive">
+                    {{ (channel.unreadCount > 9) ? '...' : channel.unreadCount}}
+                    </span>
+                </i>
+
+                <h2>{{'messageCenter.' + channel.name + 'Msg.title' | translate}}</h2>
+                <p class="content-title">
+                    <span ng-if="channel.firstMessage">{{channel.firstMessage.content.title}}</span>
+                    <span ng-if="!channel.firstMessage">{{'messageCenter.' + channel.name + 'Msg.emptyTips' | translate}}</span>
+                </p>
+            </li>
+
+        </ul>
+    </ion-content>
+
+</ion-view>

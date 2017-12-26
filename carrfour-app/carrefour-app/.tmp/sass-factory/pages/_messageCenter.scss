@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+.message-center-panel {
+    .message-category-list {
+        h2 {
+            font-weight: bolder;
+            font-size: $font-size-base;
+        }
+
+        p {
+            color: $text-color-quiet;
+            font-size: $font-size-small;
+        }
+    }
+
+    .message-cateroy-item {
+        padding-left: 60px;
+
+        .content-title {
+            min-height: 20px;
+        }
+    }
+
+    .message-icon .badge {
+        display: block;
+        top: -4px;
+        right: -4px;
+        padding: 0;
+        width: $font-size-small + 4px;
+        height: $font-size-small + 4px;
+        font-size: $font-size-small;
+
+        // 用来调整缩略时的...展示位置
+        &.has-ellipsis {
+            line-height: 10px;
+        }
+    }
+
+    .message-icon {
+        display: block;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 10px;
+        left: 10px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 40px auto;
+    }
+
+    .icon-activity {
+        background-image: url('#{$images-path}/message-center-gift@2x.png');
+    }
+
+    .icon-system {
+        background-image: url('#{$images-path}/message-center-speaker@2x.png');
+    }
+}

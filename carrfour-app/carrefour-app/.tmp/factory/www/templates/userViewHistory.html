@@ -1,0 +1,79 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true" class="viewHistory-list">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'userViewHistory.title' | translate}}</h1>
+        <div class="buttons">
+            <button class="button button-clear button-empty" ng-click="userViewHistory.onCleanup()" ng-bind="'userViewHistory.clear' | translate"></button>
+        </div>
+    </ion-header-bar>
+
+    <!-- 小购物车 始终出现 -->
+    <div class="float-panel cart-float-panel">
+        <span class="badge badge-assertive">{{shoppingCartCount}}</span>
+        <div class="button button-small" ng-click="userViewHistory.goCart()">
+            <i class="cm-icon icon02"></i>
+        </div>
+    </div>
+
+    <ion-content class="view-history-panel stable-bg">
+        <ion-list>
+            <div class="light-bg" ng-if="userViewHistory.viewHistory.length > 0">
+                <ion-item class="product-item ml clearfix" ng-repeat="product in userViewHistory.viewHistory track by product.goodsId"
+                    ng-click="userViewHistory.goProductInfo(product.productId, product.goodsId, product.name, 'viewHistory', product.isOverseasShop)">
+                    <!-- <div class="item-img fl" ng-class="{'unavailable': product.canSell !== 1 && product.canSell < 4 && product.stockTips}"> -->
+                    <div class="item-img fl">
+                        <img class="img" cm-lazyload="product.pic" />
+                    </div>
+                    <div class="item-main pl">
+                        <p class="item-title">
+                            <span class="tag tag-overseas-shop" ng-if="product.isOverseasShop">{{'overseasShop' | translate}}</span>
+                            {{product.name}}
+                        </p>
+                        <p class="item-tag">
+                            <!-- 促销标签 -->
+                            <!-- <span class="tag promotion-tag{{promotion.type}}" ng-repeat="promotion in product.promotionList">{{promotion.typeName}}</span> -->
+                            <!-- 配送标签 -->
+                            <!-- <span class="tag delivery-tag{{classifyName.id}}" ng-repeat="classifyName in product.classifyName">{{classifyName.name}}</span> -->
+                        </p>
+                        <p class="item-price">
+                             {{product.price | currency:'&yen;'}}
+                             <!-- 若商品已下架，显示「不可卖」，否则显示库存提示信息。 -->
+                             <span class="item-tip" ng-if="product.canSell !== 1">
+                                 {{product.stockTips || 'productInfo.unavailable' | translate}}
+                             </span>
+                        </p>
+
+                        <div class="item-num-cart row">
+                            <span class="item-num col col-center"></span>
+                            <button class="button button-clear cm-icon icon02 item-cart col-right col-center"
+                                    ng-click="userViewHistory.addToCart($event, product)"
+                                    ng-disabled="product.canSell !== 1">
+                            </button>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="history-empty" ng-if="userViewHistory.viewHistory.length == 0">
+            <div class="img-history"></div>
+            <div class="text">
+                {{'userViewHistory.empty' | translate}}
+            </div>
+            <button class="button button-small button-primary"
+                    ng-click="goIndex()">{{'userViewHistory.goIndex' | translate}}</button>
+        </div>
+
+        <div class="list-bottom-placeholder" ng-if="!userViewHistory.canLoadNextPage && userViewHistory.viewHistory.length > 0">
+            <p class="cm-icon icon04"></p>
+            <p>{{'listBottomPlaceholder.tooltip' | translate}}</p>
+        </div>
+
+        <ion-infinite-scroll ng-if="userViewHistory.canLoadNextPage"
+            on-infinite="userViewHistory.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>

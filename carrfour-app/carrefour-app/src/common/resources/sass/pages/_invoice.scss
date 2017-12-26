@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+.invoice-modal-view {
+    .has-footer {
+        bottom: $footer-confirm-bar-height;
+    }
+}
+
+.platform-ios {
+    .invoice-input {
+        @include text-overflow-ellipsis;
+    }
+}
+
+.invoice-panel {
+    .invoice-box {
+        color: lighten($text-color, 15%);
+        background-color: $light;
+        border-top: $line-color 1px solid;
+        border-bottom: $line-color 1px solid;
+    }
+
+    .invoice-title {
+        line-height: 30px;
+        font-size: $font-size-big;
+        padding: 8px 0;
+    }
+
+    .invoice-row {
+        border-top: $line-color 1px solid;
+    }
+
+    .invoice-input {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        line-height: 20px;
+    }
+
+    .invoice-radio-row {
+        margin: 0;
+    }
+
+    .invoice-link {
+        color: $positive;
+    }
+
+    .icon {
+        font-size: 20px;
+    }
+
+    .button {
+        height: 30px;
+        min-height: 30px;
+        line-height: 28px;
+        font-size: $font-size-base;
+        color: $text-color;
+    }
+}

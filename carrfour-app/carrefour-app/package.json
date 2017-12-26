@@ -1,0 +1,144 @@
+{
+    "name": "carrefour-app",
+    "version": "2.6.0",
+    "description": "家乐福移动端项目",
+    "targets": {
+        "mobile": {
+            "config": {
+                "displayName": "家乐福商城",
+                "amapAppKey": "2b5f7779c7a39c3e17f4a58bb07643dd",
+                "jpushApiKey": "032905f3645437b1ef07b8c0",
+                "huaweiAppId": "100032235",
+                "xiaomiAppKey": "MI-5701742475187",
+                "xiaomiAppId": "MI-2882303761517424187",
+                "meizuAppKey": "",
+                "meizuAppId": "",
+                "atAnalyticSiteId": 574061,
+                "applePayDebugMode": 0
+            },
+            "environments": {
+                "test": {
+                    "config": {
+                        "service": "http://172.31.1.250:8090/mobile/api",
+                        "channel": "test"
+                    }
+                },
+                "testPublic": {
+                    "config": {
+                        "service": "http://124.193.192.94:80/mobile/api",
+                        "channel": "testPublic"
+                    }
+                },
+                "pressure": {
+                    "config": {
+                        "service": "http://cybershop-mobile-1.team-carrefour-pressure.marathon.mesos:31920/mobile/api",
+                        "channel": "pressure"
+                    }
+                },
+                "newTest": {
+                    "config": {
+                        "service": "http://cybershop-mobile.team-carrefour-test.marathon.mesos:31820/mobile/api",
+                        "channel": "newTest"
+                    }
+                },
+                "production": {
+                    "config": {
+                        "service": "https://www.carrefour.cn/mobile/api",
+                        "channel": "production",
+                        "jpushApiKey": "ccce1933eeb67eec911fb609",
+                        "huaweiAppId": "10420713",
+                        "xiaomiAppKey": "MI-5171742462189",
+                        "xiaomiAppId": "MI-2882303761517424189",
+                        "meizuAppKey": "MZ-d8f88ff2be9944a7846481dba9c633bd",
+                        "meizuAppId": "MZ-2850022",
+                        "atAnalyticSiteId": 574060,
+                        "applePayDebugMode": 0
+                    }
+                }
+            },
+            "platforms": {
+                "android": {
+                    "cordovaVersion": "5.2.2",
+                    "config": {}
+                },
+                "ios": {
+                    "cordovaVersion": "4.3.0",
+                    "config": {}
+                }
+            }
+        },
+        "wxshop": {
+            "config": {
+                "amapAppKey": "2b5f7779c7a39c3e17f4a58bb07643dd"
+            },
+            "environments": {
+                "test": {
+                    "config": {
+                        "service": "http://jlftest.co-mall.com/mobile/api",
+                        "svn": "http://usvn.km.co-mall/usvn/svn/cybershop/branches/project/carrefour/worldwide/test/cybershop-mobile/src/main/webapp/mobile/www",
+                        "channel": "test",
+                        "overseasShopId":  250000102
+                    }
+                },
+                "production": {
+                    "config": {
+                        "service": "https://www.carrefour.cn/mobile/api",
+                        "svn": "http://usvn.km.co-mall/usvn/svn/cybershop/branches/project/carrefour/worldwide/online/cybershop-mobile/src/main/webapp/mobile/www",
+                        "channel": "production",
+                        "overseasShopId":  78
+                    }
+                }
+            }
+        }
+    },
+    "releaseChannels": [
+        "channel_1",
+        "channel_2",
+        "channel_3"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "bower": "^1.4.1",
+        "coffee-script": "^1.9.3",
+        "commander": "^2.8.1",
+        "del": "^1.1.1",
+        "gulp": "^3.5.6",
+        "gulp-autoprefixer": "^2.3.1",
+        "gulp-cheerio": "^0.6.2",
+        "gulp-concat": "^2.6.0",
+        "gulp-debug": "^2.1.0",
+        "gulp-filter": "^3.0.1",
+        "gulp-if": "^1.2.5",
+        "gulp-insert": "^0.5.0",
+        "gulp-minify-css": "^1.2.1",
+        "gulp-minify-html": "^1.0.4",
+        "gulp-ng-annotate": "^1.1.0",
+        "gulp-ng-html2js": "^0.2.0",
+        "gulp-rename": "^1.2.0",
+        "gulp-replace": "^0.5.4",
+        "gulp-rev": "^6.0.1",
+        "gulp-rev-all": "^0.8.21",
+        "gulp-rev-replace": "^0.4.2",
+        "gulp-ruby-sass": "^1.0.5",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-uglify": "^1.4.0",
+        "gulp-useref": "^1.3.0",
+        "gulp-util": "^3.0.6",
+        "gulp-webserver": "^0.9.1",
+        "gulp-zip": "^3.0.2",
+        "merge": "^1.2.0",
+        "mkdirp": "^0.5.1",
+        "moment": "^2.10.6",
+        "os-tmpdir": "^1.0.1",
+        "run-sequence": "^1.1.2",
+        "shelljs": "^0.5.1",
+        "vinyl-paths": "^1.0.0",
+        "webserver": "^1.1.2",
+        "eslint": "^3.19.0",
+        "eslint-plugin-angular": "^2.4.2",
+        "xml2js": "^0.4.19"
+    },
+    "scripts": {
+        "start": "npm install && bower install && gulp start"
+    }
+}

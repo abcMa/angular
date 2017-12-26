@@ -1,0 +1,351 @@
+<ion-view class="product-info-view stable-bg" hide-nav-bar="true" cm-hide-tabs="true" cm-download-banner>
+
+    <ion-header-bar class="bar-default bar-header-overseas-shop">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{productInfo.title}}</h1>
+        <div class="buttons">
+            <button class="button button-clear button-load" ng-click="productInfo.openHeaderMoreBtns(this)">
+                <i class="cm-icon icon-other-fn"></i>
+            </button>
+            <button class="button button-clear button-load button-share"
+                cm-share share-data="{{productInfo.data.productId}}" share-type="product">
+                <i class="cm-icon icon-share"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <!-- 基本信息 -->
+    <ion-content class="product-info-panel stable-bg" ng-class="{'switched':productInfo.switched}" delegate-handle="productInfoScroll" cm-vertical-switch-up="productInfo">
+        <!-- <cm-refresher on-refresh="productInfo.refresh({showLoading:false})"></cm-refresher> -->
+        <!-- 商品图片轮播 -->
+        <div class="corner-mark-container">
+            <!-- 商品图片轮播 -->
+            <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="3000">
+                <cm-switch-content  class="ui-switch-panel">
+                    <cm-switch-panel ng-repeat="pic in productInfo.data.pics track by $index">
+                        <img cm-lazyload="pic" load-immediate="true" />
+                    </cm-switch-panel>
+                </cm-switch-content>
+                <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+            </cm-switch>
+
+            <!--角标-->
+            <div ng-repeat="mark in productInfo.data.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+                <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+            </div>
+        </div>
+
+        <div class="ng-hide" ng-show="productInfo.isLoaded">
+            <!-- 商品详情介绍 -->
+            <div class="info-box light-bg mb p" ng-if="productInfo.data">
+
+                <!-- 商品标题 -->
+                <div class="product-info-name mbx">
+                    <span class="tag tag-overseas-shop" ng-if="productInfo.data.isOverseasShop">{{'overseasShop' | translate}}</span>
+                    {{productInfo.data.name}}
+                </div>
+
+                <!-- 商品副标题 -->
+                <div class="product-info-sub-name mb" >
+                    {{productInfo.data.description}}
+                </div>
+
+                <div class="product-info-special-category mb" ng-repeat="specialCtg in productInfo.data.specialCategory">
+                    <span class="tag delivery-tag{{specialCtg.id}}">{{specialCtg.name}}</span>
+                    <span ng-click="specialCtg.articleId > 0 && productInfo.openArticle(specialCtg.articleId, specialCtg.name)" class="article-title">{{'productTag.' + specialCtg.id | translate}}</span>
+                </div>
+
+                <!-- 商品价格 -->
+                <div class="product-info-price-row" ng-if="productInfo.data.goods">
+                    <span class="current-price" ng-bind-html="productInfo.data.goods.salesPrice.value | price:'￥'"></span>
+                    <span class="sell-out-count tr">{{'productInfo.totalSalesCount' | translate}} {{productInfo.data.goods.saleCount}}</span>
+                </div>
+
+                <!-- 跨境电商税率 -->
+                <div class="tax-info" ng-if="productInfo.data.isOverseasShop">
+                    <span class="tax-info-text">
+                        <span>{{'taxTitle'| translate}}:</span>
+                        <span class="tax-info-count">{{productInfo.data.goods.saleTaxRate}}</span>
+                    </span>
+                    <span class="cm-icon inline-icon icon-tax-rate" ng-click="productInfo.goTaxInfo()"></span>
+                </div>
+            </div>
+
+            <!-- 商品不可用 -->
+            <div class="product-unavailable info-box light-bg mb p" ng-if="productInfo.isLoaded && !productInfo.isAvailable">
+                {{'productInfo.unavailable' | translate}}
+            </div>
+
+            <!-- 商品信息面板 -->
+            <div class="info-box light-bg mb">
+                <!-- 抢购未开始 -->
+                <div class="info-row row" ng-if="productInfo.data.goods.flashSale.state == 0">
+                    <div class="info-line-title col-center">
+                        <span class="tag-title">{{'productInfo.limitedSale.name' | translate}}</span>
+                    </div>
+                    <div class="info-line-content">
+                        <div>
+                            <span class="info-flash-text">{{'productInfo.limitedSale.preparing' | translate}}：</span>
+                            <span class="info-flash-countdown">
+                                {{productInfo.data.goods.flashSale.countDown | secondsFormat:'h'}}
+                                {{'productInfo.limitedSale.hour' | translate}}
+                                {{productInfo.data.goods.flashSale.countDown | secondsFormat:'m'}}
+                                {{'productInfo.limitedSale.minute' | translate}}
+                                {{productInfo.data.goods.flashSale.countDown | secondsFormat:'s'}}
+                                {{'productInfo.limitedSale.second' | translate}}
+                        </span>
+                        </div>
+                        <div>
+                            <span class="info-flash-text">{{'productInfo.limitedSale.price' | translate}}：</span>
+                            <span class="info-flash-countdown">{{productInfo.data.goods.flashSale.price | currency:'&yen;' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 抢购中 -->
+                <div class="info-row row" ng-if="productInfo.data.goods.flashSale.state == 1">
+                    <div class="info-line-title col-center">
+                        <span class="tag-title">{{'productInfo.limitedSale.name' | translate}}</span>
+                    </div>
+                    <div class="info-line-content">
+                        <span class="info-flash-text">{{'productInfo.limitedSale.ongoing' | translate}}：</span>
+                        <span class="info-flash-countdown">
+                            {{productInfo.data.goods.flashSale.countDown | secondsFormat:'h'}}
+                            {{'productInfo.limitedSale.hour' | translate}}
+                            {{productInfo.data.goods.flashSale.countDown | secondsFormat:'m'}}
+                            {{'productInfo.limitedSale.minute' | translate}}
+                            {{productInfo.data.goods.flashSale.countDown | secondsFormat:'s'}}
+                            {{'productInfo.limitedSale.second' | translate}}
+                    </span>
+                    </div>
+                </div>
+
+                <!-- 抢购结束 -->
+                <div class="info-row row" ng-if="productInfo.data.goods.flashSale.state == 2">
+                    <div class="info-line-title col-center">
+                        <span class="tag-title">{{'productInfo.limitedSale.name' | translate}}</span>
+                    </div>
+                    <div class="info-line-content">
+                        <span class="info-flash-text">
+                            {{'productInfo.limitedSale.ending_before' | translate}}
+                            {{productInfo.data.goods.flashSale.endTime}}
+                            {{'productInfo.limitedSale.ending_after' | translate}}
+                    </span>
+                    </div>
+                </div>
+
+                <!-- 促销信息 -->
+                <div class="info-row row" ng-if="productInfo.data.goods.rules.length > 0">
+                    <div class="info-line-title col-center">
+                        {{'productInfo.promotion' | translate}}
+                    </div>
+                    <div class="info-line-content"
+                        ng-class="{'ellipsis-content':productInfo.isRulesFolded}"
+                        ng-click="productInfo.toggleFoldRules()">
+                        <span class="info-rule-row" ng-repeat="rule in productInfo.data.goods.rules">
+                            <div class="info-rule-tag-wrapper">
+                                <span class="info-rule-tag">{{rule.rewardMark}}</span>
+                            </div>
+                            <span class="info-rule-name">{{rule.ruleName}}</span>
+                        </span>
+                    </div>
+                    <div class="info-line-button aligen-end" ng-click="productInfo.toggleFoldRules()">
+                        <i class="icon" ng-class="productInfo.isRulesFolded ? 'ion-ios-arrow-down' : 'ion-ios-arrow-up'"></i>
+                    </div>
+                </div>
+
+                <!-- 服务 -->
+                <div class="info-row row">
+                    <div class="info-line-title col-center">
+                        {{'productInfo.services' | translate}}
+                    </div>
+                    <div class="info-line-content">
+
+                        <!-- 门店售后信息 -->
+                        <div class="store-info" ng-if="productInfo.data.storeInfo.articleName">
+                            <span class="store-tip1">{{'productInfo.storeTip1' | translate}}</span>
+                            <span ng-if="APP_CONFIG.language == 'zh-CN'">
+                                <span class="store-name" ng-click="productInfo.openArticlePrompt(productInfo.data.storeInfo.articleId, productInfo.data.storeInfo.articleName);">{{productInfo.data.storeInfo.articleName}}</span>
+                                <span class="store-tip2">{{'productInfo.storeTip2' | translate}}</span>
+                                <span class="shop-name">{{productInfo.data.storeInfo.citySiteName}}</span>
+                            </span>
+                            <span ng-if="APP_CONFIG.language == 'en'">
+                                <span class="shop-name">{{productInfo.data.storeInfo.citySiteName}}</span>
+                                <span class="store-tip2">{{'productInfo.storeTip2' | translate}}</span>
+                                <span class="store-name" ng-click="productInfo.openArticlePrompt(productInfo.data.storeInfo.articleId, productInfo.data.storeInfo.articleName);">{{productInfo.data.storeInfo.articleName}}</span>
+                            </span>
+                            <span class="store-tip3">{{'productInfo.storeTip3' | translate}}</span>
+                        </div>
+
+                        <!-- 包邮提示 -->
+                        <div class="delivery-fee clearfix">
+                            <span class="fl">
+                                {{productInfo.data.isOverseasShop? 'productInfo.overseasShopFreeDelivery' : 'productInfo.freeDelivery' | translate}}
+                            </span>
+                            <span class="cm-icon icon38 inline-icon" ng-if="productInfo.data.isOverseasShop" ng-click="productInfo.showFreeDetail()"></span>
+                        </div>
+
+                        <!-- 服务列表 -->
+                        <div class="info-services-content" ng-if="productInfo.data.serviceInfos.length > 0" ng-class="{'folded' : productInfo.isServicesFolded}">
+                            <span class="info-services-row" ng-if="services.name" ng-repeat="services in productInfo.data.serviceInfos" ng-click="productInfo.toggleFoldServices()">
+                                <span class="cm-icon services-icon inline-icon" ng-class="services.available ? 'icon39' : 'icon38'"></span>{{services.name}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-line-button aligen-end" ng-if="productInfo.data.serviceInfos.length > 0" ng-click="productInfo.toggleFoldServices()">
+                        <i class="icon" ng-class="productInfo.isServicesFolded ? 'ion-ios-arrow-down' : 'ion-ios-arrow-up'"></i>
+                    </div>
+                </div>
+
+                <!-- 商品购买数量 -->
+                <div class="info-row row">
+                    <div class="info-line-title col-center">
+                        {{'productInfo.buyNumber' | translate}}
+                    </div>
+                    <div class="info-line-content">
+                        <cm-counter class="info-counter" ng-model="productInfo.number"
+                            data-max-num="productInfo.data.goods.limit === -1 ? Math.max(productInfo.maxCount, 1) : productInfo.data.goods.limit"
+                            data-min-num="1" data-input-readonly="false"></cm-counter>
+                    </div>
+                </div>
+
+                <!-- 商品评论 -->
+                <div class="info-row info-comment" ng-click="productInfo.goCommentList()" ng-if="productInfo.data.remark">
+                    <div class="info-comment-title-row pb">
+                        {{'productInfo.productComment' | translate}}
+                        <div class="fr">
+                            <span class="good-comment-tip">{{'productInfo.commentRate' | translate}}</span>
+                            <span class="good-comment-rate">{{(productInfo.data.remarkCountVO.highPraiseRate *100).toFixed(0)}}%</span>
+                        </div>
+                    </div>
+                    <div class="info-comment-user-row clearfix pb">
+                        <div class="comment-user-avatar mr fl">
+                            <img cm-lazyload="productInfo.data.remark.userPic">
+                        </div>
+                        <div class="comment-user-content">
+                            <div class="">
+                                <span class="">{{productInfo.data.remark.userName | commentNameFormat}}</span>
+                                <span class="fr">{{productInfo.data.remark.time | limitTo: 10}}</span>
+                            </div>
+                            <div class="clearfix">
+                                <cm-comment-level level="{{productInfo.data.remark.score}}"></cm-comment-level>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-content-row">
+                        {{productInfo.data.remark.content}}
+                    </div>
+                </div>
+                <!-- 商品评论查看更多 -->
+                <div class="info-row info-comment-show-more row" ng-click="productInfo.goCommentList()" ng-if="productInfo.data.remark">
+                    {{'productInfo.seeMoreComment' | translate}}
+                    <i class="icon ion-ios-arrow-right mhx"></i>
+                </div>
+            </div>
+
+            <!-- 商品推荐 -->
+            <div class="info-box light-bg" ng-if="productInfo.data.recommends.length > 0">
+                <div class="recommend-title p">{{'productInfo.productRecommend' | translate}}</div>
+
+                <ion-scroll class="mhx" direction="x" scrollbar-x="false">
+                    <ul class="clearfix">
+                        <li class="fl" ng-repeat="item in productInfo.data.recommends" cm-adjust-parent-width>
+                            <a class="recommend-item" href="javascript:void(0);" ng-click="stateUtils.goProductInfo(item.productId, item.id, item.productName, 'productInfo')">
+                                <img class="recommend-item-img" cm-lazyload="item.thumbUrl" load-immediate="true" />
+                                <p class="recommend-item-name mtx">{{item.productName}}</p>
+                                <p class="recommend-item-price">{{item.matchPrice | currency:'&yen;'}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+
+            <div class="info-see-detail pv">
+                <i class="cm-icon icon04"></i>{{'productInfo.swipe' | translate}}
+            </div>
+        </div>
+    </ion-content>
+
+    <!-- 详细信息 -->
+    <ion-content class="product-detail-panel stable-bg" scroll="false" ng-class="{'switched':productInfo.switched}">
+        <!-- cm-vertical-switch-down="productInfo"> -->
+        <div class="detail-content">
+            <div class="detail-see-info pv">
+                <i class="cm-icon icon04"></i>{{'productInfo.swipeBack' | translate}}
+            </div>
+            <!-- 商品介绍 + 规格参数 + 售后服务 -->
+
+            <ul class="detail-tab-list light-bg ph clearfix">
+                <li class="detail-tab-item fl {{tab.state}}" ng-class="{'active':tab.active}"
+                    at-gesture="product::{{tab.name}}" gesture-action="touch"
+                    ng-click="productInfo.changeTab($index)" ng-repeat="tab in productInfo.infoTabs">
+                    {{tab.text}}
+                </li>
+            </ul>
+
+            <!-- 商品介绍 -->
+            <ion-scroll class="detail-scroll light-bg" zooming="true" direction="xy" min-zoom="1"
+                max-zoom="3" has-bouncing="false" ng-show="productInfo.activeTab == 0"
+                delegate-handle="productContentScroll" cm-vertical-switch-down="productInfo">
+                <div class="detail-tab-content" ng-bind-html="productInfo.data.content">
+                </div>
+                <div class="detail-tab-content pbd" ng-bind-html="productInfo.data.footer">
+                </div>
+            </ion-scroll>
+
+            <!-- 规格参数 -->
+            <ion-scroll class="detail-scroll light-bg" zooming="false" direction="y"
+                ng-show="productInfo.activeTab == 1" delegate-handle="productPropertiesScroll"
+                cm-vertical-switch-down="productInfo">
+                <div class="detail-tab-content detail-tab-param mh">
+                    <p class="param-row pr" ng-repeat="prop in productInfo.data.properties">
+                        <span class="param-title stable-bg fl">{{prop.title}}</span>
+                        <span class="param-txt">{{prop.value}}</span>
+                    </p>
+                </div>
+            </ion-scroll>
+
+            <!-- 售后服务 -->
+            <ion-scroll class="detail-scroll light-bg" zooming="false" direction="y"
+                ng-show="productInfo.activeTab == 2" delegate-handle="productSalesScroll"
+                cm-vertical-switch-down="productInfo">
+                <div class="detail-tab-content detail-tab-sales mh pvd">
+                    <span ng-repeat="article in productInfo.data.afterSales" ng-bind-html="article"></span>
+                </div>
+            </ion-scroll>
+        </div>
+    </ion-content>
+
+    <!-- 底部加入购物车 -->
+    <ion-footer-bar class="add-to-cart-bar">
+
+        <ul class="info-footer-list row">
+            <li class="info-footer-item col col-30" ng-click="productInfo.toggleCollection(productInfo.data.goods.id)">
+                <button class="button button-clear button-cart-collection">
+                    <i class="cm-icon info-view-icon icon36"
+                        ng-class="{'icon37': productInfo.data.collect, 'icon36': !productInfo.data.collect}"></i>
+                        {{'productInfo.collect' | translate}}
+                </button>
+            </li>
+            <li class="info-footer-item col col-30" ng-click="stateUtils.goCartNoTabs()">
+                <button class="button button-clear button-cart-collection">
+                    <!-- <span class="button-cart-num phx">{{productInfo.cartTotalNumber}}</span> -->
+                    <span class="button-cart-num phx">{{shoppingCartCount}}</span>
+                    <i class="icon cm-icon ion-ios-cart-outline info-view-icon"></i> {{'productInfo.cart' | translate}}
+                </button>
+            </li>
+            <li class="info-footer-item col col-40">
+                <!-- <button ng-click="productInfo.addToCart()" ng-if="!productInfo.data.goods.flashSale || productInfo.data.goods.flashSale.state != 1" class="button button-block button-primary button-add">{{'productInfo.addToCart' | translate}}</button>
+                <button ng-click="productInfo.addToCart()" ng-if="productInfo.data.goods.flashSale.state == 1" class="button button-block button-primary button-add">{{'productInfo.buyNow' | translate}}</button> -->
+                <button ng-click="productInfo.addToCart()" ng-disabled="!productInfo.isAvailable"
+                    class="button button-block button-primary button-add">
+                    {{ productInfo.isFlashSaleNow ? 'productInfo.buyNow' : 'productInfo.addToCart' | translate }}
+                </button>
+            </li>
+        </ul>
+
+    </ion-footer-bar>
+
+</ion-view>

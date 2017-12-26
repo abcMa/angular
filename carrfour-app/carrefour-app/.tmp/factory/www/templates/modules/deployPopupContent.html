@@ -1,0 +1,52 @@
+<cm-switcher class="deploy-popup-panels" delegate-handle="deploy-popup-content-switcher">
+    <!-- 开始 -->
+    <div class="panel" id="start">
+        {{ isWifi ? 'deployTips.netTypeTips' : 'deployTips.netTypeTips3G' | translate}}
+        <div class="popup-buttons">
+            <button class="button button-default" ng-if="!isForceUpdate" ng-click="cancel()">{{'deployTips.cancel' | translate}}</button>
+            <button class="button button-default" ng-if="isForceUpdate && !isIOS" ng-click="close()">{{'deployTips.close' | translate}}</button>
+            <button class="button button-primary" ng-click="confirm()">{{'deployTips.ok' | translate}}</button>
+        </div>
+    </div>
+    <!-- 下载失败 -->
+    <div class="panel" id="downloadError">
+        {{'deployTips.downloadError' | translate}}
+        <div class="popup-buttons">
+            <button class="button button-default" ng-if="!isForceUpdate" ng-click="cancel()">{{'deployTips.cancel' | translate}}</button>
+            <button class="button button-default" ng-if="isForceUpdate && !isIOS" ng-click="close()">{{'deployTips.close' | translate}}</button>
+            <button class="button button-primary" ng-click="confirm()">{{'deployTips.ok' | translate}}</button>
+        </div>
+    </div>
+    <!-- 解压失败 -->
+    <div class="panel" id="extractError">
+        {{'deployTips.extractError' | translate}}
+        <div class="popup-buttons">
+            <button class="button button-default" ng-if="!isForceUpdate" ng-click="cancel()">{{'deployTips.cancel' | translate}}</button>
+            <button class="button button-default" ng-if="isForceUpdate && !isIOS" ng-click="close()">{{'deployTips.close' | translate}}</button>
+            <button class="button button-primary" ng-click="confirm()">{{'deployTips.ok' | translate}}</button>
+        </div>
+    </div>
+    <!-- 下载 -->
+    <div class="panel" id="download">
+        {{'deployTips.downloading' | translate}}
+        <div class="deploy-process-container mb">
+            <span class="deploy-process-bar" style="width:{{downloadPercent}}%"></span>
+            <span class="deploy-process-percent">{{downloadPercent}}%</span>
+        </div>
+    </div>
+    <!-- 解压 -->
+    <div class="panel" id="extract">
+        {{'deployTips.extracting' | translate}}
+        <div class="deploy-process-container mb">
+            <span class="deploy-process-bar" style="width:{{extractPercent}}%"></span>
+            <span class="deploy-process-percent">{{extractPercent}}%</span>
+        </div>
+    </div>
+    <!-- 完成 -->
+    <div class="panel" id="done">
+        {{'deployTips.complete' | translate}}
+        <div class="popup-buttons">
+            <button class="button button-primary" ng-if="!isIOS" ng-click="reboot()">{{'deployTips.reboot' | translate}}</button>
+        </div>
+    </div>
+</cm-switcher>

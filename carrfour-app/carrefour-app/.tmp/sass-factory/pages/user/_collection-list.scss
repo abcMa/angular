@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+// 会员中心 - 我的收藏
+.collection-list-panel {
+
+    .sale-description {
+        color: $primary-color;
+    }
+
+    .collection-item {
+        border-top: $line-color 1px solid;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+    .item-cart {
+        color: $primary-color;
+    }
+
+    .collection-empty {
+        padding-top: 50px;
+
+        .img-collection {
+            margin: 0 auto;
+            width: 100px;
+            height: 150px;
+            background: url('#{$images-path}/userCollectionList_empty.png') center center no-repeat;
+            background-size: 100% auto;
+        }
+
+        .text {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+
+        .button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+    }
+
+    .item-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .item-name {
+        overflow: hidden;
+        height: 3em;
+        line-height: 1.5em;
+        color: $text-color;
+        font-size: $font-size-base;
+    }
+
+    .item-price {
+        line-height: 1.5em;
+        color: $text-color-quiet;
+        font-size: $font-size-big;
+
+        .price {
+            color: $assertive;
+        }
+
+        .tips {
+            font-size: $font-size-base;
+        }
+    }
+
+    .item-price-icon {
+        font-size: $font-size-mini;
+        border: $assertive 1px solid;
+        border-radius: 2px;
+    }
+
+    .item-status {
+        height: 2em;
+        margin: 0;
+        line-height: 2em;
+        font-size: $font-size-base;
+        color: $text-color-quiet;
+    }
+
+    .col-right {
+        text-align: right;
+    }
+
+    .button {
+
+        .icon02 {
+            color: $assertive;
+        }
+
+        &[disabled],
+        &.disabled {
+
+            .icon02 {
+                color: $text-color-quiet;
+            }
+        }
+    }
+
+    .cm-icon {
+        font-size: $font-size-icon;
+    }
+
+    .icon28 {
+        color: $text-color-quiet;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}

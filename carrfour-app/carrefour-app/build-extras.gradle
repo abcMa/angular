@@ -1,0 +1,14 @@
+android {
+    defaultConfig {
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "cn.carrefour.app.mobile",
+                JPUSH_APPKEY : "<<< jpushApiKey >>>",
+                JPUSH_CHANNEL : "developer-default",
+                HUAWEI_APPID : "<<< huaweiAppId >>>",
+                XIAOMI_APPKEY : "<<< xiaomiAppKey >>>",
+                XIAOMI_APPID : "<<< xiaomiAppId >>>",
+                MEIZU_APPKEY : "<<< meizuAppKey >>>",
+                MEIZU_APPID : "<<< meizuAppId >>>",
+        ]
+    }
+}

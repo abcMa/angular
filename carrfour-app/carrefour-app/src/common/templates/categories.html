@@ -1,0 +1,64 @@
+<ion-view hide-nav-bar="true" cm-hide-tabs="inherit" cm-download-banner  can-swipe-back="false">
+
+    <ion-header-bar class="bar-default">
+        <div class="row">
+            <div class="col">
+                <label class="textbar"
+                    on-tap="categories.goSearch()"
+                    at-gesture="category::search_bar">
+                    <!-- 这里分两个 placeholder-text 是为了保证与 search 页面中的搜索框保持一致 -->
+                    <span class="placeholder-text icon ion-ios-search-strong"></span>
+                    <span class="placeholder-text">{{'search.searchTip' | translate}}</span>
+                </label>
+            </div>
+        </div>
+
+    </ion-header-bar>
+
+    <ion-content class="category-panel" scroll="false">
+
+        <!-- 一级分类 -->
+        <ion-scroll class="category" scrollbar-y="false">
+            <ul class="category-list">
+                <li class="category-item pvx"
+                    ng-repeat="category in categories.data track by category.id"
+                    ng-class="{active: category.id === categories.activeFirstCategory.id}"
+                    on-tap="categories.setActiveFirstCategory(category)">
+
+                    <img class="category-icon icon-primary" cm-lazyload="category.pic" />
+                    <img class="category-icon icon-active" cm-lazyload="category.activePic" />
+                    <p class="category-txt">{{category.name}}</p>
+                </li>
+            </ul>
+        </ion-scroll>
+
+        <!-- 二，三级分类 -->
+        <ion-scroll class="category-sub pl" delegate-handle="subCategories">
+            <div class="pt"
+                ng-repeat="category in categories.activeFirstCategory.subCategories track by category.id">
+
+                <p class="category-sub-title pl">
+                    <a class="sub-title-btn mrx fr" href="javascript:"
+                        ng-click="categories.goCategoryProductList(category)"
+                        ng-hide="APP_CONFIG.isInOverseasShopView"></a>
+                    {{category.name}}
+                </p>
+                <ul class="category-sub-list clearfix">
+                    <li class="category-sub-item mv"
+                        ng-click="categories.goSubcategoryProductList(category, subCategory)"
+                        ng-repeat="subCategory in category.subCategories track by subCategory.id">
+
+                        <a href="javascript:void(0)">
+                            <img class="category-sub-img" cm-lazyload="subCategory.pic" />
+                            <p class="category-sub-txt">{{subCategory.name}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ion-scroll>
+
+    </ion-content>
+
+    <cm-overseas-shop-tabs></cm-overseas-shop-tabs>
+
+</ion-view>

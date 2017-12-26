@@ -1,0 +1,90 @@
+<ion-view class="bind-member-card-view stable-bg" cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear back-button icon ion-ios-arrow-left" ng-click="goBack()"></button>
+        <h1 class="title">{{'bindMemberCard.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="bind-member-card-panel" scroll="true">
+        <ng-form name="bindVerifyForm" class="member-center-form-list">
+            <div class="list light-bg">
+                <label class="item item-input item-select item-arrow">
+                    <span class="input-label">{{'memberCenterFormFields.nationality' | translate}}</span>
+                    <select ng-model="bindMemberCard.formData.nationality" ng-if="APP_CONFIG.language == 'zh-CN'" ng-options="data.value as data.name for data in bindMemberCard.nationality"></select>
+                    <select ng-model="bindMemberCard.formData.nationality" ng-if="APP_CONFIG.language == 'en'" ng-options="data.value as data.en for data in bindMemberCard.nationality"></select>
+                    </select>
+                </label>
+                <label class="item item-input item-select item-arrow">
+                    <span class="input-label">{{'memberCenterFormFields.idType' | translate}}</span>
+                    <select ng-model="bindMemberCard.formData.idType">
+                        <option value="0">{{'memberCenterFormFields.idTypes.0' | translate}}</option>
+                        <option value="1">{{'memberCenterFormFields.idTypes.1' | translate}}</option>
+                        <option value="2">{{'memberCenterFormFields.idTypes.2' | translate}}</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.idNumber' | translate}}</span>
+                    <input type="text" name="idNumber"
+                           ng-model="bindMemberCard.formData.idNumber" 
+                           placeholder="{{'memberCenterFormFields.idNumberPlaceholder' | translate}}" 
+                           ng-change="bindMemberCard.isAbleSub()"
+                           ng-blur="bindMemberCard.validatIdNumber(bindMemberCard.formData.idNumber)">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                    <input type="text" 
+                           name="mobile" 
+                           ng-model="bindMemberCard.formData.mobile"
+                           placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}" 
+                           maxlength="11"
+                           ng-change="bindMemberCard.isAbleSub()">
+                </label>
+                <div class="item item-input item-verify-code">
+                    <span class="input-label">{{'memberCenterFormFields.verifyCode' | translate}}</span>
+                    <input type="text" name="verifyCode" ng-model="bindMemberCard.formData.verifyCode" 
+                           placeholder="{{'memberCenterFormFields.verifyCodePlaceholder' | translate}}" 
+                           ng-change="bindMemberCard.isAbleSub()">
+                    <button type="button" class="button button-clear button-verify-code"
+                        ng-click="bindMemberCard.getBindVerifyCode()"
+                        ng-disabled="bindMemberCard.countdown > 0 || !bindMemberCard.isVerifyCode">
+                        {{bindMemberCard.countdown > 0 ? 'memberCenterFormFields.resend' : 'memberCenterFormFields.getVerifyCode' | translate}}
+                        <span class="verify-cool-down" ng-show="bindMemberCard.countdown > 0">({{bindMemberCard.countdown}})</span>
+                    </button>
+                </div>
+                <div class="item item-input item-member-card">
+                    <span class="input-label">{{'memberCenterFormFields.cardMember' | translate}}</span>
+                    <input type="text" 
+                           name="cardNumber" 
+                           ng-model="bindMemberCard.formData.cardNumber"
+                           placeholder="{{'memberCenterFormFields.memberCardPlaceholder' | translate}}" 
+                           maxlength="15"  
+                           ng-change="bindMemberCard.isAbleSub()"
+                           ng-blur="bindMemberCard.validatCardNumber(bindMemberCard.formData.cardNumber)">
+                    <button type="button" class="button button-clear button-scan cm-icon icon-saoma"
+                        ng-click="bindMemberCard.scan()">
+                    </button>
+                </div>
+            </div>
+            <div class="note mt">
+                <i class="cm-icon icon38"></i>{{'registerMemberCard.note' | translate}}
+            </div>
+            <ion-scroll class="agreement-container light-bg mh mt" scroll="true" delegate-handle="bind-member-card-agreement">
+                <div ng-bind-html="bindMemberCard.agreement"></div>
+            </ion-scroll>
+            <div class="agreements mh mt">
+                <label class="checkbox">
+                    <input type="checkbox" name="checkbox" ng-model="bindMemberCard.isAgreeAgreement"  
+                           ng-change="bindMemberCard.isAbleSub()">
+                </label>
+                <span class="agreement">{{'bindMemberCard.agrees' | translate}}</span>
+                <span class="agreement-link" ng-click="bindMemberCard.openServiceAgreement()">{{'bindMemberCard.serviceAgreement' | translate}}</span>
+            </div>
+            <div class="mh next-page">
+                <button class="button button-block button-assertive"
+                    ng-disabled="bindMemberCard.isDisabled"
+                    ng-click="bindMemberCard.onSubmit()">{{'bindMemberCard.next' | translate}}</button>
+                </div>
+            </div>
+        </ng-form>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,305 @@
+@charset "utf-8";
+
+.member-center-view {
+    .member-center-float-menu {
+        $border-length: 5px;
+        $triangle-size: 8px;
+        $main-color: $light;
+        position: absolute;
+        z-index: 9;
+        right: 10px;
+        height: 40px;
+        border-radius: $border-length;
+        padding: 10px;
+        margin-top: 3px;
+        background-color: $main-color;
+
+        &:before {
+            position: absolute;
+            top: -$triangle-size;
+            right: $border-length;
+            border-bottom: $main-color $triangle-size solid;
+            border-left: $triangle-size solid transparent;
+            border-right: $triangle-size solid transparent;
+            content: '';
+        }
+    }
+}
+
+.member-center-panel {
+    .question-icon {
+        position: absolute;
+        font-size: $font-size-base;
+        color: $text-color-secondary;
+
+        &:after {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            bottom: -6px;
+            left: -6px;
+            content: ' ';
+        }
+    }
+
+    .card-number {
+        position: absolute;
+        top: 102px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-size: $font-size-small;
+    }
+
+    .member-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px 10px 10px 10px;
+        margin: 10px auto 15px;
+        width: 300px;
+        height: 171px;
+        border-radius: 5px;
+        box-shadow: 3px 3px 5px $gray-5d;
+        background: url('#{$images-path}/carrefour-member-card@2x.png') center center no-repeat;
+        background-size: 100% 100%;
+
+        .card-name {
+            margin-bottom: 20px;
+            color: $light;
+            align-self: flex-start;
+        }
+
+        .barcode {
+            position: absolute;
+            top: 45px;
+            align-self: center;
+        }
+
+        .card-description {
+            font-size: $font-size-base;
+            line-height: $font-size-base;
+            color: $light;
+            align-self: center;
+        }
+
+        .card-code-placeholder {
+            align-self: center;
+            color: $text-color-reverse;
+        }
+
+        &.empty-card {
+            justify-content: center;
+
+            .card-name {
+                align-self: center;
+            }
+        }
+    }
+
+    .member-infos {
+        border-bottom: 1px solid $line-color;
+
+        .point-card {
+            margin-top: 5px;
+            display: flex;
+
+            .border-line {
+                border-right: 1px solid #e7e7e7;
+            }
+
+            .point-block {
+                flex-grow: 1;
+
+                div {
+                    &:first-child {
+                        font-size: $font-size-larger;
+                        font-weight: bold;
+                    }
+
+                    &:last-child {
+                        color: $text-color-secondary;
+                    }
+                }
+            }
+        }
+
+        .expire-alert {
+            font-size: $font-size-mini;
+            color: $text-color-secondary;
+            line-height: 2.5em;
+        }
+    }
+
+    .member-menu {
+        border-top: 1px solid $line-color;
+        border-bottom: 1px solid $line-color;
+
+        .member-menu-item {
+            border-bottom: 1px solid $line-color;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 24px;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            i {
+                font-size: 24px;
+
+                &:first-child {
+                    position: absolute;
+                    left: 10px;
+                    color: #00a0e8;
+                }
+
+                &:last-child {}
+            }
+        }
+    }
+}
+
+.member-center-form-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .agreement-container {
+        flex-shrink: 1;
+        height: 100%;
+        min-height: 94px;
+    };
+    
+    .list {
+        margin: 0;
+        padding: 0 0 0 10px;
+        border-top: 1px solid $item-default-border;
+        border-bottom: 1px solid $item-default-border;
+        flex-shrink: 0;
+
+        .item {
+            padding-left: 0;
+            border-left: 0;
+            margin-left: 0;
+
+            .input-label {
+                width: auto;
+                flex-shrink: 0;
+            }
+
+            &.activated {
+                background-color: $light;
+            }
+
+            input {
+                padding: 0;
+                color: $text-color-secondary;
+                text-align: right;
+                transform: translate3d(0,0,0);
+
+                &[disabled],
+                &[readonly] {
+                    background-color: $light;
+                }
+            }
+
+            select {
+                right: 10px;
+                padding: 0;
+                color: $text-color-secondary;
+                text-align: right;
+            }
+        }
+
+        .address-short {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .item-input {}
+
+        .item-birthday {
+            width: 100%;
+            text-align: right;
+            flex-shrink: 1;
+            margin-right: 15px;
+            color: $text-color-secondary;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: $font-size-base;
+        }
+
+        .item-birthday-pd {
+            margin-right: 0;
+        }
+
+        .item-select {
+            &:after {
+                display: none;
+            }
+
+            select {
+                max-width: 50%;
+            }
+        }
+
+        .item-arrow {
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                top: 16px;
+                right: 10px;
+                font-size: $font-size-large;
+                color: $text-color-secondary;
+                display: inline-block;
+                font-family: "Ionicons";
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                text-rendering: auto;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            > input {
+                padding-right: 15px;
+            }
+
+            > select {
+                padding-right: 15px;
+            }
+        }
+
+        .item-verify-code {
+            > input {
+                padding-right: 10px;
+                border-right: 1px solid $line-color;
+                flex-shrink: 1;
+            }
+        }
+
+        .button-verify-code {
+            position: relative;
+            padding-left: 5px;
+            padding-right: 0;
+            min-height: 36px;
+            height: 36px;
+            line-height: 36px;
+            border: 0;
+            color: $link-color;
+            flex-shrink: 0;
+
+            &[disabled] {
+                color: #cecece;
+            }
+        }
+    }
+}

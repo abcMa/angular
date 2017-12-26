@@ -1,0 +1,17 @@
+<div class="tab-nav tabs">
+    <cm-tab class="tab-item" ng-click="stateUtils.goOverseasShopIndex(true)" data-url="/overseasShop/index">
+        <i class="icon cm-icon icon-overseas-shop"></i>
+        <span class="tab-title">{{'tabs.overseasShop' | translate}}</span>
+    </cm-tab>
+
+    <cm-tab class="tab-item" ng-click="stateUtils.goOverseasShopCategories(true)" data-url="/overseasShop/categories">
+        <i class="icon cm-icon icon03"></i>
+        <span class="tab-title">{{'tabs.category' | translate}}</span>
+    </cm-tab>
+
+    <cm-tab class="tab-item has-badge" ng-click="stateUtils.goOverseasShopCart(true)" data-url="/overseasShop/cart">
+        <span class="badge badge-warm" ng-if="shoppingCartCount">{{shoppingCartCount}}</span>
+        <i class="icon cm-icon icon02"></i>
+        <span class="tab-title">{{'tabs.cart' | translate}}</span>
+    </cm-tab>
+</div>

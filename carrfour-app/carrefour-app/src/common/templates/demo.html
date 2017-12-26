@@ -1,0 +1,62 @@
+<ion-view hide-nav-bar="true" cm-hide-tabs="false">
+
+    <ion-header-bar class="bar-default" align-title="left">
+        <div class="row">
+            <div class="col col-adaptive">
+                <h1 class="logo">家乐福微信商城-演示区</h1>
+            </div>
+            <div class="col">
+                <div class="textbar" ng-click="demo.goSearch()">
+                    <!-- 这里分两个 placeholder-text 是为了保证与 search 页面中的搜索框保持一致 -->
+                    <span class="placeholder-text icon ion-ios-search-strong"></span>
+                    <span class="placeholder-text">搜索您想要的商品</span>
+                </div>
+            </div>
+            <div class="col col-adaptive" ng-click="demo.selectRegion()">
+                <button class="button button-clear select-region-button">
+                    {{demo.regionName}}<br />
+                    <span class="icon ion-ios-arrow-down"></span>
+                </button>
+            </div>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="ghost-panel p">
+        <style type="text/css">
+            .ghost-panel h2 { font-size: 14px; line-height: 1.4; }
+            .ghost-panel h2:after { content: '↴'; font-weight: 700; font-size: 0.8em; margin-left: 3px; color: #999; }
+        </style>
+        <button type="button" class="button button-block button-stable" ng-click="demo.openLogin()">
+            {{'login' | translate}}
+        </button>
+        <div class="button-bar">
+            <button ng-repeat="(langKey, lang) in demo.langs" ng-click="demo.toggleLang(langKey)" class="button">
+                {{lang.$name}}
+            </button>
+        </div>
+
+        <h2>动态改变元素高度</h2>
+
+        <div style="width: 100%; height:9.375rem; background: #f0f0f0; border: 1px solid #ddd;">
+            该元素高度将保持为宽度的一半
+        </div>
+
+        <h2>图片容器</h2>
+        <cm-image-box src="http://img4.duitang.com/uploads/item/201407/04/20140704182802_mL8ut.thumb.700_0.jpeg"
+                      style="display: block; width: 100%; height:9.375rem; background: #f99;"></cm-image-box>
+
+        <h2>图片验证码</h2>
+        <img cm-image-verify-code style="width: 200px; height: 50px; border: 1px solid #ddd;" />
+
+        <h2>toast, loading</h2>
+        <button class="button" ng-click="demo.openToast()">toast</button>
+        <button class="button" ng-click="demo.open3Toast()">3 toast</button>
+        <button class="button" ng-click="demo.openEmptyLoading()">empty loading</button>
+        <button class="button" ng-click="demo.openLoading()">loading</button>
+        <button class="button" ng-click="demo.open3Loading()">3 loading</button>
+        <button class="button" ng-click="demo.open3ToastAnd3Loading()">3 toast and 3 loading</button>
+        <button class="button" ng-click="demo.openToastDelay()">show toast, delay 2 second</button>
+        <button class="button" ng-click="demo.openLoadingDelay()">show loading, delay 2 second</button>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,64 @@
+<ion-view class="member-info-view" cm-hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button icon ion-ios-arrow-left" ng-click="goBack()"></button>
+        <h1 class="title transform-ele">{{'memberInfo.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="member-info-panel stable-bg" scroll="true">
+        <ng-form name="memberInfoForm" class="member-center-form-list">
+            <div class="list light-bg">
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.name' | translate}}</span>
+                    <input type="text" name="name" ng-model="memberInfo.formData.name"
+                        ng-change="memberInfo.isName(memberInfo.formData.name)"
+                        placeholder="{{'memberCenterFormFields.namePlaceholder' | translate}}" required>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">{{'memberCenterFormFields.sex' | translate}}</span>
+                    <select ng-model="memberInfo.formData.sex" required>
+                        <option value="1">{{'memberCenterFormFields.male' | translate}}</option>
+                        <option value="2">{{'memberCenterFormFields.female' | translate}}</option>
+                    </select>
+                </label>
+                <label class="item item-input" ng-class="{'item-arrow': APP_CONFIG.os !== 'weixin'}" ng-click="memberInfo.onSelectBirthday()">
+                    <span class="input-label">{{'memberCenterFormFields.birthday' | translate}}</span>
+                    <span class="item-birthday" ng-class="{'item-birthday-pd': APP_CONFIG.os == 'weixin'}" ng-model="memberInfo.formData.birthday">{{memberInfo.formData.birthday | date:'yyyy-MM-dd'}}</span>
+                </label>
+                <label class="item item-input" ng-click="memberInfo.editMoblie()">
+                    <span class="input-label">{{'memberCenterFormFields.mobile' | translate}}</span>
+                    <input type="text" name="mobile" ng-model="memberInfo.formData.censoredMobile"
+                        placeholder="{{'memberCenterFormFields.mobilePlaceholder' | translate}}" maxlength="11" readonly required>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.email' | translate}}</span>
+                    <input type="email" name="email"
+                        pattern="^[A-Za-z0-9-_\.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"
+                        placeholder="{{'memberCenterFormFields.emailPlaceholder' | translate}}" ng-model="memberInfo.formData.email" >
+                </label>
+                <label class="item item-input item-arrow">
+                    <span class="input-label transform-ele">{{'memberCenterFormFields.regions' | translate}}</span>
+                    <span class="item-birthday" ng-model="memberInfo.formData.regionIds" cm-select-live="1" cm-select-region="memberCard">{{memberInfo.formData.regionIds}}</span>  
+                    <input type="hidden"
+                        ng-model="memberInfo.formData.regionIds"
+                        cm-select-live="1"
+                        cm-select-region="memberCard"
+                        placeholder="{{'memberCenterFormFields.regionsPlaceholder' | translate}}"
+                        readonly>
+                    <input type="hidden" ng-model="memberInfo.formData.regionIds" required>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">{{'memberCenterFormFields.address' | translate}}</span>
+                    <input type="text" class="address-short" name="address" ng-model="memberInfo.formData.address"
+                        placeholder="{{'memberCenterFormFields.addressPlaceholder' | translate}}" required>
+                </label>
+            </div>
+            <div class="mh">
+                <button class="button button-block button-assertive"
+                    ng-disabled="memberInfoForm.$invalid"
+                    ng-click="memberInfo.onSubmit()">{{'memberInfo.save' | translate}}</button>
+            </div>
+        </ng-form>
+    </ion-content>
+
+</ion-view>

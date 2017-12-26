@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+// 覆盖默认样式
+// -----------------------------------------------------------------------------
+
+.item-input {
+    padding: 6px $item-padding;
+
+    input[type="text"],
+    input[type="password"] {
+        height: 20px;
+        margin: 8px 0;
+        padding: 0 20px 0 0;
+        line-height: 20px;
+    }
+}
+
+.form-item {
+
+    .textbar {
+        height: 20px;
+        padding: 5px;
+        line-height: 20px;
+
+        input[type="text"],
+        input[type="password"] {
+            height: 20px;
+            line-height: 20px;
+        }
+    }
+}
+
+
+// 自定义表单结构
+// -----------------------------------------------------------------------------
+
+.form-item {
+    display: block;
+    margin: $distance-vertical * 1.5 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.form-global-inform {
+    @extend .inform;
+    @extend .form-item;
+
+    text-align: center;
+}

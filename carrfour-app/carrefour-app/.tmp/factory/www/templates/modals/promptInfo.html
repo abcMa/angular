@@ -1,0 +1,20 @@
+<ion-modal-view class="article-promptInfo-view">
+    <div class="promptInfo-title">
+        <div class="title">
+            {{promptInfo.title}}
+        </div>
+        <span class="info-close ion-ios-close-empty" ng-click="modals.promptInfo.close()"></span>
+    </div>
+    <ion-content class="article-promptInfo-content" scroll="true">
+        <div class="info-box">
+            <div class="info-content">
+                <p class="info-content">{{promptInfo.content}}</p>
+                <p class="info-content">{{promptInfo.content2}}</p>
+                <p class="info-content">{{promptInfo.content3}}</p>
+                <p class="info-content">{{promptInfo.content4}}</p>
+                <p class="info-content">{{promptInfo.content5}}</p>
+                <p class="info-content">{{promptInfo.content6}}</p>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

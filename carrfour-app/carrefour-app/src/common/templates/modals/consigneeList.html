@@ -1,0 +1,84 @@
+<ion-modal-view class="consignee-list-view select-address-region-view">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.selectConsignee.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{consigneeList.title || ('checkout.consignee.chooseConsigneeInfo' | translate)}}</h1>
+        <!-- <button class="button manage-button" ng-click="modals.memberSelectConsignee.open()">{{'checkout.consignee.manageConsignee' | translate}}</button> -->
+    </ion-header-bar>
+
+    <ion-content class="consignee-list-panel stable-bg has-footer">
+        <!-- 增加更新地址提示(地址库变更) -->
+        <cm-dynamic-tabs scroll-fixed="true" ng-if="consigneeList.addressTips">
+            <div class="update-consignee-hint">
+                {{consigneeList.addressTips}}
+            </div>
+        </cm-dynamic-tabs>
+
+        <ion-list class="consignee-list" ng-if="consigneeList.data.allAddress.length > 0">
+
+            <ion-item class="consignee-item mt"
+                ng-class="{'active':consignee.id == consigneeList.selectedConsigneeId}"
+                ng-click="consigneeList.selected(consignee)"
+                ng-repeat="consignee in consigneeList.data.allAddress">
+
+                <i ng-if="consignee.effective == undefined? true : consignee.effective" class="ion-ios-checkmark item-selected"></i>
+                <i ng-if="consignee.effective == undefined? true : consignee.effective" class="ion-ios-checkmark item-unselected"></i>
+
+                <div class="consignee-item-content">
+                    <p class="consignee-item-name prd clearfix">
+                        <span class="name fl">{{consignee.name}}</span>
+                        <span class="fr">{{consignee.mobile}}</span>
+                    </p>
+                    <p class="consignee-item-info pbd prd mrx">
+                        <!-- <span ng-repeat="region in consignee.region">{{region.name}}</span> <br /> -->
+                        <!-- {{consignee.address | addressFormat}} -->
+                        {{consignee.regionName}}
+                        <br />
+                        {{consignee.address}}
+                    </p>
+                    <div class="row">
+                        <div class="control-status-bar col col-center">
+                            <!--  无法配送至此地址-->
+                            <span ng-if="!consignee.valid && (consignee.effective == undefined ? true : consignee.effective)">
+                                <i class="cm-icon icon38 icon-warning"></i>
+                                <span class="warning-text">{{'checkout.consignee.unavailable' | translate}}</span>
+                            </span>
+                            <!-- 改地址需要更新 优先-->
+                            <span ng-if="consignee.effective === false">{{'checkout.consignee.effect' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-button-bar">
+                    <button class="button button-clear" ng-click="consigneeList.toEdit(consignee,$event)">
+                        <i class="icon ion-ios-compose-outline"></i>
+                        <span class="button-bar-text">{{'checkout.consignee.edit' | translate}}</span>
+                    </button>
+                </div>
+
+            </ion-item>
+
+        </ion-list>
+
+        <!-- 地址列表为空 -->
+        <div class="empty-consignee" ng-if="consigneeList.data.allAddress.length == 0">
+            <div class="empty-img"></div>
+            <div class="empty-tips">{{'checkout.consignee.tip' | translate}}</div>
+            <button ng-click="consigneeList.toEdit()" class="button button-block button-primary">
+                {{'checkout.consignee.addConsignee' | translate}}
+            </button>
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="consignee-list-footer footer-bar">
+        <button class="button consignee-add-btn"
+        ng-show="consigneeList.data.allAddress.length != 0"
+        ng-click="consigneeList.toEdit(false,$event)">
+            {{'checkout.consignee.add' | translate}}
+        </button>
+    </ion-footer-bar>
+
+</ion-modal-view>

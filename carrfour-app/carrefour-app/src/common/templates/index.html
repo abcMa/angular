@@ -1,0 +1,265 @@
+<div class="index-snowing"></div>
+<ion-view class="home-view stable-bg" hide-nav-bar="true" cm-hide-tabs="false" cm-download-banner>
+
+    <!-- 地区选择 + logo + 搜索按钮 ＋ 消息中心入口 -->
+    <ion-header-bar class="home-search-list row bar bar-header index-header-bar">
+        <div class="select-region-box" ng-click="index.selectRegion()">
+            <button class="button button-clear select-region-button icon-right ion-ios-arrow-down">
+                <span class="select-region-text">{{index.regionName}}</span>
+            </button>
+        </div>
+        <div class="carrfour-icon-logo">
+            <img class="logo" cm-lazyload="index.indexInfo.headerLogo">
+        </div>
+        <div class="message-search-box clearfix">
+            <button class="button button-clear icon-button fr" ng-click="goMessageCenter()" ng-if="APP_CONFIG.os !== 'weixin'">
+                <span class="icon cm-icon icon-message" ng-class="{'has-message-badge' : index.messageCenterService.unreadCount > 0}"></span>
+            </button>
+            <button class="button button-clear icon cm-icon ion-ios-search-strong fr"
+                ng-click="index.goSearch()"
+                at-gesture="home::search_button">
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <!-- 返回顶部 -->
+    <div class="float-panel" cm-scroll-show="1">
+        <div class="button button-small" ng-click="index.goBackTop()">
+            <i class="cm-icon icon18"></i>
+        </div>
+    </div>
+
+    <ion-content class="home-tab-content light-bg">
+
+        <!--下拉刷新频道数据-->
+        <ion-refresher on-refresh="index.refresh({emptyData:false,showLoading:false})"></ion-refresher>
+
+        <!-- 头部大轮播图 -->
+        <div class="home-top-carousel">
+            <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000" cm-dynamic-height="$width * 0.603125">
+                <cm-switch-content>
+                    <cm-switch-panel ng-repeat="item in index.indexInfo.mainCarousel">
+                        <img cm-lazyload="item.picUrl"
+                            load-immediate="true"
+                            at-ads="item"
+                            ng-click="index.goAdvRedirect(item.type,item.skipParam)"/>
+                    </cm-switch-panel>
+                </cm-switch-content>
+                <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+            </cm-switch>
+        </div>
+
+        <!-- 首页按钮面板-->
+        <div class="home-button-panels stable-bg" ng-if="index.indexInfo.buttonPanels.length">
+            <ul class="home-button-row" ng-repeat="row in index.indexInfo.buttonPanels track by $index">
+                <li class="home-button-cell" ng-repeat="cell in row">
+                    <img cm-lazyload="cell.picUrl" ng-click="index.goAdvRedirect(cell.type, cell.skipParam)" at-gesture="home::{{panel.campaign}}"/>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 秒杀 begin -->
+        <div class="home-seckill mb" ng-if="index.indexInfo.flashSales.flashProducts.length">
+            <div class="seckill-title row">
+                <div class="left-panel col col-center col-adaptive">
+                    <div class="left-top-panel">
+                        <img cm-lazyload="index.indexInfo.flashSales.words[0].picUrl" class="" />
+                    </div>
+                    <div class="left-down-panel">
+                        <div class="seckill-countdown" ng-if="index.flashSaleCounterOption.businessAvailable">
+                            {{'index.flashSaleState.' + index.flashSaleCounterOption.status | translate}}
+                            <cm-countdown endtime="{{index.flashSaleCounterOption.endDate}}"
+                                duration="{{index.flashSaleCounterOption.coutdown}}"
+                                auto-hide-day="true"
+                                hide-state="true"
+                                only-hour="true"
+                                on-end="index.refresh({emptyData: false,showLoading: false})"
+                                ng-if="index.flashSaleCounterOption.status < 2"></cm-countdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel col col-center col-adaptive">
+                    <img cm-lazyload="index.indexInfo.flashSales.words[1].picUrl" class="">
+                </div>
+            </div>
+            <!-- 滑动导航 -->
+            <div class="seckill-tabs mtx">
+                <ion-slides options="index.flashSlidesOptions" slider="index.seckillHandler">
+                    <ion-slide-page class="seckill-product-block"
+                        ng-repeat="product in index.indexInfo.flashSales.flashProducts"
+                        ng-click="index.goProductInfo(product.productId,product.goodsId,product.name, index.indexInfo.flashSales.campaign)"
+                        at-ads="flashSale">
+                        <div class="seckill-product-img corner-mark-container">
+                            <img cm-lazyload="product.picUrl" class="product-img">
+                            <!--角标-->
+                            <div ng-repeat="mark in product.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+                                <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+                            </div>
+                            <div class="seckill-product-tips" ng-class="{'sold-out': product.flashSaleOption.status == 3}" ng-if="product.flashSaleOption">{{'index.flashSaleProductState.' + product.flashSaleOption.status | translate}}</div>
+                        </div>
+                        <div class="product-title mtx">{{product.name}}</div>
+                        <div class="product-price clearfix">
+                            <span class="cu-price price fl" ng-bind-html="product.flashSaleOption.timelimitPrice || product.price | price: '&yen;'"></span>
+                            <span class="old-price price fr">{{product.flashSaleOption.salesPrice || product.originalPrice | currency: '&yen; '}}</span>
+                        </div>
+                    </ion-slide-page>
+                </ion-slides>
+            </div>
+        </div>
+
+        <!-- 秒杀下方广告位 和 轮播图 begin -->
+        <div class="home-hot-adv-list">
+            <div class="home-hot-adv{{$index}} hot-adv fl"
+                ng-repeat="channelItem in index.indexInfo.channels.channel"
+                at-gesture="home::{{channelItem.campaign}}"
+                at-ads="channelItem"
+                ng-click="index.goAdvRedirect(channelItem.type, channelItem.skipParam)">
+                <img class="img" cm-lazyload="channelItem.picUrl" />
+            </div>
+        </div>
+
+        <!-- 小轮播图 -->
+        <div class="home-banner-carousel pb stable-bg">
+            <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000">
+                <cm-switch-content>
+                    <cm-switch-panel ng-repeat="item in index.indexInfo.channels.carousel">
+                        <img class="img"
+                            cm-lazyload="item.picUrl"
+                            at-ads="item"
+                            cm-dynamic-height="$width * 0.240625"
+                            ng-click="index.goAdvRedirect(item.type, item.skipParam)" />
+                    </cm-switch-panel>
+                </cm-switch-content>
+                <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+            </cm-switch>
+        </div>
+        <!-- 秒杀下方广告位 和 轮播图 end -->
+
+        <!-- 精选市场  和  轮播图 -->
+        <div class="" ng-repeat="marketItem in index.indexInfo.markets">
+            <!-- 精选市场 -->
+            <div class="home-selection clearfix">
+                <p class="pl home-box-title">
+                    <img class="box-title-img" cm-lazyload="marketItem.words[0].picUrl">
+                </p>
+                <div class="home-selection-adv{{$index}} home-selection-adv fl"
+                    ng-repeat="market in marketItem.market"
+                    at-gesture="home::{{market.campaign}}"
+                    at-ads="market"
+                    ng-click="index.goAdvRedirect(market.type,market.skipParam)"
+                    cm-dynamic-height="$width * 0.7585">
+                    <img class="img" cm-lazyload="market.picUrl" />
+                </div>
+            </div>
+
+            <!-- 中部小轮播图 -->
+            <div class="home-banner-carousel pb">
+                <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000">
+                    <cm-switch-content>
+                        <cm-switch-panel ng-repeat="item in marketItem.carousel">
+                            <img class="img"
+                                cm-lazyload="item.picUrl"
+                                at-ads="item"
+                                ng-click="index.goAdvRedirect(item.type,item.skipParam)" />
+                        </cm-switch-panel>
+                    </cm-switch-content>
+                    <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+                </cm-switch>
+            </div>
+        </div>
+
+        <!-- 商品楼层 -->
+        <div class="home-product-list pt" ng-repeat="floor in index.indexInfo.floors">
+            <p class="home-floor-title">
+                <img class="floor-title-img" cm-lazyload="floor.words[0].picUrl">
+            </p>
+
+            <!-- 单品精选内容 -->
+            <ul class="home-recommend-list home-products-list clearfix stable-bg ptx">
+                <!-- 单品推荐商品列表 -->
+                <li class="product-item-box mbx fl"
+                    ng-repeat="product in floor.productsInfo"
+                    ng-click="index.goProductInfo(product.productId, product.goodsId, product.name, floor.campaign)"
+                    at-ads="product"
+                    ng-include="'templates/modules/indexItemContent.html'">
+                </li>
+            </ul>
+        </div>
+
+        <!-- 小轮播图和大家都在买 begin -->
+        <div class="home-all-buy" ng-repeat="recommendedProduct in index.indexInfo.recommendedProducts">
+
+            <!-- 小轮播图 begin -->
+            <div class="home-banner-carousel stable-bg">
+                <cm-switch class="wide-slider wide-slider-gray" class-prefix="ui-switch" data-type="slider" auto-play="5000">
+                    <cm-switch-content>
+                        <cm-switch-panel ng-repeat="item in recommendedProduct.advertisements">
+                            <img class="img"
+                                cm-lazyload="item.picUrl"
+                                at-ads="item"
+                                ng-click="index.goAdvRedirect(item.type,item.skipParam)" />
+                        </cm-switch-panel>
+                    </cm-switch-content>
+                    <cm-switch-nav class="ui-switch-nav"></cm-switch-nav>
+                </cm-switch>
+            </div>
+            <!-- 小轮播图 end-->
+
+            <ul class="all-buy-list home-products-list clearfix">
+                <!--大家都在买推荐模块-->
+                <li class="recommend-module fl">
+                    <div class="module-title">{{'index.everyoneIsBuying.title' | translate}}</div>
+                    <div class="module-sub-title">{{'index.everyoneIsBuying.subtitle' | translate}}</div>
+                    <div class="recommend-word-box">
+                        <a href="javascript:"
+                            class="recommend-name recommend-name{{$index + 1}}"
+                            ng-repeat="word in recommendedProduct.words"
+                            at-ads="word"
+                            ng-click="stateUtils.goAdvRedirect(word.type, word.skipParam)">
+                            <span class="name">{{word.name}}</span>
+                        </a>
+                    </div>
+                </li>
+
+                <!--商品列表-->
+                <li class="product-item-box fl"
+                    ng-repeat="product in recommendedProduct.productsInfo"
+                    at-ads="product"
+                    ng-click="index.goProductInfo(product.productId, product.goodsId, product.name, recommendedProduct.campaign)"
+                    ng-include="'templates/modules/indexItemContent.html'">
+                </li>
+            </ul>
+        </div>
+        <!-- 小轮播图和大家都在买 end -->
+
+        <!-- 品牌推荐 -->
+        <div class="pb  clearfix home-brand-recommend">
+            <div class="home-brand-top">
+                <img class="home-brand-adv"
+                    cm-dynamic-height="$width * 0.29375"
+                    cm-lazyload="index.indexInfo.recommendedBrands[0].picUrl"
+                    at-gesture="home::{{index.indexInfo.recommendedBrands[0].campaign}}"
+                    ng-click="index.goAdvRedirect(index.indexInfo.recommendedBrands[0].type,index.indexInfo.recommendedBrands[0].skipParam)">
+            </div>
+            <div class="brand-list-box">
+                <div class="home-brand-left stable-bg"
+                    at-gesture="home::{{index.indexInfo.recommendedBrands[1].campaign}}"
+                    ng-click="index.goAdvRedirect(index.indexInfo.recommendedBrands[1].type,index.indexInfo.recommendedBrands[1].skipParam)">
+                    <img class="img" cm-lazyload="index.indexInfo.recommendedBrands[1].picUrl" />
+                </div>
+                <ul class="home-brand-list">
+                    <li class="home-brand-item fl"
+                        ng-repeat="brand in index.indexInfo.recommendedBrands"
+                        ng-if="$index > 1"
+                        at-gesture="home::{{brand.campaign}}"
+                        at-ads="brand"
+                        ng-click="index.goAdvRedirect(brand.type,brand.skipParam)">
+                        <img class="img" cm-lazyload="brand.picUrl" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,40 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.orderCommentInfo.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'userCommentList.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="comment-order-panel stable-bg" scroll="true">
+
+        <div class="comment-item-info p light-bg clearfix">
+            <img class="item-img fl mr" cm-lazyload="orderCommentInfo.data.picUrl" />
+            <p class="item-name mtx">{{orderCommentInfo.data.name}}</p>
+        </div>
+
+        <div class="info-form p">
+            <form name="form">
+                <div class="info-level-row row">
+                    <div class="col-center">{{'userCommentList.rating' | translate}}</div>
+                    <div class="col col-center">
+                        <cm-comment-level ng-model="orderCommentInfo.score"></cm-comment-level>
+                    </div>
+                </div>
+                <textarea class="info-txt px" ng-model="orderCommentInfo.content"
+                    placeholder="{{'userCommentList.textareaPlaceholder' | translate}}"></textarea>
+            </form>
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="footer-comment-bar stable-bg">
+        <div class="footer-comment-bar-row pv phd">
+            <button class="button button-block" ng-click="orderCommentInfo.submit()">
+                {{'userCommentList.submitBtn' | translate}}
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-modal-view>

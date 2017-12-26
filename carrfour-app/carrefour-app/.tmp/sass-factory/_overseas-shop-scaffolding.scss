@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+//全球购通用样式
+
+//按钮
+.overseas-shop-view {
+    .button {
+        &.button-primary {
+            @extend .button.button-overseas-shop-primary;
+        }
+        &.disabled,
+        &[disabled] {
+            @extend .button.disabled;
+        }
+    }
+
+    .bar {
+        &.bar-default {
+            @extend .bar.bar-overseas-shop;
+
+            .button-clear {
+                color: $light;
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+.lang-en {
+    .article-memberCardPopup-view {
+        top: 25%;
+        min-height: 51%; 
+    }
+}
+.article-memberCardPopup-view {
+
+    left: 5%;
+    right: 5%;
+    top: 30%;
+    width: 90%;
+    min-height: 46%;
+    border-radius: 5px;
+
+    &.slide-in-up {
+        transform: translate3d(0, 800px, 0);
+    }
+
+    &.slide-in-up.ng-enter-active {
+        transform: translate3d(0, 0, 0);
+    }
+
+    .article-memberCardPopup-content {
+        margin-top: 30px;
+    }
+    
+    .info-box {
+        margin: 20px;
+    }
+
+    .memberCardPopup-title {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+
+        .title {
+            margin: 0 12%;
+            padding: 16px 0;
+            @include text-overflow-ellipsis;
+        }
+
+        .info-close {
+            position: absolute;
+            right: 18px;
+            top: 6px;
+
+            &:before {
+                font-size: 40px;
+            }
+        }
+    }
+    .btn-wrap {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+        .memberCardPopup-btn {
+            text-align: center;
+            border-top: 1px solid #e5e5e7;
+            padding: 15px 0;
+            color: #007df2;
+            font-weight: bold;
+        }
+    }
+
+}

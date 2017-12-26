@@ -1,0 +1,43 @@
+.article-promptInfo-view {
+
+    left: 5%;
+    right: 5%;
+    top: 30%;
+    width: 90%;
+    min-height: 40%;
+    border-radius: 5px;
+
+    &.slide-in-up {
+        transform: translate3d(0, 800px, 0);
+    }
+
+    &.slide-in-up.ng-enter-active {
+        transform: translate3d(0, 0, 0);
+    }
+
+    .article-promptInfo-content {
+        margin: 20px;
+        margin-top: 60px;
+    }
+
+    .promptInfo-title {
+        font-size: 20px;
+        text-align: center;
+
+        .title {
+            margin: 0 12%;
+            padding: 16px 0;
+            @include text-overflow-ellipsis;
+        }
+
+        .info-close {
+            position: absolute;
+            right: 18px;
+            top: 6px;
+
+            &:before {
+                font-size: 40px;
+            }
+        }
+    }
+}

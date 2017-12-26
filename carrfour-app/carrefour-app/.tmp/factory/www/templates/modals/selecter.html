@@ -1,0 +1,36 @@
+<!-- 列表选择器，支持级联选择 -->
+
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear left-btn" ng-click="selecter.cancel()">{{'cancel' | translate}}</button>
+        <h1 class="title">{{ selecter.options.title || ('select' | translate) }}</h1>
+    </ion-header-bar>
+
+    <ion-content class="selecter-view">
+        <ion-list class="selecter-list">
+            <!-- 默认选择项 -->
+            <div class="item item-divider default-selecteds-item" ng-if="selecter.defaultSelecteds.length > 0 && !(selecter.selecteds.length > 0)">
+                {{ selecter.getDefaultSelectedsText() }}
+            </div>
+
+            <!-- 当前选择项 -->
+            <div class="item item-divider" ng-if="selecter.selecteds.length > 0" ng-click="selecter.backspace()">
+                {{ selecter.getSelectedsText() }}
+                <span class="icon ion-close-circled"></span>
+            </div>
+
+            <ion-item ng-repeat="item in selecter.items" ng-class="{'cannot-use' : item.status}" ng-click="!item.status && selecter.select(item)">
+                <div class="row">
+                    <div class="col col-adaptive text">
+                        {{ item.text }}
+                    </div>
+                    <div class="col subtext" ng-if="item.subtext">
+                        {{ item.subtext }}
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-modal-view>

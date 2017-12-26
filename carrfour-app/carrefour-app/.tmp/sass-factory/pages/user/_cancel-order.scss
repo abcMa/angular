@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+// 取消订单页面
+.cancel-order-panel {
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .cancel-box {
+        color: $text-color-quiet;
+        border-bottom: $line-color 1px solid;
+    }
+
+    .icon38 {
+        font-size: 30px;
+    }
+
+    .cancel-box-cont {
+        overflow: hidden;
+        font-size: $font-size-small;
+        line-height: 1.5em;
+
+        .title {
+            margin-bottom: 5px;
+            color: $text-color;
+        }
+    }
+
+    .cancel-list {
+        border-top: $line-color 1px solid;
+        border-bottom: $line-color 1px solid;
+
+        .title {
+            padding-left: 40px;
+            line-height: 2.85em;
+            font-size: $font-size-base;
+            color: $text-color-quiet;
+            border-bottom: $line-color 1px solid;
+        }
+    }
+
+    .cancel-list-box {
+        padding: 10px 10px 10px 40px;
+    }
+
+    .cancel-radio-row {
+        margin: 0;
+        font-size: $font-size-base;
+    }
+
+    .cancel-reason {
+        overflow: hidden;
+    }
+}

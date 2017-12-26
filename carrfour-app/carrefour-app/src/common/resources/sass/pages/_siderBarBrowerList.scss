@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+// 浏览记录弹出层
+.sider-bar-brower-list {
+    width: 39.0625%;
+    margin-left: 60.9375%;
+
+    .brower-list-bar {
+        .title {
+            color: $text-color-quiet;
+            font-size: $font-size-big;
+        }
+    }
+
+    .brower-list-item {
+        .item-info {
+            line-height: 1.25em;
+            font-size: $font-size-small;
+            margin-bottom: 0;
+
+            &.price {
+                color: $primary-color;
+            }
+
+            &.name {
+                overflow: hidden;
+                height: 2.58em;
+            }
+        }
+
+        .item-img {
+            display: block;
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 5px;
+        }
+    }
+}
+.overseas-shop-view {
+    .sider-bar-brower-list {
+        .brower-list-bar {
+            h1.title {
+                color: $light;
+            }
+        }
+    }
+}

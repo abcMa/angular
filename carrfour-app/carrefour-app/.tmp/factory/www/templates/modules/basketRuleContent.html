@@ -1,0 +1,31 @@
+<div class="rule-header row">
+    <div class="col-center mark">{{rule.rewardMark}}</div>
+    <div class="col col-center mark-row">
+        <div ng-class="{'rule-item-row':rule.effective && (rule.rewardType == 5 || rule.rewardType == 6 ) }" class="rule-item-name">
+            {{rule.ruleName}}
+        </div>
+        <div class="rule-item-row" ng-if="rule.effective && rule.rewardType != 1 &&  rule.rewardType != 2">
+            <span class="tip">{{rule.discountMark}}</span>
+            <span class="price" ng-if="rule.discountMark">{{rule.discountAmount | currency:'&yen;'}}</span>
+        </div>
+    </div>
+</div>
+<div class="button-row">
+    <button class="button button-outline button-assertive button-present" type="button"
+        ng-if="rule.rewardType == 1 || rule.rewardType == 2"
+        ng-click="cart.onPresentSelect(item, rule)"
+        ng-disabled="!rule.effective">
+        {{(rule.rewardType == 1) ? 'cart.pickPresent' : 'cart.pickAddToBuy' | translate}}
+    </button>
+    <div class="lack-tip" ng-if="!rule.effective" ng-class="{'arrow-up': rule.rewardType != 2 && rule.rewardType != 1}">
+        {{'cart.lack' | translate}}
+        <span ng-if="rule.calcType == 2">{{rule.lackPrice | currency:'&yen;'}}</span>
+        <span ng-if="rule.calcType != 2">{{rule.lackPrice}}</span>
+        {{rule.calcType != 2 ? rule.lackPriceUnit : ''}}
+    </div>
+</div>
+<div class="presents">
+    <div class="basket-item basket-present-item" ng-repeat="present in rule.presentBasketItems"
+         ng-include="'templates/modules/basketPresentContent.html'">
+    </div>
+</div>

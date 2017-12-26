@@ -1,0 +1,19 @@
+<ion-view class="message-list-view" cm-hide-tabs="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-stable">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'messageCenter.' + messageList.typeName + 'Msg.title' | translate }}</h1>
+    </ion-header-bar>
+
+    <ion-content class="stable-bg" scroll="true">
+        <div class="empty-msg" ng-if="messageList.data.items.length === 0">
+            <div class="empty-img"></div>
+            <span class="empty-tips">{{'messageList.emptyTips' | translate}}</span>
+        </div>
+
+        <div ng-include="'templates/modules/messageItemContent.html'"></div>
+
+        <ion-infinite-scroll ng-if="messageList.canLoadNextPage" on-infinite="messageList.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

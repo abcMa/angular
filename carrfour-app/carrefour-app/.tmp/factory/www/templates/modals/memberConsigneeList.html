@@ -1,0 +1,90 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.memberSelectConsignee.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'consignee.title' | translate}}</h1>
+        <!-- <button class="button button-clear button-edit"
+        ng-show="consigneeList.data.allAddress.length != 0"
+        ng-click="consigneeList.toEdit(false,$event)">
+            {{'checkout.consignee.add' | translate}}
+        </button> -->
+    </ion-header-bar>
+
+    <ion-content class="member-consignee-list-panel stable-bg" ng-class="{'has-footer': memberConsigneeList.data.allAddress.length > 0}">
+
+        <!-- 增加更新地址提示(地址库变更) -->
+        <cm-dynamic-tabs scroll-fixed="true" ng-if="memberConsigneeList.data.tip">
+            <div class="update-consignee-hint">
+                {{memberConsigneeList.data.tip}}
+            </div>
+        </cm-dynamic-tabs>
+
+        <ion-list class="consignee-list" ng-if="memberConsigneeList.data.allAddress.length > 0">
+
+            <ion-item class="consignee-item mt"
+
+                ng-repeat="consignee in memberConsigneeList.data.allAddress track by consignee.id">
+                <p class="consignee-item-name prd clearfix">
+                    <span class="name fl">{{consignee.name}}</span>
+                    <span class="fr">{{consignee.mobile}}</span>
+                </p>
+                <p class="consignee-item-info pbd prd mrx">
+                    <!-- <span ng-repeat="region in consignee.region">{{region.name}}</span> <br /> -->
+                    <!-- {{consignee.address | addressFormat}} -->
+                    {{consignee.regionName}}
+                    <br />
+                    {{consignee.address}}
+                    <i class="ion-ios-checkmark icon-selected"></i>
+                </p>
+                <div class="consignee-item-control prd row">
+                    <div class="control-status-bar col col-center consignee-is-default">
+
+                        <!-- effective true代表新地址-->
+                         <label class="row" ng-if="consignee.effective == undefined? true : consignee.effective">
+                             <span class="radio-box col-top " ng-click="memberConsigneeList.editDefault(consignee,$event)" class="set-default">
+                                <input name="selectAddress" type="radio" class="radio" ng-checked="consignee.isDefault"></input>
+                            </span>
+                            <span class="col">
+                                {{'consignee.defaultAddText' | translate}}
+                            </span>
+                         </label>
+                         <!-- effective false 代表旧地址,已失效-->
+                         <span ng-if="consignee.effective === false" class="consignee-ineffective">{{'consignee.effect' | translate}}</span>
+                    </div>
+                    <div class="control-button-bar">
+                        <button class="button button-clear" ng-click="memberConsigneeList.toEdit(consignee,$event)">
+                            <i class="icon ion-ios-compose-outline"></i>
+                            {{'consignee.edit' | translate}}
+                        </button>
+                        <button class="button button-clear" ng-click="memberConsigneeList.remove(consignee,$event)">
+                            <i class="icon ion-ios-trash-outline"></i>
+                            {{'consignee.remove' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </ion-item>
+
+        </ion-list>
+
+        <!-- 地址列表为空 -->
+        <div class="empty-consignee" ng-if="memberConsigneeList.data.allAddress.length == 0">
+            <div class="empty-img"></div>
+            <div class="empty-tips">{{'consignee.tip' | translate}}</div>
+            <button ng-click="memberConsigneeList.toEdit()" class="button button-block button-primary">
+                {{'consignee.addConsignee' | translate}}
+            </button>
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="member-consignee-footer" ng-if="memberConsigneeList.data.allAddress.length > 0">
+
+        <button ng-click="memberConsigneeList.toEdit()" class="button consignee-add-btn">
+            {{'consignee.add' | translate}}
+        </button>
+
+    </ion-footer-bar>
+
+</ion-modal-view>

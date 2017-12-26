@@ -1,0 +1,97 @@
+<ion-view hide-nav-bar="true" class="coupon-list-view" cm-hide-tabs="true">
+
+    <ion-header-bar class="bar-default bar-header">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'userCoupon.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="coupon-list-panel light-bg" delegate-handle="userCouponsScroll">
+
+        <ion-refresher on-refresh="userCoupons.refresh({showLoading: false})"></ion-refresher>
+        <!-- 优惠券激活栏 -->
+        <div class="item-input-inset">
+            <label class="item-input-wrapper light-bg">
+                <input type="text" ng-model="userCoupons.couponCode" placeholder="{{'userCoupon.codeText' | translate }}">
+            </label>
+            <button class="button button-small button-assertive button-exchange" ng-disabled="!userCoupons.couponCode" ng-click="userCoupons.exchangeCoupon()">
+                {{'userCoupon.btnText' | translate}}
+            </button>
+        </div>
+
+        <ul class="coupon-category-bar button-bar light-bg" cm-scroll-fixed custom-style="true">
+            <li class="button button-clear" ng-click="userCoupons.onTabClick(2)" ng-class="{'active':userCoupons.activeType == 2}">
+                {{'userCoupon.unUsed' | translate}} ({{userCoupons.count.active || 0}})
+            </li>
+            <li class="button button-clear" ng-click="userCoupons.onTabClick(4)" ng-class="{'active':userCoupons.activeType == 4}">
+                {{'userCoupon.expired' | translate}} ({{userCoupons.count.expired || 0}})
+            </li>
+            <li class="button button-clear" ng-click="userCoupons.onTabClick(3)" ng-class="{'active':userCoupons.activeType == 3}">
+                {{'userCoupon.used' | translate}} ({{userCoupons.count.used || 0}})
+            </li>
+        </ul>
+
+        <ul class="coupon-list p">
+            <li class="mb"
+                ng-repeat="coupon in userCoupons.data.items track by coupon.couponId"
+                ng-class="{'coupon-disabled':coupon.status != 2 }">
+
+                <div class="coupon-item">
+                    <div class="coupon-price-panel fl">
+                        <div class="coupon-type">
+                            {{'userCoupon.types.' + coupon.type | translate}}
+                        </div>
+                        <div class="price-wrap">
+                            <span class="price-prefix" ng-if="coupon.rewardValue > 0">&yen;</span>
+                            <span class="price">{{!coupon.ifAllfreight ? coupon.rewardValue : 'userCoupon.allFree' | translate}}</span>
+                        </div>
+                        <div class="short-ruler-name" ng-if="coupon.lowerValue">{{'userCoupon.fullRuler' | translate}} &yen;{{coupon.lowerValue}} {{'userCoupon.fullUse' | translate}}</div>
+                    </div>
+                    <div class="coupon-info fl">
+                        <div class="coupon-access">
+                            <!-- <span class="coupon-access-tags mrx" ng-repeat="city in coupon.citys track by $index">{{city}}</span> -->
+                            <span class="coupon-access-tags mrx" ng-repeat="channel in coupon.channels track by $index">{{channel}}</span>
+                        </div>
+                        <div class="coupon-title">{{coupon.title}}</div>
+                        <div class="coupon-timesleft">
+                            <!-- {{'userCoupon.date' | translate}}{{coupon.endTime | limitTo: 10}} -->
+                            {{coupon.beginTime + '-' + coupon.endTime}}
+                        </div>
+                        <div class="userCoupon-day" ng-if="coupon.status == 2 && coupon.dayAviliable < 4">
+                            ( {{'userCoupon.left' | translate}} {{coupon.dayAviliable}} {{'userCoupon.day' | translate}} )
+                        </div>
+                    </div>
+
+                    <span class="show-btn"
+                          ng-click="userCoupons.showDetailInfo(coupon)"
+                          ng-if="!!coupon.couponDetails.length"
+                          ng-class="{'up-btn': coupon.isShowDetailInfo}">》</span>
+                </div>
+                <div class="coupon-ruler" ng-if="coupon.isShowDetailInfo">
+                    <div>{{'userCoupon.detailRuler' | translate}}</div>
+                    <div class="coupon-ruler-info">
+                        <div ng-repeat="couponDetails in coupon.couponDetails track by $index">{{couponDetails}}</div>
+                    </div>
+                </div>
+                <span class="harf-road harf-road-top"></span>
+                <span class="harf-road harf-road-bottom"></span>
+                <!-- <p class="coupon-notice" ng-repeat="coupoNname in coupon.unUsedNotice">
+                    <i class="cm-icon icon38"></i>
+                    {{coupon.title}}{{'userCoupon.useWith.1' | translate}}{{coupoNname}}{{'userCoupon.useWith.2' | translate}}
+                </p> -->
+            </li>
+        </ul>
+
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="coupon-empty" ng-if="!userCoupons.data || userCoupons.data.totalItems == 0">
+            <div class="img-coupon"></div>
+            <div class="text">
+                {{'userCoupon.empty' | translate}}
+            </div>
+        </div>
+
+        <ion-infinite-scroll ng-if="userCoupons.canLoadNextPage" on-infinite="userCoupons.loadNextPage()" distance="7%"></ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>

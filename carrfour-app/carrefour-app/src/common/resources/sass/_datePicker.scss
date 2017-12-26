@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+// 在不改动datepicker源码的情况下修复css问题嗯...
+.ionic_datepicker_modal {
+    font-size: $font-size-big;
+
+    .bar-header,
+    .bar-footer {
+        background-color: $calm !important;
+    }
+
+    .ionic_datepicker_modal_content {
+        padding-top: 10%;
+    }
+
+    .date_cell {
+        font-size: $font-size-big;
+    }
+
+    .year_select {
+        max-width: 100%;
+        padding: 0 10px;
+        direction: ltr;
+        font-size: $font-size-base;
+    }
+
+    .month_select {
+        max-width: 100%;
+        padding: 0 10px;
+        direction: ltr;
+        font-size: $font-size-base;
+    }
+
+    .right_arrow,
+    .left_arrow {
+        margin-top: -4px;
+    }
+
+    .button {
+        font-size: $font-size-large;
+    }
+
+    .select_section {
+        padding-bottom: 20px;
+    }
+
+    .date_selected {
+        background-color: $calm !important;
+        color: $light;
+    }
+
+    .date_col {
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &:active {
+            background-color: transparent;
+        }
+    }
+
+    @each $col in (10, 33, 34, 50, 80) {
+        .col-#{$col} {
+            flex: #{$col};
+        }
+    }
+}

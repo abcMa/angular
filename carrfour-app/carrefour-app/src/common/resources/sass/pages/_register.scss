@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+.register-panel {
+    background: #f6f6f6;
+
+    .row {
+        margin: 0;
+    }
+
+    .switcher {
+        display: block;
+        @include size(100%);
+
+        .panel {
+            position: absolute;
+            @include size(100%);
+        }
+    }
+
+    .send-code-tip {
+        color: $assertive;
+    }
+
+    .service-agreement-form-item {
+        display: flex;
+        height: 65vh;
+        overflow: hidden;
+        flex-direction: column;
+        font-size: $font-size-small;
+        color: $text-color-quiet;
+
+        a {
+            color: $link-color;
+        }
+    }
+
+    .flex-row {
+        display: flex;
+        overflow: hidden;
+        flex: 1.8 0 0;
+        margin-bottom: 15px;
+        background: $light;
+    }
+
+    .agreement {
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+}

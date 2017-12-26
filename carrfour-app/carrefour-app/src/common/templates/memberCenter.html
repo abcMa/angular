@@ -1,0 +1,66 @@
+<ion-view class="member-center-view" cm-hide-tabs="true" hide-nav-bar="true" ng-click="memberCenter.onViewClick()">
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button icon ion-ios-arrow-left" ng-click="goBack()"></button>
+        <div class="title">{{'memberCenter.title' | translate}}</div>
+        <button class="button-clear button icon cm-icon icon21" ng-click="memberCenter.onShowMoreClick($event)" ng-if="memberCenter.data.cardNumber"></button>
+    </ion-header-bar>
+
+    <ul class="member-center-float-menu has-header" ng-show="memberCenter.isShowMenu">
+        <li class="menu-item" ng-click="memberCenter.onUnbindClick()">
+            <i class="cm-icon icon-jiebang fl"></i> {{'memberCenter.unbindCard' | translate}}
+        </li>
+    </ul>
+
+    <ion-content class="member-center-panel stable-bg" scroll="false">
+        <div class="member-card" ng-if="memberCenter.data.cardNumber">
+            <span class="card-name">{{'memberCenter.cardName' | translate}}</span>
+            <barcode content="{{memberCenter.data.cardNumber}}" option="memberCenter.barCodeOption"></barcode>
+            <div class="card-number">{{memberCenter.data.cardNumber}}</div>
+            <span class="card-description">{{'memberCenter.cardDescription' | translate}}</span>
+        </div>
+
+        <div class="member-card empty-card" ng-if="!memberCenter.data.cardNumber">
+            <span class="card-name">{{'memberCenter.cardName' | translate}}</span>
+            <span class="card-code-placeholder">---- ---- ---- ---</span>
+        </div>
+
+        <div class="member-infos light-bg pt pb mb" ng-if="memberCenter.data.pointBalance">
+            <div class="point-card">
+                <div class="point-block tc border-line">
+                    <div>{{memberCenter.data.pointBalance}}</div>
+                    <div>{{'memberCenter.point' | translate}}</div>
+                </div>
+                <div class="point-block tc">
+                    <div>{{memberCenter.data.freezePoints}}</div>
+                    <div>{{'memberCenter.freezedPoint' | translate}}
+                        <span class="cm-icon icon-tax-rate question-icon" ng-click="memberCenter.onFreezedClick()"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="expire-alert tc" ng-if="memberCenter.data.expiredDate">
+                {{'memberCenter.expireDate' | translate: {date: memberCenter.data.expiredDate, point: memberCenter.data.nextExpiredPoints} }}
+                <span class="cm-icon icon-tax-rate question-icon" ng-click="memberCenter.onExpireClick()"></span>
+            </div>
+        </div>
+
+        <ul class="member-menu light-bg pl mb" ng-if="!memberCenter.data.cardNumber">
+            <li class="member-menu-item pr" ng-click="memberCenter.onRegisterClick()">
+                <i class="cm-icon icon-zhuce fl"></i> {{'memberCenter.register' | translate}}
+                <i class="ion-ios-arrow-right mlx fr"></i>
+            </li>
+            <li class="member-menu-item pr" ng-click="memberCenter.onBindClick()">
+                <i class="cm-icon icon-bangding fl"></i> {{'memberCenter.bindCard' | translate}}
+                <i class="ion-ios-arrow-right mlx fr"></i>
+            </li>
+        </ul>
+        <ul class="member-menu light-bg pl mb" ng-if="memberCenter.data.cardNumber">
+            <li class="member-menu-item pr" ng-click="memberCenter.onMemberInfoClick()">
+                <i class="cm-icon icon-huiyuanxinxi fl"></i> {{'memberCenter.info' | translate}}
+                <i class="ion-ios-arrow-right mlx fr"></i>
+            </li>
+        </ul>
+
+    </ion-content>
+
+</ion-view>

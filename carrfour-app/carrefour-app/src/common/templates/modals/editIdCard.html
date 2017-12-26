@@ -1,0 +1,39 @@
+<ion-modal-view class="edit-select-idcard-view">
+
+    <ion-header-bar class="bar-default bar-header-overseas-shop">
+        <button class="button-clear button back-button" ng-click="modals.editIdCard.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'checkout.editIdCard.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <form name="cardForm" ng-submit='editIdCard.submit()' novalidate>
+
+        <ion-content class="edit-id-card-view">
+            <div class="edit-id-card-bg">
+
+                <div class="edit-id-card mb mt">
+                    <label>
+                        <!-- 获取默认显示文本 -->
+                        <input  type="text" ng-model="editIdCard.idCard" required placeholder="{{'checkout.editIdCard.tip4' | translate}}">
+                    </label>
+                </div>
+                <span class="p">{{'checkout.editIdCard.tip' | translate }}</span>
+                <span class="p tip2">{{'checkout.editIdCard.tip2' | translate }}</span>
+                <!-- <div class="edit-id-card-btn">
+                    <button class="button button-block button-overseas-shop-primary ng-binding" type="submit">
+                     {{'checkout.editIdCard.save' | translate}}
+                    </button>
+                </div> -->
+            </div>
+        </ion-content>
+
+        <ion-footer-bar class="footer-bar">
+            <button class="button edit-id-card-btn" type="submit" ng-disabled="cardForm.$invalid" ng-class="{'gary': cardForm.$invalid}" ng-click="editIdCard.submit()">
+                {{'checkout.editIdCard.save' | translate}}
+            </button>
+        </ion-footer-bar>
+
+    </form>
+
+</ion-modal-view>

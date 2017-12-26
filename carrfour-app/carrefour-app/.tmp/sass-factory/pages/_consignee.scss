@@ -1,0 +1,286 @@
+@charset "utf-8";
+
+// 收件人列表“新增”按钮
+.bar {
+
+    .button-bar-right {
+        font-size: $font-size-base!important;
+    }
+}
+
+.consignee-list-view {
+    .manage-button {
+        border: none;
+    }
+}
+
+// 收件人列表
+.consignee-list-panel {
+
+    &.has-consignee {
+        background-color: $stable;
+    }
+
+    &.has-footer {
+        bottom: 60px;
+    }
+
+    .consignee-item {
+        padding-right: 0;
+        background-color: $light;
+    }
+
+    .consignee-item-content {
+        padding-left: 30px;
+        padding-right: 60px;
+
+        .control-status-bar {
+
+            padding-left: 0;
+            font-size: $font-size-base;
+            color: $primary-color;
+            opacity: 0.5;
+            @include text-overflow-ellipsis;
+
+            .icon-warning {
+                position: absolute;
+                font-size: 38px;
+            }
+
+            .warning-text {
+                padding-left: 38px;
+            }
+        }
+    }
+
+    .active {
+        background-color: #fffee4;
+
+        .item-selected {
+            display: block;
+        }
+    }
+
+    .item-selected {
+        position: absolute;
+        top: 58px;
+        left: 12px;
+        display: none;
+        color: $primary-color;
+        font-size: 24px;
+    }
+
+    .item-unselected {
+
+        position: relative;
+
+        &:before {
+            position: absolute;
+            left: 2px;
+            top: 50px;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            border: #d0d0d0 1px solid;
+            border-radius: 10px;
+            content: '';
+        }
+    }
+
+    .active {
+        .item-unselected {
+            display: none;
+        }
+    }
+
+    .consignee-item-name {
+        margin: 12px 0 12px;
+        color: $text-color;
+        font-size: $font-size-big;
+
+        .name {
+            max-width: 50%;
+            @include text-overflow-ellipsis;
+        }
+    }
+
+    .consignee-item-info {
+        padding-bottom: 10px;
+        color: $text-color-quiet;
+    }
+
+
+    .control-button-bar {
+        position: absolute;
+        top: 40px;
+        right: 10px;
+        overflow: visible;
+        text-align: right;
+        color: $text-color-quiet;
+        white-space: normal;
+
+        .button {
+            font-size: $font-size-base;
+            max-height: none;
+
+            &:after {
+                content: '';
+                display: block;
+                width: 1px;
+                height: 46px;
+                top: 6px;
+                right: 100px;
+                background-color: #e7e7e7;
+            }
+        }
+
+        .cm-icon {
+            font-size: $font-size-icon;
+        }
+
+        .button-bar-text {
+            display: block;
+            margin-top: -10px;
+        }
+
+    }
+
+    .empty-consignee {
+        margin: 30px;
+        text-align: center;
+    }
+
+    .empty-img {
+        height: 150px;
+        background: url('#{$images-path}/consignee-empty.png') center center no-repeat;
+        background-size: 150px auto;
+    }
+
+    .empty-tips {
+        margin-bottom: 18px;
+        font-size: $font-size-big;
+        color: lighten($text-color-quiet, 20%);
+    }
+
+    .button {
+        margin: 0;
+    }
+
+    &.has-footer {
+        bottom: 60px;
+    }
+
+    .address-tips {
+        color: $assertive;
+        line-height: 24px;
+        margin: 10px;
+        margin-bottom: 0;
+    }
+
+}
+
+
+.consignee-list-footer {
+
+    &.footer-bar {
+        padding: 10px 0;
+        height: 60px;
+    }
+
+    .consignee-add-btn {
+        width: 260px;
+        background-color: $assertive;
+        color: $light;
+        border: none;
+        font-size: 16px;
+        margin: 0 auto;
+    }
+}
+.overseas-shop-view {
+    .select-address-region-view {
+        .consignee-add-btn {
+            background-color: $warm;
+        }
+    }
+}
+// 编辑/新增收件人
+.consignee-edit-panel {
+    color: $text-color-quiet;
+
+    .consignee-row {
+        overflow: hidden;
+        border-bottom: $line-color 1px solid;
+
+        dt {
+            font-weight: normal;
+        }
+
+        dd {
+            overflow: hidden;
+        }
+    }
+
+    .require {
+        color: $assertive;
+    }
+
+    .consignee-input {
+        width: 100%;
+        height: 40px;
+        padding-top: 10px;
+        color: $text-color;
+        border: none;
+    }
+
+    .consignee-textarea {
+        background-color: $light;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .consignee-row-full {
+        margin: 0;
+
+        dt {
+            max-width: 64.516%;
+            @include text-overflow-ellipsis;
+        }
+    }
+
+    .row-full-txt-5 {
+        .cm-icon {
+            margin-top: -30px;
+        }
+    }
+
+    .input-field[readonly] {
+      background-color: $light;
+      color: $text-color;
+    }
+
+    .consignee-row-half {
+        width: 50%;
+        margin-bottom: 0;
+    }
+
+    .consignee-region {
+        color: $text-color;
+
+        .cm-icon {
+            margin-top: -6px;
+            font-size: $font-size-icon;
+        }
+    }
+
+    .rel {
+        position: relative;
+    }
+
+    .row-region-icon {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -14px;
+    }
+}

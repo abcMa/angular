@@ -1,0 +1,59 @@
+<ion-view cm-hide-tabs="true" hide-nav-bar="true" class="nearby-stores-view" ng-init="ctrl = nearbyStores">
+
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'nearbyStores.title' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content scroll="false">
+        <ul class="store-category-bar button-bar">
+            <li class="button button-clear" ng-click="ctrl.onTabClick(1)" ng-class="{'active':ctrl.activatedType == 1}">
+                {{'nearbyStores.order.mall' | translate}}
+            </li>
+            <li class="button button-clear" ng-click="ctrl.onTabClick(2)" ng-class="{'active':ctrl.activatedType == 2}">
+                {{'nearbyStores.order.store' | translate}}
+            </li>
+        </ul>
+
+        <ion-content class="stores-list-panel stable-bg">
+            <div class="stores-list-empty" ng-if="!ctrl.data || ctrl.data.items.length == 0">
+                <div class="img-empty"></div>
+                <div class="text">
+                    {{'nearbyStores.empty' | translate}}
+                </div>
+            </div>
+
+            <!--下拉刷新频道数据-->
+            <ion-refresher on-refresh="ctrl.LBSRefresh({emptyData:true,showLoading:false})"></ion-refresher>
+
+            <div class="list card store-card" ng-repeat="store in ctrl.data.items track by store.id" ng-click="ctrl.goInfo(store.id)">
+                <div class="item item-image">
+                    <img class="store-banner" ng-src="{{store.stroesListPicUrl}}">
+                </div>
+
+                <div class="item">
+                    <span class="store-label mrx" ng-repeat="label in store.splitLabels">
+                        {{label}}
+                    </span>
+                    <div class="store-distance fr" ng-show="store.distanceStr">
+                        <i class="icon ion-ios-location-outline"></i>
+                        {{store.distanceStr}}
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h2 class="store-title">{{store.storesName}}</h2>
+                    <p>{{'nearbyStores.address' | translate}}:<span class="store-address">{{store.storesAddress}}</span></p>
+                </div>
+
+            </div>
+
+             <ion-infinite-scroll ng-if="ctrl.canLoadNextPage" on-infinite="ctrl.loadNextPage()" distance="7%"></ion-infinite-scroll>
+
+        </ion-content>
+    </ion-content>
+
+</ion-view>

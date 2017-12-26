@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+.message-list-view {
+    background-color: #efefef;
+
+    // 消息结构体
+    .message-item {
+        margin-top: 5px;
+
+        .message-date {
+            text-align: center;
+            color: $text-color-quiet;
+            font-size: $font-size-small;
+        }
+
+        .message-card {
+            margin-top: 5px;
+
+            .item-title {
+                padding-bottom: 0;
+
+                > h2 {
+                    color: $text-color;
+                }
+            }
+
+            .item-body {
+                border-top: 0;
+            }
+
+            .full-image {
+                display: block;
+            }
+
+            .item-content {
+                margin-top: 0;
+            }
+
+            .item-footer {
+                color: $text-color;
+                font-size: $font-size-small;
+            }
+
+            .item-body.has-image {
+                .item-content {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+
+    //失效时样式
+    .expiredMessage {
+
+        .full-image-box {
+            background-color: #000;
+        }
+
+        .full-image {
+            opacity: 0.8;
+        }
+
+        .item-title,
+        .item-content,
+        .item-footer-content {
+            opacity: 0.4;
+        }
+    }
+
+
+    //空的结构体
+    .empty-msg {
+        margin-top: 78px;
+        text-align: center;
+
+        .empty-img {
+            margin: 0 auto;
+            margin-bottom: 20px;
+            width: 91px;
+            height: 72px;
+            background-image: url('#{$images-path}/message-center-msgEmpty@2x.png');
+            background-size: 90px;
+        }
+
+        .empty-tips {
+            font-size: 16px;
+            color: #a4a4a4;
+        }
+    }
+
+}

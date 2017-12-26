@@ -1,0 +1,190 @@
+<ion-view class="cart-view" ng-init="$ctrl = cart" hide-nav-bar="true" cm-hide-tabs="{{cart.historyPrevPage?'inherit':'true'}}"  ng-class="{'overseas-shop-cart-view': cart.showBasketName === 'overseasShop', 'empty-cart-view': !cart.basket }" can-swipe-back="false">
+
+    <ion-header-bar class="cart-bar-header">
+        <button class="button-clear button back-button" ng-click="goBack()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'cart.title' | translate}}</h1>
+        <!-- 编辑模式切换按钮 -->
+        <button class="button button-clear button-edit basket-show"
+                ng-click="cart.onOperationButtionClick()"
+                ng-bind="cart.opMode == OPMODES.VIEW ? 'cart.editStart' : 'cart.editEnd' | translate">
+        </button>
+    </ion-header-bar>
+
+    <ion-header-bar class="bar-subheader">
+        <div class="button-bar">
+            <button class="button button-clear" ng-class="{active: cart.showBasketName === 'common'}"
+                    ng-click="cart.toggleBasket('common')">
+                {{'cart.tabs.common' | translate}}
+                <span ng-show="cart.data.baskets.common.allItemsNumber">
+                    ({{cart.data.baskets.common.allItemsNumber}})
+                </span>
+            </button>
+            <button class="button button-clear" ng-class="{active: cart.showBasketName === 'overseasShop'}"
+                    ng-click="cart.toggleBasket('overseasShop')">
+                {{'cart.tabs.overseasShop' | translate}}
+                <span ng-show="cart.data.baskets.overseasShop.allItemsNumber">
+                    ({{cart.data.baskets.overseasShop.allItemsNumber}})
+                </span>
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="shopping-cart-panel has-header has-subheader pt" ng-class="{presell: !!cart.basket.presells.length}">
+        <ion-refresher on-refresh="cart.refresh({showLoading: false, emptyData: false})"></ion-refresher>
+
+        <!-- 购物篮 -->
+        <div class="basket basket-show">
+
+            <!-- 包含抢购商品 -->
+            <div class="basket-rule-item basket-main-rule-item row limit-rule-row" ng-if="cart.basket.limitItem">
+                <div class="mark mark-tit tc col-center">{{'cart.panicBuyMark' | translate}}</div>
+                <div class="col col-center">
+                    {{'cart.panicBuyTipBefore' | translate}}
+                    <cm-countdown ng-if="cart.showBasketName === 'overseasShop'" duration="{{cart.basket.limitItem.secondTime * 1000}}"
+                                  auto-hide-day="true"
+                                  auto-hide-hour="true"
+                                  on-end="cart.init()"
+                    ></cm-countdown>
+                    <cm-countdown ng-if="cart.showBasketName === 'common'" duration="{{cart.basket.limitItem.secondTime * 1000}}"
+                                  auto-hide-day="true"
+                                  auto-hide-hour="true"
+                                  on-end="cart.init()"
+                    ></cm-countdown>
+                    {{'cart.panicBuyTipAfter' | translate}}
+                </div>
+            </div>
+
+            <div class="basket-body">
+                <!-- 抢购商品：放在最前面 -->
+                <div ng-repeat="item in cart.basket.limits track by item.id" ng-include="'templates/modules/basketItemContent.html'"></div>
+                <!-- 预购商品 -->
+                <div ng-repeat="item in cart.basket.presells track by item.id" ng-include="'templates/modules/basketItemContent.html'"></div>
+                <!-- 促销商品：放在抢购商品的后面 -->
+                <div ng-repeat="item in cart.basket.promotions track by item.id" ng-include="'templates/modules/basketItemContent.html'"></div>
+                <!-- 普通商品：放在最后面 -->
+                <div ng-repeat="item in cart.basket.items track by item.id" ng-switch on="item.type">
+                    <!-- 主线规则类型的购物项分组 -->
+                    <div class="basket-main-rule" ng-switch-when="groupByMainRule" ng-value="rule = item.rule">
+                        <div class="basket-main-rule-head">
+                            <div class="basket-rule-item basket-main-rule-item" ng-include="'templates/modules/basketRuleContent.html'">
+                            </div>
+                        </div>
+                        <div class="basket-main-rule-body">
+                            <div ng-repeat="item in item.items track by item.id" ng-include="'templates/modules/basketItemContent.html'"></div>
+                        </div>
+                    </div>
+                    <!-- 普通购物项 -->
+                    <div ng-switch-default>
+                        <div ng-include="'templates/modules/basketItemContent.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="basket-foot" ng-if="cart.basket.notMainRules.length || cart.basket.presents.length">
+                <div class="foot-title">
+                    {{'cart.footTitle' | translate}}
+                </div>
+                <!-- 非主线规则 -->
+                <div class="basket-rule-item basket-not-main-rule-item" ng-repeat="(id, rule) in cart.basket.notMainRules track by id"
+                     ng-include="'templates/modules/basketRuleContent.html'">
+                </div>
+            </div>
+            <ul class="cart-tip p">
+                <li ng-if="cart.showBasketName === 'common'">
+                    {{'cart.freeDelivery' | translate}}
+                </li>
+                <li ng-if="cart.showBasketName === 'overseasShop'">
+                    {{'cart.overseasShopFreeDelivery' | translate}}
+                    <span class="cm-icon icon38 tips-detail-show" ng-click="cart.showFreeDetail()"></span>
+                </li>
+                <li ng-if="APP_CONFIG.language=='zh-CN'">
+                    <span class="seven-day-info">
+                        {{'sevenDayRefund.partOne' | translate}}
+                    </span>
+                    <i class="seven-day cm-icon icon13"></i>
+                    <span class="seven-day-info">
+                        {{'sevenDayRefund.partTwo' | translate}}
+                    </span>
+                </li>
+                <li ng-if="APP_CONFIG.language=='en'">
+                    <i class="seven-day cm-icon icon13"></i>
+                    <span class="seven-day-info">
+                        {{'sevenDayRefund.fullPrompt' | translate}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="cart-empty" ng-hide="cart.basket">
+            <div class="img-cart"></div>
+            <div class="text">
+                {{'cart.empty' | translate}}
+            </div>
+        </div>
+    </ion-content>
+
+    <!-- 浏览模式底栏 -->
+    <ion-footer-bar class="ng-hide bar-gray basket-show"
+        ng-show="cart.opMode == OPMODES.VIEW">
+        <div class="presell-note" ng-if="!!cart.basket.presells.length">
+            {{'cart.presell' | translate}}
+        </div>
+        <label class="checkbox browse-mode-checkbox mr" ng-if="!cart.basket.presells.length">
+            <!-- 浏览模式全选框 -->
+            <input type="checkbox" ng-model="cart.basket.selectedAll" ng-change="cart.onItemSelectAll()" ng-disabled="!cart.basket">
+            {{'cart.all' | translate}}
+        </label>
+        <div class="total-info ml">
+            <div class="payable-price">
+                {{'cart.payableAmount' | translate}}
+                <span class="price">{{(cart.basket.info.payableAmount || '0.00') | currency:'&yen;'}}</span>
+            </div>
+            <div class="other-price">
+                <span class="discount-price">
+                    {{'cart.discountAmount' | translate}}{{(cart.basket.info.discountAmount || '0.00') | currency:'&yen;'}}
+                </span>
+            </div>
+        </div>
+        <div class="button-bar">
+            <button class="button button-checkout"
+                    ng-click="cart.goCheckout()"
+                    ng-disabled="!cart.basket.info.selectTotalQuantity">
+                <span class="text">{{'cart.checkout' | translate}}</span>
+                <i class="count">({{cart.basket.info.selectTotalQuantity ? cart.basket.info.selectTotalQuantity : 0}})</i>
+            </button>
+        </div>
+    </ion-footer-bar>
+
+    <!-- 编辑模式底栏 -->
+    <ion-footer-bar class="ng-hide bar-lite basket-show"
+        ng-show="cart.opMode == OPMODES.EDIT">
+
+        <div class="presell-note" ng-if="!!cart.basket.presells.length">
+            {{'cart.presell' | translate}}
+        </div>
+
+        <label class="checkbox edit-mode-checkbox mr">
+            <!-- 编辑模式全选框 -->
+            <input type="checkbox" ng-model="cart.basket.opSelectedAll" ng-change="cart.onItemOperationSelectAll()" ng-disabled="!cart.basket">
+            {{'cart.all' | translate}}
+        </label>
+
+        <div class="edit-buttons">
+
+            <button class="edit-mode-button button button-warm fr"
+                    ng-click="cart.onDeleteItemList()">
+                <i class="cm-icon icon28"></i>{{'cart.remove' | translate}}
+            </button>
+
+            <button class="edit-mode-button collection-button button button-assertive fr"
+                    ng-click="cart.onCollectItemList()">
+                <i class="cm-icon icon36"></i>{{'cart.addCollect' | translate}}
+            </button>
+        </div>
+    </ion-footer-bar>
+
+    <cm-overseas-shop-tabs></cm-overseas-shop-tabs>
+
+</ion-view>

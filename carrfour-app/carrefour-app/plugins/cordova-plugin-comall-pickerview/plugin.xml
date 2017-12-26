@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  id="cordova-plugin-comall-pickerview"
+  version="0.1.0">
+    <name>Cordova PickerView Plugin</name>
+    <description>Enables you to add the IOS picker-view input</description>
+    <author>Yusuke Izumi</author>
+    <license>Apache 2.0 License</license>
+
+    <engines>
+        <engine name="cordova" version=">=2.9.0" />
+    </engines>
+
+    <platform name="ios">
+        <js-module src="www/pickerView.js" name="pickerView">
+            <clobbers target="PickerView" />
+        </js-module>
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="PickerView">
+                <param name="ios-package" value="PickerViewPlugin"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/PickerViewPlugin.h" target-dir="src/ios" />
+        <source-file src="src/ios/PickerViewPlugin.m" target-dir="src/ios" />
+    </platform>
+</plugin>

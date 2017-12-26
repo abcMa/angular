@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.reject-reason-panel{
+     border-radius:10px;
+	 min-height:249px;
+	 top:50%;
+	 margin-top:-100px;
+	 width:98%;
+	 margin-left:1%;
+    .reject-close{
+		position:relative;
+		height:40px;
+		.reject-close-i{
+			font-size:40px;
+			color:#a5a5a5;
+			position:absolute;
+			right:25px;
+			top:10px;
+	    }
+	}
+	.reject-box{
+	     margin-left:20px;
+		 margin-top:8px;
+		font-size:$font-size-base;
+		color:#000;
+		font-weight:bolder;
+		.reject-content{
+			margin-top:20px;
+		}
+	}
+}
+
+

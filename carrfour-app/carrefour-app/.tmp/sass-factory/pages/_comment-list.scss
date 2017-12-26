@@ -1,0 +1,256 @@
+@charset "utf-8";
+
+// 商品详情页 - 评论列表页
+.comment-list-panel {
+
+    .comment-tab {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .comment-tab-item {
+        position: relative;
+        text-align: center;
+        font-size: $font-size-big;
+
+        &:before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 1px;
+            background-color: $line-color;
+            content: '';
+        }
+    }
+
+    // 先删掉rem转换，评论为空时，没有入口，看不到这个页面。
+    .comment-empty {
+        padding-top: 50px;
+
+        .img-comment {
+            margin: 0 auto;
+            width: 100px;
+            height: 150px;
+            background: url('#{$images-path}/commentList_empty.png') center center no-repeat;
+            background-size: 100% auto;
+        }
+
+        .text {
+            text-align: center;
+            font-size: $font-size-big;
+            color: $text-color-quiet;
+        }
+    }
+
+    .tab-active {
+        color: $primary-color;
+
+        &:before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            height: 1px;
+            background-color: $primary-color;
+            content: '';
+        }
+    }
+
+    .comment-list-scroll {
+        position: absolute;
+        top: 52px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .comment-tab-content {
+        border-top: $line-color 1px solid;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    .comment-info {
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .comment-info-img {
+        display: block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+
+    .img-default {
+        background: url('#{$images-path}/user-default.jpg') center center no-repeat;
+        background-size: 100% auto;
+    }
+
+    .comment-info-name {
+        font-size: $font-size-base;
+        color: $text-color;
+    }
+
+    .comment-info-tag {
+        margin-top: (25px - $font-size-mini * 1.5 - 2px) / 2;
+        line-height: 1.5em;
+        font-size: $font-size-mini;
+        color: $text-color-quiet;
+        border: $text-color-quiet 1px solid;
+        border-radius: 2px;
+        white-space: nowrap;
+    }
+
+    .comment-info-date {
+        color: $text-color-quiet;
+        font-size: $font-size-small;
+        white-space: nowrap;
+    }
+
+    .comment-level {
+
+        .icon {
+            font-size: 20px;
+            color: #ffe35f;
+        }
+    }
+
+    .comment-txt {
+        font-size: $font-size-base;
+        line-height: 1.5em;
+    }
+}
+
+// 订单页 - 评论页
+.comment-order-panel {
+
+    &.has-footer {
+        bottom: 51px;
+    }
+
+    .comment-item {
+        border-top: $line-color 1px solid;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    .comment-item-info {
+        border-bottom: $line-color 1px solid;
+    }
+
+    .item-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .item-name {
+        overflow: hidden;
+        height: 3em;
+        font-size: $font-size-base;
+        line-height: 1.5em;
+    }
+
+    .item-state {
+        overflow: hidden;
+        margin-bottom: 0;
+        text-align: right;
+
+        .button {
+            height: auto;
+            min-height: 0;
+            padding: 0 20px;
+            line-height: 2em;
+            font-size: $font-size-base;
+            color: $primary-color;
+
+            &:after {
+                top: -10px;
+                bottom: -10px;
+                left: -10px;
+                right: -10px;
+            }
+        }
+
+        .button-disabled {
+            color: $text-color-quiet;
+        }
+    }
+
+    .info-form {
+        position: absolute;
+        top: 100px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-top: 30px;
+        background-color: $light;
+        border-top: $line-color 1px solid;
+    }
+
+    .info-level-row {
+        font-size: $font-size-base;
+        line-height: 2em;
+    }
+
+    .info-level-row {
+        margin: 0 0 10px 0;
+
+        .comment-level {
+            display: flex;
+            flex: 1;
+            width: ($font-size-icon + 5px) * 5;
+            text-align: center;
+
+            .icon {
+                display: block;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                width: 100%;
+                font-size: $font-size-icon;
+                color: #ffcb05;
+            }
+        }
+    }
+
+    .info-txt {
+        width: 100%;
+        height: 140px;
+        line-height: 1.5em;
+        font-size: $font-size-base;
+        border: $line-color 1px solid;
+        border-radius: 3px;
+        resize: none;
+    }
+}
+
+// 底部“发表评论”按钮
+.bar.footer-comment-bar {
+    height: 51px;
+    padding: 0;
+    border-top: $line-color 1px solid!important;
+
+    .footer-comment-bar-row {
+        width: 100%;
+        height: 50px;
+    }
+
+    .button {
+        height: 30px;
+        min-height: 30px;
+        margin: 0;
+        line-height: 28px;
+        font-size: $font-size-base;
+        color: $primary-color;
+        border-color: $primary-color;
+    }
+}

@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.lang-en {
+
+    // 购物车主线规则
+    .basket-rule-item {
+
+        .mark-tit {
+            @include text-overflow-ellipsis;
+            width: convert-rem(80px);
+            padding: 0;
+        }
+    }
+
+    // 收货地址增加/编辑
+    .consignee-row-full {
+
+        .dt-name {
+            width: convert-rem(80px);
+        }
+
+        .dt-mobile {
+            width: convert-rem(120px);
+        }
+    }
+}

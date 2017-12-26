@@ -1,0 +1,62 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button-clear button back-button" ng-click="modals.conmmentList.close()">
+            <i class="icon ion-ios-arrow-left"></i>
+        </button>
+        <h1 class="title">{{'commentList.commentTitle' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="comment-list-panel stable-bg" scroll="false">
+
+        <ul class="comment-tab light-bg row" ng-if="commentList.data.totalItems >= 0">
+            <li class="col col-50 comment-tab-item"
+                ng-class="{'tab-active': commentList.type == 3}"
+                ng-click="commentList.onChangeType(3)">
+                {{'commentList.commentHighList' | translate}}
+            </li>
+            <li class="col col-50 comment-tab-item"
+                ng-class="{'tab-active': commentList.type == 0}"
+                ng-click="commentList.onChangeType(0)">
+                {{'commentList.commentAllList' | translate}}
+            </li>
+        </ul>
+
+        <ion-scroll class="comment-list-scroll" zooming="false" direction="y">
+            <div class="comment-tab-content p light-bg" ng-repeat="comment in commentList.data.items track by comment.id">
+                <div class="comment-info clearfix">
+                    <div class="fl">
+                        <div class="img-default comment-info-img" ng-if="comment.userPic == 0"></div>
+                        <img class="comment-info-img" ng-if="comment.userPic != 0"
+                            cm-lazyload="comment.userPic" load-immediate="true" />
+                    </div>
+                    <!-- <div class="comment-info-name fl mhx">{{comment.userName | commentNameFormat}}</div> -->
+                    <div class="comment-info-name fl mhx">{{comment.userName}}</div>
+                    <div class="comment-info-tag phx fl">{{comment.memberGrade}}</div>
+                    <div class="comment-info-date fr">{{comment.time}}</div>
+                </div>
+                <div class="pvx clearfix"><cm-comment-level level="{{comment.score}}"></cm-comment-level></div>
+                <div class="comment-txt">{{comment.content}}</div>
+            </div>
+
+
+            <div class="list-bottom-placeholder" ng-if="!commentList.canLoadNextPage && commentList.data.totalItems > 0">
+                <p class="cm-icon icon04"></p>
+                <p>{{'listBottomPlaceholder.tooltip' | translate}}</p>
+            </div>
+
+            <ion-infinite-scroll ng-if="commentList.canLoadNextPage"
+                on-infinite="commentList.loadNextPage()" distance="7%"></ion-infinite-scroll> 
+        </ion-scroll>
+
+        <!-- 空警告，当页面内没有数据时，显示该信息 -->
+        <div class="comment-empty" ng-if="commentList.data.totalItems == 0">
+            <div class="img-comment"></div>
+            <div class="text">
+                {{'commentList.empty' | translate}}
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-modal-view>

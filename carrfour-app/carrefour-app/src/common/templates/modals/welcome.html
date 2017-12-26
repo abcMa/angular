@@ -1,0 +1,38 @@
+<ion-modal-view class="welcome-view" fade-out>
+
+    <ion-content scroll="false">
+
+        <ion-slide-box delegate-handle="welcome-slide-box" on-drag="welcome.onDrag" show-pager="{{welcome.showPager}}" on-slide-changed="welcome.onSlideChanged($index)">
+            <ion-slide ng-if="welcome.firstOpen" ng-repeat="poster in welcome.posters track by $index">
+                <div class="image-box" ng-style="{ 'background-image': 'url(' + poster + ')' }"></div>
+                <div class="footer" ng-if="$last">
+                    <button class="button button-outline button-small cn-button"
+                        at-gesture="pre-home::select_chinese"
+                        gesture-action="touch"
+                        ng-click="welcome.onToggleLanguage('zh-CN')">
+                        {{'welcome.chName' | translate}}
+                    </button>
+                    <button class="button button-outline button-small"
+                        at-gesture="pre-home::select_english"
+                        gesture-action="touch"
+                        ng-click="welcome.onToggleLanguage('en')">
+                        {{'welcome.enName' | translate}}
+                    </button>
+                </div>
+            </ion-slide>
+            <ion-slide ng-if="!welcome.firstOpen" ng-repeat="poster in welcome.posters track by $index">
+                <div class="image-box" ng-style="{ 'background-image': 'url(' + poster + ')' }"></div>
+                <div class="footer enter-index" ng-if="$last">
+                    <button class="button button-outline button-small"
+                        at-gesture="pre-home::select_store" 
+                        gesture-action="touch"
+                        ng-click="welcome.close()">
+                        {{'welcome.enter' | translate}}
+                    </button>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+
+    </ion-content>
+
+</ion-modal-view>

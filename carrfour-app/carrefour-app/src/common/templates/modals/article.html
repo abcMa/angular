@@ -1,0 +1,15 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar-default">
+        <button class="button button-clear left-btn" ng-click="modals.article.close()">{{ 'cancel' | translate }}</button>
+        <h1 class="title">{{ article.title }}</h1>
+    </ion-header-bar>
+
+    <ion-content>
+        <cm-refresher on-refresh="article.refresh({showLoading:false})"
+            pulling-icon="cm-icon icon-pull" refreshing-icon="cm-icon icon-loading"></cm-refresher>
+        <div class="article-panel" cm-bind-html="article.data">
+        </div>
+    </ion-content>
+
+</ion-modal-view>

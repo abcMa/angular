@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.has-message-badge {
+    &:after {
+        display: block;
+        position: absolute;
+        border: solid 4px red;
+        border-radius: 10px;
+        content: " ";
+        top: 3px;
+        right: 3px;
+    }
+}

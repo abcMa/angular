@@ -1,0 +1,23 @@
+<div class="product-item ">
+
+    <div class="corner-mark-container">
+        <!--角标-->
+        <div ng-repeat="mark in product.tags" class="corner-mark corner-mark-{{mark.tagType}}">
+            <img cm-lazyload="mark.pictureUrl" load-immediate="true" class="corner-mark-image" style="opacity:{{mark.opacity / 100}}"/>
+        </div>
+        <a href="javascript:" class="product-image" cm-dynamic-height="$width">
+            <img cm-lazyload="product.picUrl">
+        </a>
+    </div>
+
+    <div class="product-title">
+        <!-- 促销标签 -->
+        <span class="tag" ng-repeat="promotion in product.promotionsTxt">{{promotion.typeName}}</span>
+        <span class="title">{{product.name}}</span>
+    </div>
+    <span class="price product-price" ng-bind-html="product.price | price : '&yen;'"></span>
+    <button class="button button-clear cm-icon icon icon02 button-small index-car-button fr"
+            ng-disabled="product.canSell === false" ng-click="index.addToCart($event,product)">
+        <!-- <i class="cm-icon icon02"></i> -->
+    </button>
+</div>
