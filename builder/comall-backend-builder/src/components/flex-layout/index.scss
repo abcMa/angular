@@ -1,0 +1,37 @@
+.flex-layout {
+    display: flex;
+    flex-direction: row;
+
+    // 定义方向相关的 class
+    @each $className, $val in (direction-vertical: column,
+                               direction-vertical-reverse: column-reverse,
+                               direction-horizontal: row,
+                               direction-horizontal-reverse:row-reverse ) {
+        &.#{$className} {
+            flex-direction: $val;
+        }
+    }
+
+    // 定义主轴对齐相关的 class
+    @each $className, $val in (justify-start: flex-start,
+                               justify-end: flex-end,
+                               justify-center: center,
+                               justify-justify: space-between,
+                               justify-around: space-around) {
+        &.#{$className} {
+            justify-content: $val;
+        }
+    }
+
+    @each $className,$val in (align-start: flex-start,
+                                align-end: flex-end,
+                                align-center: center) {
+        &.#{$className} {
+            align-items: $val;
+        }
+    }
+}
+
+.flex-layout-item {
+    flex: 1 1 auto;
+}

@@ -1,0 +1,55 @@
+.ui-switch,
+.ui-switch-content,
+.ui-switch-panel {
+  display: block;
+  position: relative; }
+
+.ui-switch {
+  z-index: 1;
+  overflow: hidden; }
+
+.ui-switch-content {
+  z-index: 2; }
+
+.ui-switch-panel {
+  z-index: 3; }
+  .ui-switch-panel.hide {
+    display: none; }
+  .ui-switch-panel.active {
+    z-index: 4; }
+
+.ui-switch-nav {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: center; }
+
+.ui-switch-nav-item {
+  display: inline-block;
+  margin: 0 2px;
+  color: #fff;
+  opacity: .4; }
+  .ui-switch-nav-item.active {
+    opacity: .8; }
+
+.ui-switch-slider .ui-switch-content,
+.ui-switch-slider .ui-switch-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+
+.ui-switch-gallery .ui-switch-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0; }
+
+/*# sourceMappingURL=switch.css.map */

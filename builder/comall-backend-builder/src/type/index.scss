@@ -1,0 +1,14 @@
+.type-not-available {
+    word-break: normal;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.type-string,
+.type-number {
+    word-break: normal;
+}
+
+.format-image-url {
+    display: block;
+    margin: 0 auto;
+}

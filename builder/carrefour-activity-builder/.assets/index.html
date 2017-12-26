@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes, width=device-width">
+    <title>Activity</title>
+
+    <script src="libs/libs.js"></script>
+    <script src="libs/ionic.js"></script>
+    <script src="libs/switch.js"></script>
+    <script src="libs/translate.js"></script>
+    <script type="text/javascript">
+        angular.module('app.services', []);
+        angular.module('app.directives', []);
+        angular.module('app.controllers', []);
+        angular.module('app.filters', []);
+        angular.module('app.templates', []);
+        angular.module('ngMessages', []);
+
+        var app = angular.module('app', [
+            'ionic',
+            'ngMessages',
+            'cmSwitch',
+            'pascalprecht.translate',
+            'app.services',
+            'app.directives',
+            'app.controllers',
+            'app.filters',
+            'app.templates'
+        ]);
+
+        angular.module('app').constant('modals', {});
+        angular.module('app').constant('states', {});
+        angular.module('app').constant('stateUtils', {});
+        angular.module('app').constant('tabs', {});
+    </script>
+    <script src="libs/config.js"></script>
+    <script src="libs/tools.js"></script>
+    <script src="libs/loader.js"></script>
+    <script type="text/javascript">
+        (function bootstrap() {
+            angular.bootstrap(document.body, ['app'], {
+                strictDi: true
+            });
+            console.info("[bootstrap]: initialization successfully.");
+        })();
+    </script>
+    <link rel="stylesheet" href="libs/main.css">
+    <link rel="stylesheet" href="libs/switch.css">
+</head>
+
+<body ng-controller="tempActivity">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+.activityPage{background-color:#fff}.activityPage img{display:block;width:100%}
+    </style>
+    <ion-header-bar class="bar-stable">
+        <button class="button button-clear"></button>
+        <h1 class="title">活动页</h1>
+    </ion-header-bar>
+    <ion-content scroll="true">
+<div class="activityPage"><img ng-src="{{ctrl.getPics().url1}}"> <img ng-src="{{ctrl.getPics().url2}}"> <img ng-src="{{ctrl.getPics().url3}}"> <img ng-src="{{ctrl.getPics().url4}}"> <img ng-src="{{ctrl.getPics().url5}}"> <img ng-src="{{ctrl.getPics().url6}}"> <img ng-src="{{ctrl.getPics().url7}}"> <img ng-src="{{ctrl.getPics().url8}}"> <img ng-src="{{ctrl.getPics().url9}}"></div>
+    </ion-content>
+    <script type="text/javascript">
+window._activityLoader(function($scope, stateUtils, toast, api, cartService, modals) {
+    var ctrl = this;
+    $scope.ctrl = ctrl;
+    var pics = {
+        "zh-CN": {
+            url1: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_01.png",
+            url2: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_02.png",
+            url3: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_03.png",
+            url4: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_04.png",
+            url5: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_05.png",
+            url6: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_06.png",
+            url7: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_07.png",
+            url8: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_08.png",
+            url9: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_09.png"
+        },
+        en: {
+            url1: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_01.png",
+            url2: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_02.png",
+            url3: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_03.png",
+            url4: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_04.png",
+            url5: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_05.png",
+            url6: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_06.png",
+            url7: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_07.png",
+            url8: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_08.png",
+            url9: "http://www.carrefour.cn/assets/upload/appActivityPic/dalian_app/img_en_09.png"
+        }
+    };
+    _.assign(ctrl, stateUtils, {
+        getPics: function() {
+            return pics[APP_CONFIG.language]
+        },
+        goProductInfo: function(productsId, goodsId, name, fromLocation) {
+            stateUtils.goProductInfo(productsId, goodsId, name, fromLocation)
+        }
+    })
+});
+    </script>
+</body>
+
+</html>

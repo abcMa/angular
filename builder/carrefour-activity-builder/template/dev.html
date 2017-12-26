@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes, width=device-width">
+    <title>Activity</title>
+
+    <script src="libs/libs.js"></script>
+    <script src="libs/ionic.js"></script>
+    <script src="libs/switch.js"></script>
+    <script src="libs/translate.js"></script>
+    <script type="text/javascript">
+        angular.module('app.services', []);
+        angular.module('app.directives', []);
+        angular.module('app.controllers', []);
+        angular.module('app.filters', []);
+        angular.module('app.templates', []);
+        angular.module('ngMessages', []);
+
+        var app = angular.module('app', [
+            'ionic',
+            'ngMessages',
+            'cmSwitch',
+            'pascalprecht.translate',
+            'app.services',
+            'app.directives',
+            'app.controllers',
+            'app.filters',
+            'app.templates'
+        ]);
+
+        angular.module('app').constant('modals', {});
+        angular.module('app').constant('states', {});
+        angular.module('app').constant('stateUtils', {});
+        angular.module('app').constant('tabs', {});
+    </script>
+    <script src="libs/config.js"></script>
+    <script src="libs/tools.js"></script>
+    <script src="libs/loader.js"></script>
+    <script type="text/javascript">
+        (function bootstrap() {
+            angular.bootstrap(document.body, ['app'], {
+                strictDi: true
+            });
+            console.info("[bootstrap]: initialization successfully.");
+        })();
+    </script>
+    <link rel="stylesheet" href="libs/main.css">
+    <link rel="stylesheet" href="libs/switch.css">
+</head>
+
+<body ng-controller="tempActivity">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+/* css-replace */
+    </style>
+    <ion-header-bar class="bar-stable">
+        <button class="button button-clear"></button>
+        <h1 class="title">活动页</h1>
+    </ion-header-bar>
+    <ion-content scroll="true">
+<!-- html-replace -->
+    </ion-content>
+    <script type="text/javascript">
+/* script-replace */
+    </script>
+</body>
+
+</html>

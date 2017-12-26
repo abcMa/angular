@@ -1,0 +1,54 @@
+.ant-table {
+    // 定义列的对齐相关的 class
+    @each $className,
+    $val in (column-start: left, column-center: center, column-end: right) {
+        .#{$className} {
+            text-align: $val;
+        }
+    }
+    .ant-table-thead tr th {
+        word-break: keep-all;
+        word-wrap: normal;
+    }
+    .ant-select {
+        width: 100%;
+    }
+    &.ant-table-fixed-header .ant-table-scroll .ant-table-header::-webkit-scrollbar {
+        opacity: 0;
+    }
+    .table-action-column-item {
+        margin-right: 10px;
+    }
+}
+
+.ant-table-wrapper {
+    &.hide-title .ant-table-title {
+        display: none;
+    }
+}
+
+// table 第一列居左对齐 其他居中对齐
+.data-table-align .ant-table {
+    text-align: center;
+    white-space: nowrap;
+    .ant-table-thead th,
+    .ant-table-row td {
+        text-align: center;
+    }
+    .table-text-align-right {
+        display: block;
+        text-align: right;
+    }
+    .ant-table-thead th,
+    .ant-table-row td {
+        text-align: center;
+    }
+}
+
+// table 所有列居中对齐
+.data-table-align-center .ant-table {
+    .ant-table-thead th,
+    .ant-table-row td {
+        text-align: center;
+    }
+}

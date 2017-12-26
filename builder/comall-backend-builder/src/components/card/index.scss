@@ -1,0 +1,28 @@
+@charset 'utf-8';
+
+.card-row {
+
+    &.ant-row {
+        margin-left: -8px;
+        margin-right: -8px;
+
+        > div {
+            padding: 0 8px;
+        }
+    }
+
+    .card-item {
+        
+        .target {
+            font-size: 20px;
+        }
+    }
+
+    .progress-text {
+        float: left;
+    }
+
+    .progress-cont {
+        padding-left: 70px;
+    }
+}
